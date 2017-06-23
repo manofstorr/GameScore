@@ -21,7 +21,7 @@ class GameController extends Controller
     public function gamesCollectionAction()
     {
         // todo : real collection
-        $gamesCollection = array(1,2,3);
+        $gamesCollection = array(1, 2, 3);
         return $this->render(
             'GameScoreBundle:Game:gamesCollection.html.twig',
             array(
@@ -33,10 +33,18 @@ class GameController extends Controller
 
     public function readGameCardAction($game_id)
     {
+        $em = $this->getDoctrine()->getManager();
+        $gameRepository = $em->getRepository('GameScoreBundle:Game');
+        $game = $gameRepository->find($game_id);
+
+        if ($game === null) {
+            throw new NotFoundHttpException('No game with ' . $game_id . ' id found.');
+        }
+
         return $this->render(
             'GameScoreBundle:Game:readGameCard.html.twig',
             array(
-                'game_id' => $game_id
+                'game' => $game
             )
         );
     }

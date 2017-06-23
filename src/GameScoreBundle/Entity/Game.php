@@ -63,6 +63,12 @@ class Game
      */
     private $imgUrl;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="year", type="string", length=4, nullable=true)
+     */
+    private $year;
 
     /**
      * Get id
@@ -217,5 +223,24 @@ class Game
     {
         return $this->imgUrl;
     }
+
+    /**
+     * @return string
+     */
+    public function getYear(): string
+    {
+        return $this->year;
+    }
+
+    /**
+     * @param string $year
+     */
+    public function setYear(string $year)
+    {
+        $this->year = $year;
+    }
+
+
+
 }
 
