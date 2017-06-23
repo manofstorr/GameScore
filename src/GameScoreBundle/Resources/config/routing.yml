@@ -1,17 +1,22 @@
 game_score_homepage:
     path:     /
-    defaults: { _controller: GameScoreBundle:Default:index }
+    defaults: { _controller: GameScoreBundle:GameScore:index }
 
-game_score_view_game_card:
-    path:     /gamecard/view/{game_id}
+game_score_games_collection:
+    path:     /games/collection/
     defaults:
-        _controller: GameScoreBundle:Game:viewGameCard
-        requirements:
-            game_id: \d+
+        _controller: GameScoreBundle:Game:gamesCollection
 
 game_score_create_game_card:
     path:     /gamecard/create/
     defaults:
         _controller: GameScoreBundle:Game:createGameCard
+
+game_score_view_game_card:
+    path:     /gamecard/view/{game_id}
+    defaults:
+        _controller: GameScoreBundle:Game:readGameCard
+        requirements:
+            game_id: \d+
 
 

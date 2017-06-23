@@ -18,10 +18,23 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class GameController extends Controller
 {
 
-    public function viewGameCardAction($game_id)
+    public function gamesCollectionAction()
+    {
+        // todo : real collection
+        $gamesCollection = array(1,2,3);
+        return $this->render(
+            'GameScoreBundle:Game:gamesCollection.html.twig',
+            array(
+                'gamesColection' => $gamesCollection
+            )
+        );
+    }
+
+
+    public function readGameCardAction($game_id)
     {
         return $this->render(
-            'GameScoreBundle:Game:viewGameCard.html.twig',
+            'GameScoreBundle:Game:readGameCard.html.twig',
             array(
                 'game_id' => $game_id
             )
@@ -33,7 +46,7 @@ class GameController extends Controller
 
     public function createGameCardAction(Request $request)
     {
-        if ($request->isMethod('POST')){
+        if ($request->isMethod('POST')) {
             $session = $request->getSession();
             $session->getFlashBag()->add('info', 'Create... more');
             return $this->redirectToRoute('game_score_view_game_card', array('game_id' => 27));
