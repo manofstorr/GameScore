@@ -10,7 +10,7 @@
 
 namespace GameScoreBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\cdController;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -23,7 +23,7 @@ class GameController extends Controller
         // todo : real collection
         $gamesCollection = array(1,2,3);
         return $this->render(
-            'GameScoreBundle:iAmASampleGame:gamesCollection.html.twig',
+            'GameScoreBundle:Game:gamesCollection.html.twig',
             array(
                 'gamesColection' => $gamesCollection
             )
@@ -34,7 +34,7 @@ class GameController extends Controller
     public function readGameCardAction($game_id)
     {
         return $this->render(
-            'GameScoreBundle:iAmASampleGame:readGameCard.html.twig',
+            'GameScoreBundle:Game:readGameCard.html.twig',
             array(
                 'game_id' => $game_id
             )
@@ -51,7 +51,7 @@ class GameController extends Controller
             $session->getFlashBag()->add('info', 'Create... more');
             return $this->redirectToRoute('game_score_view_game_card', array('game_id' => 27));
         }
-        return $this->render('GameScoreBundle:iAmASampleGame:Create.html.twig');
+        return $this->render('GameScoreBundle:Game:Create.html.twig');
     }
 
     public function updateGameCardAction()
