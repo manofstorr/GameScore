@@ -14,18 +14,32 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use GameScoreBundle\Collections;
 
 class GameController extends Controller
 {
 
+    private $gameRepository;
+
+    private function setGameRepository()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $this->gameRepository = $em->getRepository('GameScoreBundle:Game');
+    }
+
     public function gamesCollectionAction()
     {
-        // todo : real collection
-        $gamesCollection = array(1, 2, 3);
+        $this->setGameRepository();
+        $gameCollection = $this->gameRepository->findAll();
+
+        if ($gameCollection === null) {
+            throw new NotFoundHttpException('Impossible de charger la collection de jeux.');
+        }
+
         return $this->render(
             'GameScoreBundle:Game:gamesCollection.html.twig',
             array(
-                'gamesColection' => $gamesCollection
+                'gameCollection' => $gameCollection
             )
         );
     }
@@ -33,12 +47,11 @@ class GameController extends Controller
 
     public function readGameCardAction($game_id)
     {
-        $em = $this->getDoctrine()->getManager();
-        $gameRepository = $em->getRepository('GameScoreBundle:Game');
-        $game = $gameRepository->find($game_id);
+        $this->setGameRepository();
+        $game = $this->gameRepository->find($game_id);
 
         if ($game === null) {
-            throw new NotFoundHttpException('No game with ' . $game_id . ' id found.');
+            throw new NotFoundHttpException('Aucun jeu trouvé avec cet id : ' . $game_id);
         }
 
         return $this->render(
