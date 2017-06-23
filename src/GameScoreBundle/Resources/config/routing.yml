@@ -5,17 +5,17 @@ game_score_homepage:
 game_score_games_collection:
     path:     /games/collection/
     defaults:
-        _controller: GameScoreBundle:Game:gamesCollection
+        _controller: GameScoreBundle:iAmASampleGame:gamesCollection
 
 game_score_create_game_card:
     path:     /gamecard/create/
     defaults:
-        _controller: GameScoreBundle:Game:createGameCard
+        _controller: GameScoreBundle:iAmASampleGame:createGameCard
 
 game_score_view_game_card:
     path:     /gamecard/view/{game_id}
     defaults:
-        _controller: GameScoreBundle:Game:readGameCard
+        _controller: GameScoreBundle:iAmASampleGame:readGameCard
         requirements:
             game_id: \d+
 
