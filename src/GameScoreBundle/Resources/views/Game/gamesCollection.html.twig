@@ -8,9 +8,19 @@
 {% block gamescore_body %}
     <h2>Games collection</h2>
     <ul>
-    {% for game in gameCollection %}
-    <li>{{ game.name }}</li>
-    {% endfor %}
+        {% for game in gameCollection %}
+            <li>
+                {{ game.name }}
+                {% if game.author %}
+                    <br/>
+                    Un jeu de {{ game.author.firstName }} {{ game.author.lastName }}
+                {% endif %}
+                {% if game.editor %}
+                    <br/>
+                    Edité par {{ game.editor.name }}
+                {% endif %}
+            </li>
+        {% endfor %}
     </ul>
 
 {% endblock %}

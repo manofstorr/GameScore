@@ -3,6 +3,7 @@
 namespace GameScoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use GameScoreBundle\Entity;
 
 /**
  * Game
@@ -21,6 +22,18 @@ class Game
      */
     private $id;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="GameScoreBundle\Entity\Author")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $author;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="GameScoreBundle\Entity\Editor")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $editor;
+    
     /**
      * @var string
      *
@@ -242,5 +255,52 @@ class Game
 
 
 
-}
 
+    /**
+     * Set author
+     *
+     * @param \GameScoreBundle\Entity\Author $author
+     *
+     * @return Game
+     */
+    public function setAuthor(Author $author)
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    /**
+     * Get author
+     *
+     * @return \GameScoreBundle\Entity\Author
+     */
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+
+    /**
+     * Set editor
+     *
+     * @param \GameScoreBundle\Entity\Editor $editor
+     *
+     * @return Game
+     */
+    public function setEditor($editor = null)
+    {
+        $this->editor = $editor;
+
+        return $this;
+    }
+
+    /**
+     * Get editor
+     *
+     * @return \GameScoreBundle\Entity\Editor
+     */
+    public function getEditor()
+    {
+        return $this->editor;
+    }
+}
