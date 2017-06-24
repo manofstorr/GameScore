@@ -2,21 +2,39 @@ game_score_homepage:
     path:     /
     defaults: { _controller: GameScoreBundle:GameScore:index }
 
-game_score_games_collection:
-    path:     /games/collection/
+game_score_game_collection:
+    path:     /game/collection/
     defaults:
-        _controller: GameScoreBundle:Game:gamesCollection
+        _controller: GameScoreBundle:Game:gameCollection
 
-game_score_create_game_card:
-    path:     /gamecard/create/
+game_score_create_game:
+    path:     /game/create/
     defaults:
-        _controller: GameScoreBundle:Game:createGameCard
+        _controller: GameScoreBundle:Game:createGame
 
-game_score_view_game_card:
-    path:     /gamecard/view/{game_id}
+game_score_view_game:
+    path:     /game/view/{game_id}
     defaults:
-        _controller: GameScoreBundle:Game:readGameCard
+        _controller: GameScoreBundle:Game:readGame
         requirements:
             game_id: \d+
+
+
+game_score_author_collection:
+    path:     /author/collection/
+    defaults:
+        _controller: GameScoreBundle:Author:authorCollection
+
+game_score_create_author:
+    path:     /author/create/
+    defaults:
+        _controller: GameScoreBundle:Author:createAuthor
+
+game_score_view_author:
+    path:     /author/view/{author_id}
+    defaults:
+        _controller: GameScoreBundle:Author:readAuthor
+        requirements:
+            author_id: \d+
 
 

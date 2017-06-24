@@ -27,7 +27,7 @@ class GameController extends Controller
         $this->gameRepository = $em->getRepository('GameScoreBundle:Game');
     }
 
-    public function gamesCollectionAction()
+    public function gameCollectionAction()
     {
         $this->setGameRepository();
         $gameCollection = $this->gameRepository->findAll();
@@ -37,7 +37,7 @@ class GameController extends Controller
         }
 
         return $this->render(
-            'GameScoreBundle:Game:gamesCollection.html.twig',
+            'GameScoreBundle:Game:gameCollection.html.twig',
             array(
                 'gameCollection' => $gameCollection
             )
@@ -45,7 +45,7 @@ class GameController extends Controller
     }
 
 
-    public function readGameCardAction($game_id)
+    public function readGameAction($game_id)
     {
         $this->setGameRepository();
         $game = $this->gameRepository->find($game_id);
@@ -55,7 +55,7 @@ class GameController extends Controller
         }
 
         return $this->render(
-            'GameScoreBundle:Game:readGameCard.html.twig',
+            'GameScoreBundle:Game:readGame.html.twig',
             array(
                 'game' => $game
             )
@@ -65,21 +65,21 @@ class GameController extends Controller
 
     /* CRUD ****************************************************** */
 
-    public function createGameCardAction(Request $request)
+    public function createGameAction(Request $request)
     {
         if ($request->isMethod('POST')) {
             $session = $request->getSession();
             $session->getFlashBag()->add('info', 'Create... more');
-            return $this->redirectToRoute('game_score_view_game_card', array('game_id' => 27));
+            return $this->redirectToRoute('game_score_view_game', array('game_id' => 27));
         }
         return $this->render('GameScoreBundle:Game:Create.html.twig');
     }
 
-    public function updateGameCardAction()
+    public function updateGameAction()
     {
     }
 
-    public function deleteGameCardAction()
+    public function deleteGameAction()
     {
     }
 
