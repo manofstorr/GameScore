@@ -10,6 +10,9 @@
 </head>
 
 <body>
+{% for message in app.session.flashbag.get('info') %}
+    <h2>{{ message }}</h2>
+{% endfor %}
 <div class="container">
     <div id="header" class="jumbotron">
         <h1>Game scores</h1>

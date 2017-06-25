@@ -12,16 +12,11 @@ namespace GameScoreBundle\Controller;
 
 use Doctrine\DBAL\Types\BooleanType;
 use GameScoreBundle\Entity\Game;
+use GameScoreBundle\Form\GameType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 
 class GameController extends Controller
@@ -68,22 +63,12 @@ class GameController extends Controller
         );
     }
 
-
     /* CRUD ****************************************************** */
 
     public function createGameAction(Request $request)
     {
         $game = new Game();
-        $form = $this->createFormBuilder($game)
-            ->add('name', TextType::class)
-            ->add('description', TextareaType::class)
-            ->add('has_inverted_score', CheckboxType::class)
-            ->add('is_collaborative', CheckboxType::class)
-            ->add('is_extension', CheckboxType::class)
-            ->add('img_url', TextType::class)
-            ->add('year', TextType::class)
-            ->add('save', SubmitType::class)
-            ->getForm();
+        $form = $this->createForm(GameType::class, $game);
 
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
@@ -104,8 +89,32 @@ class GameController extends Controller
             array('form' => $form->createView()));
     }
 
-    public function updateGameAction()
+    public function updateGameAction(Request $request, int $game_id)
     {
+        $game = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('GameScoreBundle:Game')
+            ->find($game_id);
+        $form = $this->createForm(GameType::class, $game);
+
+        if ($request->isMethod('POST')) {
+            $form->handleRequest($request);
+            if ($form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($game);
+                $em->flush();
+            }
+            $request
+                ->getSession()
+                ->getFlashBag()
+                ->add('info', 'Le jeu a bien été mis à jour.');
+            return $this->redirectToRoute('game_score_view_game',
+                array('game_id' => $game->getId()));
+        }
+
+        return $this->render('GameScoreBundle:Game:form.html.twig',
+            array('form' => $form->createView()));
     }
 
     public function deleteGameAction()

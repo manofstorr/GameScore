@@ -33,7 +33,7 @@ class Game
      * @ORM\JoinColumn(nullable=true)
      */
     private $editor;
-    
+
     /**
      * @var string
      *
@@ -242,6 +242,9 @@ class Game
      */
     public function getYear(): string
     {
+        if($this->year === null){
+            $this->setYear('0000');
+        }
         return $this->year;
     }
 
@@ -252,8 +255,6 @@ class Game
     {
         $this->year = $year;
     }
-
-
 
 
     /**

@@ -12,6 +12,13 @@ game_score_create_game:
     defaults:
         _controller: GameScoreBundle:Game:createGame
 
+game_score_update_game:
+    path:     /game/update/{game_id}
+    defaults:
+        _controller: GameScoreBundle:Game:updateGame
+        requirements:
+          game_id: \d+
+
 game_score_view_game:
     path:     /game/view/{game_id}
     defaults:
