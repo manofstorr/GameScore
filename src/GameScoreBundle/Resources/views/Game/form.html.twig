@@ -31,6 +31,14 @@
         </div>
 
         <div class="form-group">
+            {{ form_label(form.editor, "Editeur :", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+            {{ form_errors(form.editor) }}
+            <div class="col-sm-10">
+                {{ form_widget(form.editor, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+
+        <div class="form-group">
             {{ form_label(form.img_url, "Chemin vers l'image du jeu :", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
             {{ form_errors(form.img_url) }}
             <div class="col-sm-10">
