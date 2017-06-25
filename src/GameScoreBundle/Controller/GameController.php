@@ -27,18 +27,13 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 class GameController extends Controller
 {
 
-    private $gameRepository;
-
-    private function setGameRepository()
-    {
-        $em = $this->getDoctrine()->getManager();
-        $this->gameRepository = $em->getRepository('GameScoreBundle:Game');
-    }
-
     public function gameCollectionAction()
     {
-        $this->setGameRepository();
-        $gameCollection = $this->gameRepository->findAll();
+        $em = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('GameScoreBundle:Game');
+        $gameCollection = $em->findAll();
 
         if ($gameCollection === null) {
             throw new NotFoundHttpException('Impossible de charger la collection de jeux.');
@@ -55,8 +50,11 @@ class GameController extends Controller
 
     public function readGameAction($game_id)
     {
-        $this->setGameRepository();
-        $game = $this->gameRepository->find($game_id);
+        $em = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('GameScoreBundle:Game');
+        $game = $em->find($game_id);
 
         if ($game === null) {
             throw new NotFoundHttpException('Aucun jeu trouvé avec cet id : ' . $game_id);
@@ -75,23 +73,32 @@ class GameController extends Controller
 
     public function createGameAction(Request $request)
     {
-        if ($request->isMethod('POST')) {
-            $session = $request->getSession();
-            $session->getFlashBag()->add('info', 'Create... more');
-            return $this->redirectToRoute('game_score_view_game', array('game_id' => 27));
-        }
         $game = new Game();
-
-        $formBuilder = $this->createFormBuilder($game);
-        $formBuilder
+        $form = $this->createFormBuilder($game)
             ->add('name', TextType::class)
             ->add('description', TextareaType::class)
             ->add('has_inverted_score', CheckboxType::class)
             ->add('is_collaborative', CheckboxType::class)
             ->add('is_extension', CheckboxType::class)
             ->add('img_url', TextType::class)
-            ->add('year', TextType::class);
-        $form = $formBuilder->getForm();
+            ->add('year', TextType::class)
+            ->add('save', SubmitType::class)
+            ->getForm();
+
+        if ($request->isMethod('POST')) {
+            $form->handleRequest($request);
+            if ($form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($game);
+                $em->flush();
+            }
+            $request
+                ->getSession()
+                ->getFlashBag()
+                ->add('info', 'Le jeu a bien été créé.');
+            return $this->redirectToRoute('game_score_view_game',
+                array('game_id' => $game->getId()));
+        }
 
         return $this->render('GameScoreBundle:Game:form.html.twig',
             array('form' => $form->createView()));
