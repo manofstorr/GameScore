@@ -1,0 +1,21 @@
+{% extends "GameScoreBundle::layout.html.twig" %}
+
+
+{% block title %}
+    Auteurs : Collection - {{ parent() }}
+{% endblock %}
+
+{% block gamescore_body %}
+    <h2>Auteurs : collection</h2>
+    <p>
+        <a href="{{ path('game_score_create_author') }}">Nouvel auteur</a>
+    </p>
+    <ul>
+        {% for author in authorCollection %}
+            <li>
+                {{ author.firstname ~ ' ' ~ author.lastname}}
+            </li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}
