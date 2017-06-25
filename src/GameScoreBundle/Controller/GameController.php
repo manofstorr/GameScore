@@ -10,12 +10,10 @@
 
 namespace GameScoreBundle\Controller;
 
-use Doctrine\DBAL\Types\BooleanType;
 use GameScoreBundle\Entity\Game;
 use GameScoreBundle\Form\GameType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 
@@ -96,8 +94,8 @@ class GameController extends Controller
             ->getManager()
             ->getRepository('GameScoreBundle:Game')
             ->find($game_id);
-        $form = $this->createForm(GameType::class, $game);
 
+        $form = $this->createForm(GameType::class, $game);
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
             if ($form->isValid()) {
