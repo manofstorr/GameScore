@@ -80,11 +80,6 @@ class AuthorController extends Controller
         $author = new Author();
 
         $formBuilder = $this->createFormBuilder($author);
-        /*
-
-        $formBuilder = $this->get('form.factory')
-            ->createBuilder(FormType::class, $author);
-        */
         $formBuilder
             ->add('firstname', TextType::class)
             ->add('lastname', TextType::class)

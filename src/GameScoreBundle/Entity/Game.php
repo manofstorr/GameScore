@@ -53,21 +53,21 @@ class Game
      *
      * @ORM\Column(name="has_inverted_score", type="boolean")
      */
-    private $hasInvertedScore;
+    private $hasInvertedScore = false;
 
     /**
      * @var bool
      *
      * @ORM\Column(name="is_collaborative", type="boolean")
      */
-    private $isCollaborative;
+    private $isCollaborative = false;
 
     /**
      * @var bool
      *
      * @ORM\Column(name="is_extension", type="boolean")
      */
-    private $isExtension;
+    private $isExtension = false;
 
     /**
      * @var string
@@ -81,7 +81,7 @@ class Game
      *
      * @ORM\Column(name="year", type="string", length=4, nullable=true)
      */
-    private $year;
+    private $year = '0000';
 
     /**
      * Get id

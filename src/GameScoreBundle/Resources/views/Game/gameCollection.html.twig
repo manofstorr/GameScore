@@ -7,6 +7,7 @@
 
 {% block gamescore_body %}
     <h2>Games collection</h2>
+    <p><a href="{{ path('game_score_create_game') }}">Nouveau jeu</a></p>
     <ul>
         {% for game in gameCollection %}
             <li>
