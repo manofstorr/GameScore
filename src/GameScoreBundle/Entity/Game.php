@@ -23,7 +23,7 @@ class Game
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="GameScoreBundle\Entity\Author")
+     * @ORM\ManyToMany(targetEntity="GameScoreBundle\Entity\Author")
      * @ORM\JoinColumn(nullable=true)
      */
     private $author;
@@ -255,31 +255,7 @@ class Game
     {
         $this->year = $year;
     }
-
-
-    /**
-     * Set author
-     *
-     * @param \GameScoreBundle\Entity\Author $author
-     *
-     * @return Game
-     */
-    public function setAuthor(Author $author)
-    {
-        $this->author = $author;
-
-        return $this;
-    }
-
-    /**
-     * Get author
-     *
-     * @return \GameScoreBundle\Entity\Author
-     */
-    public function getAuthor()
-    {
-        return $this->author;
-    }
+    
 
     /**
      * Set editor
@@ -303,5 +279,46 @@ class Game
     public function getEditor()
     {
         return $this->editor;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->author = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add author
+     *
+     * @param \GameScoreBundle\Entity\Author $author
+     *
+     * @return Game
+     */
+    public function addAuthor(\GameScoreBundle\Entity\Author $author)
+    {
+        $this->author[] = $author;
+
+        return $this;
+    }
+
+    /**
+     * Remove author
+     *
+     * @param \GameScoreBundle\Entity\Author $author
+     */
+    public function removeAuthor(\GameScoreBundle\Entity\Author $author)
+    {
+        $this->author->removeElement($author);
+    }
+
+    /**
+     * Get author
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAuthor()
+    {
+        return $this->author;
     }
 }
