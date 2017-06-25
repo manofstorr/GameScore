@@ -2,6 +2,7 @@
 
 namespace GameScoreBundle\Form;
 
+use Doctrine\ORM\EntityRepository;
 use GameScoreBundle\Repository\EditorRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -37,12 +38,28 @@ class GameType extends AbstractType
                     'class' => 'GameScoreBundle:Editor',
                     'choice_label' => 'name',
                     'multiple' => false
-                ))
-            //->add('author')
-            ->add('save', SubmitType::class)
-        ;
+                )
+            )
+            ->add('author', EntityType::class,
+                array(
+                    'class' => 'GameScoreBundle:Author',
+                    'choice_label' => 'lastname',
+                    'multiple' => true
+                )
+            )
+            ->add('author', EntityType::class, array(
+                'choice_label' => function ($author) {
+                    return $author->getFirstname() . ' ' . $author->getLastname();
+                },
+                'class' => 'GameScoreBundle:Author',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('a')
+                        ->orderBy('a.lastname', 'ASC');
+                },
+            ))
+            ->add('save', SubmitType::class);
     }
-    
+
     /**
      * {@inheritdoc}
      */

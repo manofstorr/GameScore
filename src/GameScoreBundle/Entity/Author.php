@@ -12,6 +12,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Author
 {
+
+    public function __toString(){
+        return $this->firstname.' '.$this->lastname;
+    }
+
     /**
      * @var int
      *
