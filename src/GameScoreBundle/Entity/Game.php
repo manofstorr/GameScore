@@ -35,6 +35,11 @@ class Game
     private $editor;
 
     /**
+     * @ORM\OneToOne(targetEntity="GameScoreBundle\Entity\Image", cascade={"persist", "remove"})
+     */
+    private $image;
+    
+    /**
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255, unique=true)
@@ -320,5 +325,29 @@ class Game
     public function getAuthor()
     {
         return $this->author;
+    }
+
+    /**
+     * Set image
+     *
+     * @param \GameScoreBundle\Entity\Image $image
+     *
+     * @return Game
+     */
+    public function setImage(Image $image = null)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return \GameScoreBundle\Entity\Image
+     */
+    public function getImage()
+    {
+        return $this->image;
     }
 }

@@ -9,14 +9,31 @@
     <h2>{{ game.name }}</h2>
     <p>{{ game.description }}</p>
     <p>
+        {% if game.author %}
+            Auteur(s) :
+            {% for author in game.author %}
+                {{ author }}
+            {% endfor %}
+        {% else %}
+            Pas d'auteur
+        {% endif %}
+    </p>
+    <p>
+        {% if game.editor %}
+            Editeur : {{ game.editor.name }}
+        {% else %}
+            Pas d'éditeur
+        {% endif %}
+    </p>
+    <p>
         {% if game.getIsCollaborative %}
-            Collaboratif<br />
+            Collaboratif<br/>
         {% endif %}
         {% if game.getIsExtension %}
-            Extension<br />
+            Extension<br/>
         {% endif %}
         {% if game.getHasInvertedScore %}
-            Le plus petit score gagne<br />
+            Le plus petit score gagne<br/>
         {% endif %}
 
     </p>

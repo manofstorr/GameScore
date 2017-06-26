@@ -57,6 +57,7 @@ class GameType extends AbstractType
                         ->orderBy('a.lastname', 'ASC');
                 },
             ))
+            ->add('image', ImageType::class)
             ->add('save', SubmitType::class);
     }
 
