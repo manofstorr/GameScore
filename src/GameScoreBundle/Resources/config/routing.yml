@@ -2,6 +2,8 @@ game_score_homepage:
     path:     /
     defaults: { _controller: GameScoreBundle:GameScore:index }
 
+# Routes for Games
+
 game_score_game_collection:
     path:     /game/collection/
     defaults:
@@ -26,6 +28,33 @@ game_score_view_game:
         requirements:
             game_id: \d+
 
+# Routes for Editors
+
+game_score_editor_collection:
+    path:     /editor/collection/
+    defaults:
+        _controller: GameScoreBundle:Editor:editorCollection
+
+game_score_create_editor:
+    path:     /editor/create/
+    defaults:
+        _controller: GameScoreBundle:Editor:createEditor
+
+game_score_update_editor:
+    path:     /editor/update/{editor_id}
+    defaults:
+        _controller: GameScoreBundle:Editor:updateEditor
+        requirements:
+          editor_id: \d+
+
+game_score_view_editor:
+    path:     /editor/view/{editor_id}
+    defaults:
+        _controller: GameScoreBundle:Editor:readEditor
+        requirements:
+            editor_id: \d+
+
+# Routes for Authors
 
 game_score_author_collection:
     path:     /author/collection/
@@ -42,7 +71,7 @@ game_score_update_author:
     defaults:
         _controller: GameScoreBundle:Author:updateAuthor
         requirements:
-          game_id: \d+
+          author_id: \d+
 
 game_score_view_author:
     path:     /author/view/{author_id}
@@ -50,5 +79,3 @@ game_score_view_author:
         _controller: GameScoreBundle:Author:readAuthor
         requirements:
             author_id: \d+
-
-

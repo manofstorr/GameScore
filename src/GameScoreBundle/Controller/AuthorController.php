@@ -56,7 +56,7 @@ class AuthorController extends Controller
         $author = $this->authorRepository->find($author_id);
 
         if ($author === null) {
-            throw new NotFoundHttpException('Aucun auteur trouvé avec cet id : ' . $game_id);
+            throw new NotFoundHttpException('Aucun auteur trouvé avec cet id : ' . $author_id);
         }
 
         return $this->render(
@@ -87,7 +87,7 @@ class AuthorController extends Controller
                 ->getSession()
                 ->getFlashBag()
                 ->add('info', 'Auteur ajouté !');
-            return $this->redirectToRoute('game_score_view_auhor',
+            return $this->redirectToRoute('game_score_view_author',
                 array('author_id' => $author->getId()));
         }
 
