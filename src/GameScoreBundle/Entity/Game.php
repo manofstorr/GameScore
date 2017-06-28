@@ -2,8 +2,7 @@
 
 namespace GameScoreBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use GameScoreBundle\Entity;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Game
@@ -290,7 +289,7 @@ class Game
      */
     public function __construct()
     {
-        $this->author = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->author = new ArrayCollection();
     }
 
     /**
@@ -300,7 +299,7 @@ class Game
      *
      * @return Game
      */
-    public function addAuthor(\GameScoreBundle\Entity\Author $author)
+    public function addAuthor(Author $author)
     {
         $this->author[] = $author;
 
@@ -312,7 +311,7 @@ class Game
      *
      * @param \GameScoreBundle\Entity\Author $author
      */
-    public function removeAuthor(\GameScoreBundle\Entity\Author $author)
+    public function removeAuthor(Author $author)
     {
         $this->author->removeElement($author);
     }
