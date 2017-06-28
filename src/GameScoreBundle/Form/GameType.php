@@ -4,6 +4,7 @@ namespace GameScoreBundle\Form;
 
 use Doctrine\ORM\EntityRepository;
 use GameScoreBundle\Repository\EditorRepository;
+use GameScoreBundle\Repository\AuthorRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -40,13 +41,13 @@ class GameType extends AbstractType
                     'multiple' => false
                 )
             )
-            ->add('author', EntityType::class,
+            /*->add('author', EntityType::class,
                 array(
                     'class' => 'GameScoreBundle:Author',
                     'choice_label' => 'lastname',
                     'multiple' => true
                 )
-            )
+            )*/
             ->add('author', EntityType::class, array(
                 'choice_label' => function ($author) {
                     return $author->getFirstname() . ' ' . $author->getLastname();
@@ -56,8 +57,9 @@ class GameType extends AbstractType
                     return $er->createQueryBuilder('a')
                         ->orderBy('a.lastname', 'ASC');
                 },
+                'multiple' => true
             ))
-            ->add('image', ImageType::class)
+            //->add('image', ImageType::class)
             ->add('save', SubmitType::class);
     }
 

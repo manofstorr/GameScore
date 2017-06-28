@@ -12,7 +12,7 @@
         {% if game.author %}
             Auteur(s) :
             {% for author in game.author %}
-                {{ author }}
+                {{ author.firstname ~ ' ' ~ author.lastname }}
             {% endfor %}
         {% else %}
             Pas d'auteur
