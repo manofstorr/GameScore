@@ -13,7 +13,11 @@
     <ul>
         {% for author in authorCollection %}
             <li>
-                {{ author.firstname ~ ' ' ~ author.lastname}}
+                {{ author.firstname ~ ' ' ~ author.lastname }}
+                -
+                <a href="{{ path('game_score_view_author', { 'author_id':author.id }) }}">Fiche</a>
+                -
+                <a href="{{ path('game_score_update_author', { 'author_id':author.id }) }}">Maj</a>
             </li>
         {% endfor %}
     </ul>

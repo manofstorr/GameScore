@@ -9,6 +9,7 @@
 namespace GameScoreBundle\Controller;
 
 use GameScoreBundle\Entity\Author;
+use GameScoreBundle\Form\AuthorType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -49,7 +50,7 @@ class AuthorController extends Controller
     }
 
 
-    public function readAuthorCardAction($author_id)
+    public function readAuthorAction($author_id)
     {
         $this->setAuthorRepository();
         $author = $this->authorRepository->find($author_id);
@@ -59,7 +60,7 @@ class AuthorController extends Controller
         }
 
         return $this->render(
-            'GameScoreBundle:Author:readAuthorCard.html.twig',
+            'GameScoreBundle:Author:readAuthor.html.twig',
             array(
                 'author' => $author
             )
@@ -71,28 +72,57 @@ class AuthorController extends Controller
 
     public function createAuthorAction(Request $request)
     {
-        if ($request->isMethod('POST')) {
-            $session = $request->getSession();
-            $session->getFlashBag()->add('info', 'Create... more');
-            return $this->redirectToRoute('game_score_view_author_card', array('author_id' => 27));
-        }
 
         $author = new Author();
+        $form = $this->createForm(AuthorType::class, $author);
 
-        $formBuilder = $this->createFormBuilder($author);
-        $formBuilder
-            ->add('firstname', TextType::class)
-            ->add('lastname', TextType::class)
-            ->add('save', SubmitType::class)
-        ;
-        $form = $formBuilder->getForm();
-        //$form = $formBuilder->getForm();
+        if ($request->isMethod('POST')) {
+            $form->handleRequest($request);
+            if ($form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($author);
+                $em->flush();
+            }
+            $request
+                ->getSession()
+                ->getFlashBag()
+                ->add('info', 'Auteur ajouté !');
+            return $this->redirectToRoute('game_score_view_auhor',
+                array('author_id' => $author->getId()));
+        }
+
         return $this->render('GameScoreBundle:Author:form.html.twig',
-            array('form' => $form->CreateView()));
+            array('form' => $form->createView()));
+
     }
 
-    public function updateAuthorAction()
+    public function updateAuthorAction(Request $request, int $author_id)
     {
+        $author = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('GameScoreBundle:Author')
+            ->find($author_id);
+
+        $form = $this->createForm(AuthorType::class, $author);
+        if ($request->isMethod('POST')) {
+            $form->handleRequest($request);
+            if ($form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($author);
+                $em->flush();
+            }
+            $request
+                ->getSession()
+                ->getFlashBag()
+                ->add('info', 'Auteur mis à jour.');
+            return $this->redirectToRoute('game_score_view_author',
+                array('author_id' => $author->getId()));
+        }
+
+        return $this->render('GameScoreBundle:Author:form.html.twig',
+            array('form' => $form->createView()));
+
     }
 
     public function deleteAuthorAction()

@@ -38,6 +38,10 @@
     </p>
 
     <p>
+        <img src="{{ asset(game.image.WebPath) }}" alt="{{ game.image.alt }}" height="200">
+    </p>
+
+    <p>
         <a href="{{ path('game_score_update_game', {'game_id':game.id}) }}">Maj</a>
     </p>
 {% endblock %}

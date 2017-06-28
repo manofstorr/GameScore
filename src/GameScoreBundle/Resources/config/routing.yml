@@ -37,6 +37,13 @@ game_score_create_author:
     defaults:
         _controller: GameScoreBundle:Author:createAuthor
 
+game_score_update_author:
+    path:     /author/update/{author_id}
+    defaults:
+        _controller: GameScoreBundle:Author:updateAuthor
+        requirements:
+          game_id: \d+
+
 game_score_view_author:
     path:     /author/view/{author_id}
     defaults:
