@@ -31,8 +31,6 @@ class GameType extends AbstractType
                 array('required' => false))
             ->add('is_extension', CheckboxType::class,
                 array('required' => false))
-            ->add('img_url', TextType::class,
-                array('required' => false))
             ->add('year', TextType::class)
             ->add('editor', EntityType::class,
                 array(
@@ -41,13 +39,6 @@ class GameType extends AbstractType
                     'multiple' => false
                 )
             )
-            /*->add('author', EntityType::class,
-                array(
-                    'class' => 'GameScoreBundle:Author',
-                    'choice_label' => 'lastname',
-                    'multiple' => true
-                )
-            )*/
             ->add('author', EntityType::class, array(
                 'choice_label' => function ($author) {
                     return $author->getFirstname() . ' ' . $author->getLastname();
@@ -59,7 +50,9 @@ class GameType extends AbstractType
                 },
                 'multiple' => true
             ))
-            //->add('image', ImageType::class)
+            ->add('image', ImageType::class,
+                array('required' => false)
+            )
             ->add('save', SubmitType::class);
     }
 

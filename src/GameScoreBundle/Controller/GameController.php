@@ -69,11 +69,11 @@ class GameController extends Controller
         $form = $this->createForm(GameType::class, $game);
 
         if ($request->isMethod('POST')) {
-            echo 'AZE';
-            var_dump($request);
             $form->handleRequest($request);
-            echo 'AZE2';
             if ($form->isValid()) {
+
+                //$game->getImage()->upload();
+
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($game);
                 $em->flush();
