@@ -71,19 +71,18 @@ class GameController extends Controller
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
             if ($form->isValid()) {
-
-                //$game->getImage()->upload();
-
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($game);
                 $em->flush();
+
+                $request
+                    ->getSession()
+                    ->getFlashBag()
+                    ->add('info', 'Le jeu a bien été créé.');
+                return $this->redirectToRoute('game_score_view_game',
+                    array('game_id' => $game->getId()));
             }
-            $request
-                ->getSession()
-                ->getFlashBag()
-                ->add('info', 'Le jeu a bien été créé.');
-            return $this->redirectToRoute('game_score_view_game',
-                array('game_id' => $game->getId()));
+
         }
 
         return $this->render('GameScoreBundle:Game:form.html.twig',
@@ -105,13 +104,14 @@ class GameController extends Controller
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($game);
                 $em->flush();
+
+                $request
+                    ->getSession()
+                    ->getFlashBag()
+                    ->add('info', 'Le jeu a bien été mis à jour.');
+                return $this->redirectToRoute('game_score_view_game',
+                    array('game_id' => $game->getId()));
             }
-            $request
-                ->getSession()
-                ->getFlashBag()
-                ->add('info', 'Le jeu a bien été mis à jour.');
-            return $this->redirectToRoute('game_score_view_game',
-                array('game_id' => $game->getId()));
         }
 
         return $this->render('GameScoreBundle:Game:form.html.twig',

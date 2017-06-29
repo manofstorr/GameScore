@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use GameScoreBundle\Form\EditorType;
+use GameScoreBundle\Entity\Editor;
 
 
 class EditorController extends Controller
@@ -74,13 +75,15 @@ class EditorController extends Controller
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($editor);
                 $em->flush();
+
+                $request
+                    ->getSession()
+                    ->getFlashBag()
+                    ->add('info', 'Editeur ajouté !');
+                return $this->redirectToRoute('game_score_view_editor',
+                    array('editor_id' => $editor->getId()));
+
             }
-            $request
-                ->getSession()
-                ->getFlashBag()
-                ->add('info', 'Editeur ajouté !');
-            return $this->redirectToRoute('game_score_view_editor',
-                array('editor_id' => $editor->getId()));
         }
 
         return $this->render('GameScoreBundle:Editor:form.html.twig',
@@ -103,13 +106,15 @@ class EditorController extends Controller
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($editor);
                 $em->flush();
+
+                $request
+                    ->getSession()
+                    ->getFlashBag()
+                    ->add('info', 'Editeur mis à jour.');
+                return $this->redirectToRoute('game_score_view_editor',
+                    array('editor_id' => $editor->getId()));
             }
-            $request
-                ->getSession()
-                ->getFlashBag()
-                ->add('info', 'Editeur mis à jour.');
-            return $this->redirectToRoute('game_score_view_editor',
-                array('editor_id' => $editor->getId()));
+
         }
 
         return $this->render('GameScoreBundle:Editor:form.html.twig',

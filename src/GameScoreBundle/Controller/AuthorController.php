@@ -82,13 +82,13 @@ class AuthorController extends Controller
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($author);
                 $em->flush();
+                $request
+                    ->getSession()
+                    ->getFlashBag()
+                    ->add('info', 'Auteur ajouté !');
+                return $this->redirectToRoute('game_score_view_author',
+                    array('author_id' => $author->getId()));
             }
-            $request
-                ->getSession()
-                ->getFlashBag()
-                ->add('info', 'Auteur ajouté !');
-            return $this->redirectToRoute('game_score_view_author',
-                array('author_id' => $author->getId()));
         }
 
         return $this->render('GameScoreBundle:Author:form.html.twig',
@@ -111,13 +111,15 @@ class AuthorController extends Controller
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($author);
                 $em->flush();
+
+                $request
+                    ->getSession()
+                    ->getFlashBag()
+                    ->add('info', 'Auteur mis à jour.');
+                return $this->redirectToRoute('game_score_view_author',
+                    array('author_id' => $author->getId()));
             }
-            $request
-                ->getSession()
-                ->getFlashBag()
-                ->add('info', 'Auteur mis à jour.');
-            return $this->redirectToRoute('game_score_view_author',
-                array('author_id' => $author->getId()));
+
         }
 
         return $this->render('GameScoreBundle:Author:form.html.twig',

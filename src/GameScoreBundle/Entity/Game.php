@@ -3,6 +3,8 @@
 namespace GameScoreBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Game
@@ -42,6 +44,7 @@ class Game
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255, unique=true)
+     * @Assert\Length(min=3, minMessage="Le nom du jeu doit faire au moins {{ limit }} caractères")
      */
     private $name;
 
@@ -49,6 +52,7 @@ class Game
      * @var string
      *
      * @ORM\Column(name="description", type="text", nullable=true)
+     * @Assert\NotBlank()
      */
     private $description;
 
@@ -84,8 +88,9 @@ class Game
      * @var string
      *
      * @ORM\Column(name="year", type="string", length=4, nullable=true)
+     * @Assert\Regex("#^[0-9]{4}$#", message="Merci d'utiliser une chaïne de 4 chiffres .")
      */
-    private $year = '0000';
+    private $year;
 
     /**
      * Get id

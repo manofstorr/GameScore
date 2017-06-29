@@ -3,6 +3,10 @@
 namespace GameScoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use GameScoreBundle\Repository\EditorRepository;
+//use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * Editor
@@ -25,6 +29,7 @@ class Editor
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255, unique=true)
+     * @Assert\Length(min=3, minMessage="Le nom doit faire au moins {{ limit }} caractères")
      */
     private $name;
 

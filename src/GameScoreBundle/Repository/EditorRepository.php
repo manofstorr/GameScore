@@ -2,6 +2,8 @@
 
 namespace GameScoreBundle\Repository;
 
+use Doctrine\ORM\EntityRepository;
+
 /**
  * EditorRepository
  *
