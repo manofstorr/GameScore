@@ -3,6 +3,7 @@
 namespace GameScoreBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * EditorRepository
@@ -12,4 +13,17 @@ use Doctrine\ORM\EntityRepository;
  */
 class EditorRepository extends EntityRepository
 {
+
+    public function getEditors($page, $nbPerPage)
+    {
+        $query = $this->createQueryBuilder('e')
+            ->orderBy('e.id', 'ASC')
+            ->getQuery();
+        $query
+            ->setFirstResult(($page-1)*$nbPerPage)
+            ->setMaxResults($nbPerPage);
+
+        return new Paginator($query, true);
+
+    }
 }

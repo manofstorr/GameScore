@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use GameScoreBundle\Form\EditorType;
 use GameScoreBundle\Entity\Editor;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 
 class EditorController extends Controller
@@ -25,10 +26,23 @@ class EditorController extends Controller
         $this->EditorRepository = $em->getRepository('GameScoreBundle:Editor');
     }
 
-    public function EditorCollectionAction()
+    public function EditorCollectionAction($page=1)
     {
         $this->setEditorRepository();
-        $EditorCollection = $this->EditorRepository->findAll();
+        //$page = 1;
+        $nbPerPage = $this->container->getParameter('standard_number_of_elements_per_page');
+
+        if ($page < 1) {
+            throw $this->createNotFoundException("La page demandée (" . $page . ") n'existe pas.");
+        }
+
+        $EditorCollection = $this->EditorRepository->getEditors($page, $nbPerPage);
+        // todo : put this in a service ?
+        $nbOfPages = ceil($EditorCollection->count() / $nbPerPage);
+
+        if ($page > $nbOfPages) {
+            throw $this->createNotFoundException("La page " . $page . " n'existe pas.");
+        }
 
         if ($EditorCollection === null) {
             throw new NotFoundHttpException('Impossible de charger la collection d\'éditeurs.');
@@ -37,7 +51,9 @@ class EditorController extends Controller
         return $this->render(
             'GameScoreBundle:Editor:editorCollection.html.twig',
             array(
-                'editorCollection' => $EditorCollection
+                'editorCollection' => $EditorCollection,
+                'nbOfPages'     => $nbOfPages,
+                'page'        => $page,
             )
         );
     }

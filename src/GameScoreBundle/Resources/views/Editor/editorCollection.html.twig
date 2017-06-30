@@ -21,5 +21,12 @@
             </li>
         {% endfor %}
     </ul>
+    <ul class="pagination">
+        {% for p in range(1, nbOfPages) %}
+            <li{% if p == page %} class="active"{% endif %}>
+                <a href="{{ path('game_score_editor_collection', {'page': p}) }}">{{ p }}</a>
+            </li>
+        {% endfor %}
+    </ul>
 
 {% endblock %}

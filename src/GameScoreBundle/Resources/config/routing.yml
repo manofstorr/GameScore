@@ -31,9 +31,12 @@ game_score_view_game:
 # Routes for Editors
 
 game_score_editor_collection:
-    path:     /editor/collection/
+    path:     /editor/collection/{page}
     defaults:
         _controller: GameScoreBundle:Editor:editorCollection
+    requirements:
+        page: \d+
+
 
 game_score_create_editor:
     path:     /editor/create/
