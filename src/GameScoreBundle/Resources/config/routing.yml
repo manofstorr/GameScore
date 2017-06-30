@@ -5,9 +5,10 @@ game_score_homepage:
 # Routes for Games
 
 game_score_game_collection:
-    path:     /game/collection/
+    path:     /game/collection/{page}
     defaults:
         _controller: GameScoreBundle:Game:gameCollection
+
 
 game_score_create_game:
     path:     /game/create/

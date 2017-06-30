@@ -20,13 +20,15 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class GameController extends Controller
 {
 
-    public function gameCollectionAction()
+    public function gameCollectionAction($page='a')
     {
         $em = $this
             ->getDoctrine()
             ->getManager()
             ->getRepository('GameScoreBundle:Game');
-        $gameCollection = $em->findAll();
+
+        $gameCollection = $em->getGames($page);
+        //$gameCollection = $em->findAll();
 
         if ($gameCollection === null) {
             throw new NotFoundHttpException('Impossible de charger la collection de jeux.');
@@ -35,7 +37,8 @@ class GameController extends Controller
         return $this->render(
             'GameScoreBundle:Game:gameCollection.html.twig',
             array(
-                'gameCollection' => $gameCollection
+                'gameCollection' => $gameCollection,
+                'page' => $page
             )
         );
     }

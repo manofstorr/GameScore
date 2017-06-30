@@ -2,6 +2,8 @@
 
 namespace GameScoreBundle\Repository;
 
+use Doctrine\ORM\Tools\Pagination\Paginator;
+
 /**
  * GameRepository
  *
@@ -10,4 +12,12 @@ namespace GameScoreBundle\Repository;
  */
 class GameRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getGames($page)
+    {
+        $query = $this->createQueryBuilder('g')
+            ->where('g.name LIKE :word')
+            ->setParameter('word', $page.'%');
+
+        return new Paginator($query, true);
+    }
 }
