@@ -1,0 +1,15 @@
+{% extends "GameScoreBundle::layout.html.twig" %}
+
+{% block title %}
+    Partie : [{{ play.getId() }}] - {{ parent() }}
+{% endblock %}
+
+{% block gamescore_body %}
+    <h2>Partie : {{ play.id }}</h2>
+    <p>
+        Date : {{ play.date|date('d M Y à H:i') }}
+        <br />
+        Jeu : {{ play.game.name }}
+    </p>
+
+{% endblock %}

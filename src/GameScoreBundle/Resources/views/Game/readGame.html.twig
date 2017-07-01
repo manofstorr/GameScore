@@ -44,6 +44,16 @@
     </p>
 
     <p>
+        {% if plays %}
+            Parties :
+            {% for play in plays %}
+                {{ play.date|date("d M Y") }}
+                <br />
+            {% endfor %}
+        {% endif %}
+    </p>
+
+    <p>
         <a href="{{ path('game_score_update_game', {'game_id':game.id}) }}">Maj</a>
     </p>
 {% endblock %}

@@ -12,6 +12,14 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Play
 {
+
+    /**
+     * @ORM\ManyToOne(targetEntity="GameScoreBundle\Entity\Game")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $game;
+
+
     /**
      * @var int
      *
@@ -124,5 +132,28 @@ class Play
     {
         return $this->location;
     }
-}
 
+    /**
+     * Set game
+     *
+     * @param \GameScoreBundle\Entity\Game $game
+     *
+     * @return Play
+     */
+    public function setGame(\GameScoreBundle\Entity\Game $game)
+    {
+        $this->game = $game;
+
+        return $this;
+    }
+
+    /**
+     * Get game
+     *
+     * @return \GameScoreBundle\Entity\Game
+     */
+    public function getGame()
+    {
+        return $this->game;
+    }
+}

@@ -22,7 +22,7 @@ class PlayerController extends Controller
         $this->PlayerRepository = $em->getRepository('GameScoreBundle:Player');
     }
 
-    public function viewPlayerAction(int $player_id)
+    public function viewAction(int $player_id)
     {
         $this->setPlayerRepository();
         $player = $this->PlayerRepository->find($player_id);
@@ -49,7 +49,7 @@ class PlayerController extends Controller
             throw new NotFoundHttpException('Impossible de charger la collection de joueurs.');
         }
         return $this->render(
-            'GameScoreBundle:Player:playerCollection.html.twig',
+            'GameScoreBundle:Player:collection.html.twig',
             array(
                 'playerCollection' => $PlayerCollection,
                 'page' => $page,

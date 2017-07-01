@@ -11,6 +11,7 @@
 namespace GameScoreBundle\Controller;
 
 use GameScoreBundle\Entity\Game;
+use GameScoreBundle\Entity\Play;
 use GameScoreBundle\Form\GameType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -56,10 +57,18 @@ class GameController extends Controller
             throw new NotFoundHttpException('Aucun jeu trouvé avec cet id : ' . $game_id);
         }
 
+        // find plays
+        $em = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('GameScoreBundle:Play');
+        $plays = $em->findPlayByGame($game);
+
         return $this->render(
             'GameScoreBundle:Game:readGame.html.twig',
             array(
-                'game' => $game
+                'game' => $game,
+                'plays' => $plays
             )
         );
     }

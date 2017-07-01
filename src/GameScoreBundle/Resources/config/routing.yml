@@ -106,6 +106,15 @@ game_score_update_player:
 game_score_view_player:
     path:     /player/view/{player_id}
     defaults:
-        _controller: GameScoreBundle:Player:viewPlayer
+        _controller: GameScoreBundle:Player:view
+        requirements:
+            player_id: \d+
+
+# Routes for plays
+
+game_score_view_play:
+    path:     /play/view/{play_id}
+    defaults:
+        _controller: GameScoreBundle:Play:view
         requirements:
             player_id: \d+

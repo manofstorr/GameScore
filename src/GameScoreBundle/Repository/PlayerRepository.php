@@ -19,7 +19,7 @@ class PlayerRepository extends EntityRepository
         $query = $this->createQueryBuilder('p')
             ->where('p.firstname LIKE :word')
             ->setParameter('word', $page.'%')
-            //->orderBy('p.firstname', 'ASC')
+            ->orderBy('p.firstname', 'ASC')
             ->getQuery();
 
         return new Paginator($query, true);

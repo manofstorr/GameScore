@@ -17,13 +17,11 @@ class EditorRepository extends EntityRepository
     public function getEditors($page, $nbPerPage)
     {
         $query = $this->createQueryBuilder('e')
-            ->orderBy('e.id', 'ASC')
+            ->orderBy('e.name', 'ASC')
             ->getQuery();
         $query
             ->setFirstResult(($page-1)*$nbPerPage)
             ->setMaxResults($nbPerPage);
-
         return new Paginator($query, true);
-
     }
 }
