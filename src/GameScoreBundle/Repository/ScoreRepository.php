@@ -17,6 +17,7 @@ class ScoreRepository extends EntityRepository
         $query = $this->createQueryBuilder('score')
             ->innerJoin('score.play', 'play')
             ->addSelect('play')
+            ->innerJoin('play.game', 'game')
             ->where('play.game = :game')
             ->setParameter('game', $game)
             ->orderBy('play.date', 'ASC')

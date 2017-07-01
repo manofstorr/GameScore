@@ -16,7 +16,16 @@ class GameRepository extends \Doctrine\ORM\EntityRepository
     {
         $query = $this->createQueryBuilder('g')
             ->where('g.name LIKE :word')
-            ->setParameter('word', $page.'%');
+            ->setParameter('word', $page.'%')
+            ->orderBy('g.name', 'ASC');
         return new Paginator($query, true);
+    }
+
+    public function getAllGames()
+    {
+        $query = $this->createQueryBuilder('g')
+            ->orderBy('g.name', 'ASC')
+            ->getQuery();
+        return $query->getResult();
     }
 }

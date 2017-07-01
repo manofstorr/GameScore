@@ -9,7 +9,7 @@
     <h2>Games collection</h2>
     <p><a href="{{ path('game_score_create_game') }}">Nouveau jeu</a></p>
     <ul class="pagination">
-        {% for p in range('a', 'z') %}
+        {% for p in alphapageArray %}
             <li{% if p == page %} class="active"{% endif %}>
                 <a href="{{ path('game_score_game_collection', {'page': p}) }}">{{ p }}</a>
             </li>

@@ -29,7 +29,6 @@ class GameController extends Controller
             ->getRepository('GameScoreBundle:Game');
 
         $gameCollection = $em->getGames($page);
-        //$gameCollection = $em->findAll();
 
         if ($gameCollection === null) {
             throw new NotFoundHttpException('Impossible de charger la collection de jeux.');
@@ -39,9 +38,28 @@ class GameController extends Controller
             'GameScoreBundle:Game:gameCollection.html.twig',
             array(
                 'gameCollection' => $gameCollection,
-                'page' => $page
+                'page' => $page,
+                'alphapageArray' => $this->getAlphaIndex()
             )
         );
+    }
+
+    public function getAlphaIndex()
+    {
+        $em = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('GameScoreBundle:Game');
+        $gameCollection = $em->getAllGames();
+        // building initial array for alphabetical pseudo-pagination
+        $alphapageArray = array();
+        foreach ($gameCollection as $game){
+            $index = substr($game->getName(), 0,1);
+            if (!in_array($index, $alphapageArray)){
+                $alphapageArray[] = $index;
+            }
+        }
+        return $alphapageArray;
     }
 
 
