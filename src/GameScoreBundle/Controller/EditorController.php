@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use GameScoreBundle\Form\EditorType;
 use GameScoreBundle\Entity\Editor;
-use Doctrine\ORM\Tools\Pagination\Paginator;
+//use Doctrine\ORM\Tools\Pagination\Paginator;
 
 
 class EditorController extends Controller
@@ -29,7 +29,6 @@ class EditorController extends Controller
     public function EditorCollectionAction($page=1)
     {
         $this->setEditorRepository();
-        //$page = 1;
         $nbPerPage = $this->container->getParameter('standard_number_of_elements_per_page');
 
         if ($page < 1) {
