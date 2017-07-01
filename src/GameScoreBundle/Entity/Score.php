@@ -12,6 +12,19 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Score
 {
+
+    /**
+     * @ORM\ManyToOne(targetEntity="GameScoreBundle\Entity\Play")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $play;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="GameScoreBundle\Entity\Player")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $player;
+
     /**
      * @var int
      *
@@ -62,5 +75,52 @@ class Score
     {
         return $this->score;
     }
-}
 
+    /**
+     * Set play
+     *
+     * @param \GameScoreBundle\Entity\Play $play
+     *
+     * @return Score
+     */
+    public function setPlay(\GameScoreBundle\Entity\Play $play)
+    {
+        $this->play = $play;
+
+        return $this;
+    }
+
+    /**
+     * Get play
+     *
+     * @return \GameScoreBundle\Entity\Play
+     */
+    public function getPlay()
+    {
+        return $this->play;
+    }
+
+    /**
+     * Set player
+     *
+     * @param \GameScoreBundle\Entity\Player $player
+     *
+     * @return Score
+     */
+    public function setPlayer(\GameScoreBundle\Entity\Player $player)
+    {
+        $this->player = $player;
+
+        return $this;
+    }
+
+    /**
+     * Get player
+     *
+     * @return \GameScoreBundle\Entity\Player
+     */
+    public function getPlayer()
+    {
+        return $this->player;
+    }
+}

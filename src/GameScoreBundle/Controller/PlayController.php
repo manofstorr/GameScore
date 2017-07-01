@@ -20,6 +20,7 @@ class PlayController extends Controller
         $em = $this->getDoctrine()->getManager();
         $this->PlayRepository = $em->getRepository('GameScoreBundle:Play');
     }
+
     public function viewAction($play_id)
     {
         $this->setPlayRepository();
@@ -39,4 +40,5 @@ class PlayController extends Controller
     {
 
     }
+
 }

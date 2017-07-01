@@ -49,20 +49,39 @@ class GameController extends Controller
     {
         $em = $this
             ->getDoctrine()
-            ->getManager()
-            ->getRepository('GameScoreBundle:Game');
-        $game = $em->find($game_id);
+            ->getManager();
+
+        $game = $em
+            ->getRepository('GameScoreBundle:Game')
+            ->find($game_id);
 
         if ($game === null) {
             throw new NotFoundHttpException('Aucun jeu trouvé avec cet id : ' . $game_id);
         }
 
         // find plays
-        $em = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository('GameScoreBundle:Play');
-        $plays = $em->findPlayByGame($game);
+        $plays = $em
+            ->getRepository('GameScoreBundle:Play')
+            ->findPlayByGame($game);
+
+        // find scores
+        //var_dump($plays);
+        $scores_repo = $em
+            ->getRepository('GameScoreBundle:Score');
+        foreach ($plays as $play)
+        {
+            // retrieve scores
+            $scores_lines = $scores_repo->findBy(array(
+                'play' => $play
+            ));
+            foreach ($scores_lines as $score_line) {
+                //var_dump($score_line);
+                echo $score_line->getPlayer()->getFirstname();
+                echo $score_line->getPlayer()->getLastname();
+                echo $score_line->getScore();
+                echo '<br />';
+            }
+        }
 
         return $this->render(
             'GameScoreBundle:Game:readGame.html.twig',
