@@ -17,7 +17,6 @@ class GameRepository extends \Doctrine\ORM\EntityRepository
         $query = $this->createQueryBuilder('g')
             ->where('g.name LIKE :word')
             ->setParameter('word', $page.'%');
-
         return new Paginator($query, true);
     }
 }

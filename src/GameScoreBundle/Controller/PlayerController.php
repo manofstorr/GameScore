@@ -37,36 +37,22 @@ class PlayerController extends Controller
         );
     }
 
-    public function playerCollectionAction($page=1)
+    public function playerCollectionAction($page)
     {
-        $this->setPlayerRepository();
-
-        $nbPerPage = $this->container->getParameter('standard_number_of_elements_per_page');
-
-        if ($page < 1) {
+        // Todo : make better condition
+        if ($page === '') {
             throw $this->createNotFoundException("La page demandée (" . $page . ") n'existe pas.");
         }
-
-        //$PlayerCollection = $this->PlayerRepository->getEditors($page, $nbPerPage);
-        $PlayerCollection = $this->PlayerRepository->findAll();
-        // todo : put this in a service ?
-        //$nbOfPages = ceil($PlayerCollection->count() / $nbPerPage);
-        /*
-        if ($page > $nbOfPages) {
-            throw $this->createNotFoundException("La page " . $page . " n'existe pas.");
-        }
-        */
-
+        $this->setPlayerRepository();
+        $PlayerCollection = $this->PlayerRepository->getPlayers($page);
         if ($PlayerCollection === null) {
             throw new NotFoundHttpException('Impossible de charger la collection de joueurs.');
         }
-
         return $this->render(
             'GameScoreBundle:Player:playerCollection.html.twig',
             array(
                 'playerCollection' => $PlayerCollection,
-                'nbOfPages'     => 1,
-                'page'        => 1,
+                'page' => $page,
             )
         );
     }

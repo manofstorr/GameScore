@@ -87,7 +87,7 @@ game_score_view_author:
 # Routes for Players
 
 game_score_player_collection:
-    path:     /player/collection/
+    path:     /player/collection/{page}
     defaults:
         _controller: GameScoreBundle:Player:playerCollection
 
@@ -100,8 +100,8 @@ game_score_update_player:
     path:     /player/update/{player_id}
     defaults:
         _controller: GameScoreBundle:Player:updatePlayer
-        requirements:
-          player_id: \d+
+    requirements:
+        player_id: \d+
 
 game_score_view_player:
     path:     /player/view/{player_id}
