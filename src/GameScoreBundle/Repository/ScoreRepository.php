@@ -12,4 +12,15 @@ use \Doctrine\ORM\EntityRepository;
  */
 class ScoreRepository extends EntityRepository
 {
+    public function getScoresWithPlaysByGame($game)
+    {
+        $query = $this->createQueryBuilder('score')
+            ->innerJoin('score.play', 'play')
+            ->addSelect('play')
+            ->where('play.game = :game')
+            ->setParameter('game', $game)
+            ->orderBy('play.date', 'ASC')
+            ->getQuery();
+        return $query->getResult();
+    }
 }

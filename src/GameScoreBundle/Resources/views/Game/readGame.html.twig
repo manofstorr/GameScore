@@ -44,11 +44,22 @@
     </p>
 
     <p>
-        {% if plays %}
+        {% if scores %}
+            {% set currentplay = 0 %}
             Parties :
-            {% for play in plays %}
-                {{ play.date|date("d M Y") }}
-                <br />
+            <br />
+            {% for score in scores %}
+                {% if currentplay != score.play.id %}
+                    {% set currentplay = score.play.id %}
+                    part. [{{ currentplay }}] du
+                    {{ score.play.date|date("d M Y") }}
+                    <br/>
+                    {{ score.play.description }}
+                    <br/>
+                {% endif %}
+                {{ score.player.firstname }}
+                {{ score.score }}
+                <br/>
             {% endfor %}
         {% endif %}
     </p>

@@ -12,13 +12,4 @@ use Doctrine\ORM\EntityRepository;
  */
 class PlayRepository extends EntityRepository
 {
-    public function findPlayByGame($game)
-    {
-        $query = $this->createQueryBuilder('play')
-            ->where('play.game = :game')
-            ->setParameter('game', $game)
-            ->orderBy('play.date', 'ASC')
-            ->getQuery();
-        return $query->getResult();
-    }
 }
