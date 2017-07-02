@@ -24,4 +24,18 @@ class ScoreRepository extends EntityRepository
             ->getQuery();
         return $query->getResult();
     }
+
+    public function getScoresWithPlaysByPlayer($player)
+    {
+        $query = $this->createQueryBuilder('score')
+            ->innerJoin('score.play', 'play')
+            ->addSelect('play')
+            ->innerJoin('play.game', 'game')
+            ->addSelect('game')
+            ->where('score.player = :player')
+            ->setParameter('player', $player)
+            ->orderBy('play.date', 'DESC')
+            ->getQuery();
+        return $query->getResult();
+    }
 }

@@ -9,7 +9,29 @@
         {% if player.star %}
             &nbsp;&nbsp;&#9733;
         {% endif %}</h2>
+    {% if playedGames %}
+        <div class="panel panel-default">
+            <div class="panel-heading">Parties jouées</div>
+            <ul class="list-group">
+                {% for playedGame in playedGames %}
+                    <li class="list-group-item">
+                        <a href="{{ path('game_score_view_game', {'game_id':playedGame.gameid}) }}">{{ playedGame.gamename }}</a>
+                        ({{ playedGame.playdate|date("d M Y") }})
+                        <a href="#">{{ playedGame.nbPlayers }} joueurs</a>
+                        {% if playedGame.score >= playedGame.MAXScore %}
+                            &#9733;
+                        {% else %}
+                            (best = {{ playedGame.MAXScore }})
+                        {% endif %}
+                        <span class="badge badge-inverse">{{ playedGame.score }}</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
     <p>...</p>
+
 
     <p>
         <a href="{{ path('game_score_update_player', {'player_id':player.id}) }}">Maj</a>

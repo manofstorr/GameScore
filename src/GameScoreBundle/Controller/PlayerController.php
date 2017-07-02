@@ -11,6 +11,7 @@ namespace GameScoreBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use GameScoreBundle\Entity\Player;
+use GameScoreBundle\Entity\Score;
 use GameScoreBundle\Form\PlayerType;
 
 
@@ -32,10 +33,18 @@ class PlayerController extends Controller
         if ($player === null) {
             throw new NotFoundHttpException('Aucun joueur trouvé avec cet id : ' . $player_id);
         }
+
+        $playedGames = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('GameScoreBundle:Play')
+            ->getPlayedGamesyPlayer($player_id);
+
         return $this->render(
             'GameScoreBundle:player:view.html.twig',
             array(
-                'player' => $player
+                'player' => $player,
+                'playedGames' => $playedGames
             )
         );
     }

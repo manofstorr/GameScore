@@ -12,4 +12,31 @@ use Doctrine\ORM\EntityRepository;
  */
 class PlayRepository extends EntityRepository
 {
+    // played games for a player
+    public function getPlayedGamesyPlayer($player_id)
+    {
+
+        $em = $this->getEntityManager();
+        $connection = $em->getConnection();
+        $statement = $connection->prepare("
+            SELECT game.id as gameid, game.name as gamename, play.id, play.date as playdate, 
+            COUNT(scores.id) AS nbPlayers, scoreplayer.score as score, player.firstname,
+            (SELECT MAX(score) 
+             FROM score
+             WHERE play_id = play.id) AS MAXScore
+            FROM play
+              INNER JOIN score scores ON (scores.play_id = play.id)
+              INNER JOIN score scoreplayer ON (scoreplayer.play_id = play.id)
+              INNER JOIN player ON (player.id = scoreplayer.player_id)
+              INNER JOIN game ON (game.id = play.game_id)
+            WHERE scoreplayer.player_id = :player_id
+            GROUP BY play.id
+            ORDER BY play.date DESC
+        ");
+        $statement->bindValue('player_id', $player_id);
+        $statement->execute();
+        $results = $statement->fetchAll();
+        return $results;
+
+    }
 }
