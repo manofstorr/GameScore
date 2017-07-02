@@ -3,6 +3,7 @@
 namespace GameScoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Player
@@ -25,6 +26,7 @@ class Player
      * @var string
      *
      * @ORM\Column(name="firstname", type="string", length=255)
+     * @Assert\Length(min=3, minMessage="Le prénom doit faire au moins {{ limit }} caractères")
      */
     private $firstname;
 
@@ -39,6 +41,7 @@ class Player
      * @var bool
      *
      * @ORM\Column(name="star", type="boolean", nullable=true)
+     * @Assert\Length(min=3, minMessage="Le nom doit faire au moins {{ limit }} caractères")
      */
     private $star;
 
