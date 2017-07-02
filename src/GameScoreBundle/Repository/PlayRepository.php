@@ -3,6 +3,8 @@
 namespace GameScoreBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
+use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\DoctrineParamConverter;
 
 /**
  * PlayRepository
@@ -13,7 +15,7 @@ use Doctrine\ORM\EntityRepository;
 class PlayRepository extends EntityRepository
 {
     // played games for a player
-    public function getPlayedGamesyPlayer($player_id)
+    public function getPlayedGamesyPlayer($player_id, $page, $nbPerPage)
     {
 
         $em = $this->getEntityManager();
@@ -31,9 +33,12 @@ class PlayRepository extends EntityRepository
               INNER JOIN game ON (game.id = play.game_id)
             WHERE scoreplayer.player_id = :player_id
             GROUP BY play.id
-            ORDER BY play.date DESC
+            ORDER BY play.date DESC 
+            LIMIT ".$page.", ".$nbPerPage."
         ");
         $statement->bindValue('player_id', $player_id);
+        //$statement->bindValue('page', $page);
+        //$statement->bindValue('nbperpage', $nbPerPage);
         $statement->execute();
         $results = $statement->fetchAll();
         return $results;

@@ -38,7 +38,7 @@ class PlayerController extends Controller
             ->getDoctrine()
             ->getManager()
             ->getRepository('GameScoreBundle:Play')
-            ->getPlayedGamesyPlayer($player_id);
+            ->getPlayedGamesyPlayer($player_id, 0, 10);
 
         return $this->render(
             'GameScoreBundle:player:view.html.twig',
