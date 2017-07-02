@@ -26,25 +26,36 @@ class PlayerController extends Controller
         $this->PlayerRepository = $em->getRepository('GameScoreBundle:Player');
     }
 
-    public function viewAction(int $player_id)
+    public function viewAction(int $player_id, $page=1)
     {
         $this->setPlayerRepository();
         $player = $this->PlayerRepository->find($player_id);
         if ($player === null) {
             throw new NotFoundHttpException('Aucun joueur trouvé avec cet id : ' . $player_id);
         }
+        $nbPerPage = ($this->container->getParameter('standard_number_of_elements_per_page'))*2;
+        $limit = ($page-1)*$nbPerPage;
 
         $playedGames = $this
             ->getDoctrine()
             ->getManager()
             ->getRepository('GameScoreBundle:Play')
-            ->getPlayedGamesyPlayer($player_id, 0, 10);
+            ->getPlayedGamesyPlayer($player_id, $limit, $nbPerPage);
+
+        // todo : other function
+        $em = $this->getDoctrine()->getManager();
+        $scoreRepository = $em->getRepository('GameScoreBundle:Score');
+        // todo : find better way to count
+        $totalNumberofPlayedGames =  count($scoreRepository->findBy(array('player' => $player)));
+        $nbOfPages = ceil($totalNumberofPlayedGames/$nbPerPage);
 
         return $this->render(
             'GameScoreBundle:player:view.html.twig',
             array(
                 'player' => $player,
-                'playedGames' => $playedGames
+                'playedGames' => $playedGames,
+                'page' => $page,
+                'nbOfPages' => $nbOfPages,
             )
         );
     }

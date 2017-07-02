@@ -104,9 +104,10 @@ game_score_update_player:
         player_id: \d+
 
 game_score_view_player:
-    path:     /player/view/{player_id}
+    path:     /player/view/{player_id}/{page}
     defaults:
         _controller: GameScoreBundle:Player:view
+        page: 1
         requirements:
             player_id: \d+
 

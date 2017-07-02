@@ -1,7 +1,8 @@
 .jumbotron{
-    background-color: #058189;
+    /*background-color: #058189;*/
+    background-image: url("../img/platjas89.jpg");
     color: white;
-    text-shadow: 2px 2px #036E74;
+    text-shadow: 2px 2px #000;
 }
 
 .alert {
