@@ -1,0 +1,15 @@
+{% extends "GameScoreBundle::layout.html.twig" %}
+
+{% block title %}
+    Joueur : Formulaire - {{ parent() }}
+{% endblock %}
+
+{% block gamescore_body %}
+    <h2>Formulaire joueur :</h2>
+
+    <div class="well">
+        {{ form(form) }}
+    </div>
+
+{% endblock %}
+

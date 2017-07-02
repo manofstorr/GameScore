@@ -3,3 +3,8 @@
     color: white;
     text-shadow: 2px 2px #036E74;
 }
+
+.alert {
+    position: absolute;
+    width:100%;
+}

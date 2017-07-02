@@ -9,6 +9,10 @@
 namespace GameScoreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use GameScoreBundle\Entity\Player;
+use GameScoreBundle\Form\PlayerType;
+
 
 
 class PlayerController extends Controller
@@ -55,6 +59,30 @@ class PlayerController extends Controller
                 'page' => $page,
             )
         );
+    }
+
+    public function createAction(Request $request)
+    {
+        $player = new Player();
+        $form = $this->createForm(PlayerType::class, $player);
+
+        if ($request->isMethod('POST')) {
+            $form->handleRequest($request);
+            if ($form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($player);
+                $em->flush();
+                $request
+                    ->getSession()
+                    ->getFlashBag()
+                    ->add('info', 'Joueur ajouté !');
+                return $this->redirectToRoute('game_score_view_player',
+                    array('player_id' => $player->getId()));
+            }
+        }
+
+        return $this->render('GameScoreBundle:Player:form.html.twig',
+            array('form' => $form->createView()));
     }
 
 

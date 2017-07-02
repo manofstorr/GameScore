@@ -94,7 +94,7 @@ game_score_player_collection:
 game_score_create_player:
     path:     /player/create/
     defaults:
-        _controller: GameScoreBundle:Player:createPlayer
+        _controller: GameScoreBundle:Player:create
 
 game_score_update_player:
     path:     /player/update/{player_id}
