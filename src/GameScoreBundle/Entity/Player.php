@@ -34,6 +34,7 @@ class Player
      * @var string
      *
      * @ORM\Column(name="lastname", type="string", length=255)
+     * @Assert\Length(min=3, minMessage="Le nom doit faire au moins {{ limit }} caractères")
      */
     private $lastname;
 
@@ -41,7 +42,6 @@ class Player
      * @var bool
      *
      * @ORM\Column(name="star", type="boolean", nullable=true)
-     * @Assert\Length(min=3, minMessage="Le nom doit faire au moins {{ limit }} caractères")
      */
     private $star;
 

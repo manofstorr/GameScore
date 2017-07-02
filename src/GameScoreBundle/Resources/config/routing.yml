@@ -89,7 +89,7 @@ game_score_view_author:
 game_score_player_collection:
     path:     /player/collection/{page}
     defaults:
-        _controller: GameScoreBundle:Player:playerCollection
+        _controller: GameScoreBundle:Player:collection
 
 game_score_create_player:
     path:     /player/create/
@@ -99,7 +99,7 @@ game_score_create_player:
 game_score_update_player:
     path:     /player/update/{player_id}
     defaults:
-        _controller: GameScoreBundle:Player:updatePlayer
+        _controller: GameScoreBundle:Player:update
     requirements:
         player_id: \d+
 

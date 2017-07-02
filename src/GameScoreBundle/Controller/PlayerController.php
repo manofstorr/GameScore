@@ -14,7 +14,6 @@ use GameScoreBundle\Entity\Player;
 use GameScoreBundle\Form\PlayerType;
 
 
-
 class PlayerController extends Controller
 {
 
@@ -41,7 +40,7 @@ class PlayerController extends Controller
         );
     }
 
-    public function playerCollectionAction($page)
+    public function collectionAction($page)
     {
         // Todo : make better condition
         if ($page === '') {
@@ -80,7 +79,34 @@ class PlayerController extends Controller
                     array('player_id' => $player->getId()));
             }
         }
+        return $this->render('GameScoreBundle:Player:form.html.twig',
+            array('form' => $form->createView()));
+    }
 
+    public function updateAction(Request $request, int $player_id)
+    {
+        $player = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('GameScoreBundle:Player')
+            ->find($player_id);
+
+        $form = $this->createForm(PlayerType::class, $player);
+        if ($request->isMethod('POST')) {
+            $form->handleRequest($request);
+            if ($form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($player);
+                $em->flush();
+
+                $request
+                    ->getSession()
+                    ->getFlashBag()
+                    ->add('info', 'Joueur mis à jour.');
+                return $this->redirectToRoute('game_score_view_player',
+                    array('player_id' => $player->getId()));
+            }
+        }
         return $this->render('GameScoreBundle:Player:form.html.twig',
             array('form' => $form->createView()));
     }
