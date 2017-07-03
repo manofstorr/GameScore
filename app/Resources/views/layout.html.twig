@@ -7,7 +7,7 @@
     {% block stylesheets %}
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <!--<link rel="stylesheet" href="../../../css/blackboot.css" />-->
-        <link rel="stylesheet" href="../../../css/overload.css" />
+        <link rel="stylesheet" href="../css/overload.css" />
     {% endblock %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -20,6 +20,13 @@
         {{ message }}
     </div>
 {% endfor %}
+<nav class="navbar navbar-inverse">
+    securized informations and login here ::
+    {% if app.user %}
+    Bonjour {{ app.user.username }} @email ?
+    {% endif %}
+
+</nav>
 <div id="header" class="jumbotron">
     <div class="container">
         <h1>Game scores</h1>

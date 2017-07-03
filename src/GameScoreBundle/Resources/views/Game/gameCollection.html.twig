@@ -7,7 +7,9 @@
 
 {% block gamescore_body %}
     <h2>Games collection</h2>
-    <p><a href="{{ path('game_score_create_game') }}">Nouveau jeu</a></p>
+    {% if app.user %}
+        <p><a href="{{ path('game_score_create_game') }}">Nouveau jeu</a></p>
+    {% endif %}
     <ul class="pagination">
         {% for p in alphapageArray %}
             <li{% if p == page %} class="active"{% endif %}>
@@ -20,15 +22,15 @@
             <li>
                 {{ game.name }}
                 {% if game.author %}
-                    <br />
+                    <br/>
                     Auteur(s) :
                     {% for author in game.author %}
                         {{ author.firstname }} {{ author.lastname }}
                     {% endfor %}
                 {% endif %}
-                <br />
+                <br/>
                 <a href="{{ path('game_score_view_game', {'game_id':game.id}) }}">Fiche</a>
-                 - <a href="{{ path('game_score_update_game', {'game_id':game.id}) }}">Maj</a>
+                - <a href="{{ path('game_score_update_game', {'game_id':game.id}) }}">Maj</a>
             </li>
         {% endfor %}
     </ul>

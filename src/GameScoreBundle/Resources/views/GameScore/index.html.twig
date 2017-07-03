@@ -1,4 +1,4 @@
-{%  extends "GameScoreBundle::layout.html.twig" %}
+{% extends "GameScoreBundle::layout.html.twig" %}
 
 
 {% block title %}
@@ -7,4 +7,12 @@
 
 {% block gamescore_body %}
     <p>This is home</p>
+    {% if user %}
+        <p>{{ user.username }}
+            <br />
+            {% for role in user.roles %}
+                {{ role }}
+            {% endfor %}
+        </p>
+    {% endif %}
 {% endblock %}

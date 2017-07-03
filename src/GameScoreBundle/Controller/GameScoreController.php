@@ -13,6 +13,7 @@ namespace GameScoreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\DependencyInjection\Container;
 
 
 class GameScoreController extends Controller
@@ -20,8 +21,13 @@ class GameScoreController extends Controller
 
     public function indexAction()
     {
+        $user = $this->getUser();
+
         return $this->render(
-            'GameScoreBundle:GameScore:index.html.twig'
+            'GameScoreBundle:GameScore:index.html.twig',
+            array(
+                'user' => $user,
+            )
         );
     }
 
