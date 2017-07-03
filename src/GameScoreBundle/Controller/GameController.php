@@ -16,6 +16,7 @@ use GameScoreBundle\Form\GameType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 
 class GameController extends Controller
@@ -92,6 +93,9 @@ class GameController extends Controller
 
     /* CRUD ****************************************************** */
 
+    /**
+     * @Security("has_role('ROLE_ADMIN')")
+     */
     public function createGameAction(Request $request)
     {
         $game = new Game();

@@ -7,7 +7,7 @@
 
 {% block gamescore_body %}
     <h2>Games collection</h2>
-    {% if app.user %}
+    {% if is_granted('ROLE_ADMIN') %}
         <p><a href="{{ path('game_score_create_game') }}">Nouveau jeu</a></p>
     {% endif %}
     <ul class="pagination">
