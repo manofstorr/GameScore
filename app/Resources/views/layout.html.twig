@@ -21,11 +21,13 @@
     </div>
 {% endfor %}
 <nav class="navbar navbar-inverse">
-    securized informations and login here ::
-    {% if app.user %}
-    Bonjour {{ app.user.username }} @email ?
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        Connecté en tant que {{ app.user.username }}
+        -
+        <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+    {% else %}
+        <a href="{{ path('fos_user_security_login') }}">Connexion</a>
     {% endif %}
-
 </nav>
 <div id="header" class="jumbotron">
     <div class="container">
