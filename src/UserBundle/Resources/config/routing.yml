@@ -1,0 +1,6 @@
+game_score_user_manage_single_user:
+    path:     /user/manage/{id}
+    defaults:
+        _controller: UserBundle:User:userManage
+    requirements:
+        id: \d+

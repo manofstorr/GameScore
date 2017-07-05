@@ -1,0 +1,12 @@
+{% extends "GameScoreBundle::layout.html.twig" %}
+
+{% block title %}
+    User : [{{ user.username }}] - {{ parent() }}
+{% endblock %}
+
+{% block gamescore_body %}
+    <h2>User : {{ user.username }} ({{ user.id }})</h2>
+    <p>in user manager...</p>
+
+
+{% endblock %}

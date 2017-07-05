@@ -20,7 +20,7 @@
         {{ message }}
     </div>
 {% endfor %}
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-header">
     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
         Connecté en tant que {{ app.user.username }}
         -
