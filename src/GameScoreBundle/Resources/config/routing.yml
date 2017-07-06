@@ -49,14 +49,14 @@ game_score_update_editor:
     defaults:
         _controller: GameScoreBundle:Editor:updateEditor
         requirements:
-          editor_id: \d+
+          id: \d+
 
 game_score_view_editor:
-    path:     /editor/view/{editor_id}
+    path:     /editor/view/{id}
     defaults:
         _controller: GameScoreBundle:Editor:readEditor
         requirements:
-            editor_id: \d+
+            id: \d+
 
 # Routes for Authors
 

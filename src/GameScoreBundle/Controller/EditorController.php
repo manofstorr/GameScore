@@ -14,6 +14,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use GameScoreBundle\Form\EditorType;
 use GameScoreBundle\Entity\Editor;
 //use Doctrine\ORM\Tools\Pagination\Paginator;
+//use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 
 class EditorController extends Controller
@@ -25,6 +26,7 @@ class EditorController extends Controller
         $em = $this->getDoctrine()->getManager();
         $this->EditorRepository = $em->getRepository('GameScoreBundle:Editor');
     }
+
 
     public function EditorCollectionAction($page=1)
     {
@@ -57,16 +59,9 @@ class EditorController extends Controller
         );
     }
 
-
-    public function readEditorAction($editor_id)
+    // using parameter conversion (implicitely)
+    public function readEditorAction(Editor $editor)
     {
-        $this->setEditorRepository();
-        $editor = $this->EditorRepository->find($editor_id);
-
-        if ($editor === null) {
-            throw new NotFoundHttpException('Aucun éditeur trouvé avec cet id : ' . $editor_id);
-        }
-
         return $this->render(
             'GameScoreBundle:editor:readEditor.html.twig',
             array(
