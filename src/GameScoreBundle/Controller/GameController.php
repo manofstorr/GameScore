@@ -94,7 +94,7 @@ class GameController extends Controller
     /* CRUD ****************************************************** */
 
     /**
-     * @Security("has_role('ROLE_ADMIN')")
+     * @Security("has_role('ROLE_USER')")
      */
     public function createGameAction(Request $request)
     {
