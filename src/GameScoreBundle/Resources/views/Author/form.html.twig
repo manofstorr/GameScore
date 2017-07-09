@@ -7,8 +7,34 @@
 {% block gamescore_body %}
     <h2>Formulaire auteur :</h2>
 
+
     <div class="well">
-        {{ form(form) }}
+        {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+
+        <div class="form-group">
+            {{ form_label(form.firstname, 'firstname'|trans, {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+            {{ form_errors(form.firstname) }}
+            <div class="col-sm-10">
+                {{ form_widget(form.firstname, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.lastname, "test", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+            {{ form_errors(form.lastname) }}
+            <div class="col-sm-10">
+                {{ form_widget(form.lastname, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-10">
+                {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
+            </div>
+        </div>
+        {{ form_rest(form) }}
+        {{ form_end(form) }}
     </div>
 
 {% endblock %}
