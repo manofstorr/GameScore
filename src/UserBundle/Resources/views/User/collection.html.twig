@@ -1,0 +1,30 @@
+{% extends "GameScoreBundle::layout.html.twig" %}
+
+
+{% block title %}
+    Utilisateurs : Collection - {{ parent() }}
+{% endblock %}
+
+{% block gamescore_body %}
+    <h2>Utilisateurs : collection</h2>
+    <p>
+        <a href="{{ path('game_score_create_author') }}">Nouvel utilisateur</a>
+    </p>
+    <ul>
+        {% for user in users %}
+            <li>
+                {{ user.id }} :: {{ user.username }}
+                {% if user.enabled %}
+                    &nbsp;[Actif]
+                {% else %}
+                    &nbsp;[Inactif]
+                {% endif %}
+                -
+                <a href="{{ path('user_view', { 'id':user.id }) }}">Fiche</a>
+                -
+                <a href="{{ path('user_update', { 'id':user.id }) }}">Màj</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

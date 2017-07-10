@@ -1,6 +1,23 @@
-game_score_user_manage_single_user:
-    path:     /user/manage/{id}
+user_view:
+    path:     /user/view/{id}
     defaults:
-        _controller: UserBundle:User:userManage
+        _controller: UserBundle:User:view
     requirements:
         id: \d+
+
+user_create:
+    path: /user/create/
+    defaults:
+        _controller: UserBundle:User:create
+
+user_update:
+    path:     /user/update/{id}
+    defaults:
+        _controller: UserBundle:User:update
+    requirements:
+        id: \d+
+
+user_collection:
+    path:     /user/collection/
+    defaults:
+        _controller: UserBundle:User:collection
