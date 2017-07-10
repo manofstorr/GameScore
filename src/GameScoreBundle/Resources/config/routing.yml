@@ -39,7 +39,7 @@ game_score_editor_collection:
         page: \d+
 
 
-game_score_create_editor:
+game_score_editor_create:
     path:     /editor/create/
     defaults:
         _controller: GameScoreBundle:Editor:createEditor
