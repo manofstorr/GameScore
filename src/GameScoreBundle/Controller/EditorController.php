@@ -59,7 +59,7 @@ class EditorController extends Controller
     }
 
 
-    public function readEditorAction(Editor $editor)
+    public function viewAction(Editor $editor)
     {
         return $this->render(
             'GameScoreBundle:editor:readEditor.html.twig',
