@@ -49,7 +49,7 @@ class EditorController extends Controller
         }
 
         return $this->render(
-            'GameScoreBundle:Editor:editorCollection.html.twig',
+            'GameScoreBundle:Editor:collection.html.twig',
             array(
                 'editorCollection' => $EditorCollection,
                 'nbOfPages' => $nbOfPages,
