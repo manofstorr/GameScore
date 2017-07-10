@@ -13,64 +13,26 @@ use UserBundle\Form\UserType;
 use UserBundle\Entity\User;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class UserController extends Controller
 {
-    /*
-    private $UserRepository;
-
-    private function setUserRepository()
+    /**
+     * @param Request $request
+     * @param int $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     *
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function updateAction(Request $request, int $id)
     {
-        $em = $this->getDoctrine()->getManager();
-        $this->UserRepository = $em->getRepository('UserBundle:User');
-    }
-
-    findUserByUsername($username)
-findUserByEmail($email)
-findUserByUsernameOrEmail($value) (check if the value looks like an email to choose)
-findUserByConfirmationToken($token)
-findUserBy(array('id'=>$id))
-findUsers()
-    */
-    public function createAction(Request $request)
-    {
-        $user = new User();
-        $form = $this->createForm(UserType::class, $user);
-
-        if ($request->isMethod('POST')) {
-            $form->handleRequest($request);
-            if ($form->isValid()) {
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($user);
-                $em->flush();
-
-                $request
-                    ->getSession()
-                    ->getFlashBag()
-                    ->add('info', 'Utilisateur ajouté !');
-                return $this->redirectToRoute('user_view',
-                    array('id' => $user->getId()));
-
-            }
-        }
-
-        return $this->render('UserBundle:User:form.html.twig',
-            array('form' => $form->createView()));
-    }
-
-    public function updateAction(Request $request, int $id) {
-
         $userManager = $this->get('fos_user.user_manager');
         $user = $userManager->findUserBy(array('id' => $id));
-
         $form = $this->createForm(UserType::class, $user);
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
             if ($form->isValid()) {
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($user);
-                $em->flush();
-
+                $userManager->updateUser($user);
                 $request
                     ->getSession()
                     ->getFlashBag()
@@ -78,7 +40,6 @@ findUsers()
                 return $this->redirectToRoute('user_view',
                     array('id' => $user->getId()));
             }
-
         }
 
         return $this->render('UserBundle:User:form.html.twig',
@@ -86,6 +47,11 @@ findUsers()
 
     }
 
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @Security("has_role('ROLE_ADMIN')")
+     */
     public function collectionAction()
     {
         $userManager = $this->get('fos_user.user_manager');
@@ -95,43 +61,19 @@ findUsers()
         );
     }
 
-    public function viewAction(int $id)
+    /**
+     * @param int $id
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function viewAction(\User $user, int $id)
     {
+        /*
         $userManager = $this->get('fos_user.user_manager');
         $user = $userManager->findUserBy(array('id' => $id));
+        */
         return $this->render('UserBundle:User:view.html.twig',
             array('user' => $user));
     }
 }
-
-/*
- * more...
- * // Dans un contrôleur :
-
-
-// Pour récupérer le service UserManager du bundle
-
-$userManager = $this->get('fos_user.user_manager');
-
-
-// Pour charger un utilisateur
-
-$user = $userManager->findUserBy(array('username' => 'winzou'));
-
-
-// Pour modifier un utilisateur
-
-$user->setEmail('cetemail@nexiste.pas');
-
-$userManager->updateUser($user); // Pas besoin de faire un flush avec l'EntityManager, cette méthode le fait toute seule !
-
-
-// Pour supprimer un utilisateur
-
-$userManager->deleteUser($user);
-
-
-// Pour récupérer la liste de tous les utilisateurs
-
-$users = $userManager->findUsers();
- */

@@ -5,11 +5,6 @@ user_view:
     requirements:
         id: \d+
 
-user_create:
-    path: /user/create/
-    defaults:
-        _controller: UserBundle:User:create
-
 user_update:
     path:     /user/update/{id}
     defaults:
