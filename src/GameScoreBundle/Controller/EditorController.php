@@ -14,9 +14,6 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use GameScoreBundle\Form\EditorType;
 use GameScoreBundle\Entity\Editor;
 
-//use Doctrine\ORM\Tools\Pagination\Paginator;
-
-
 class EditorController extends Controller
 {
     private $EditorRepository;
@@ -26,6 +23,7 @@ class EditorController extends Controller
         $em = $this->getDoctrine()->getManager();
         $this->EditorRepository = $em->getRepository('GameScoreBundle:Editor');
     }
+
 
     public function collectionAction($page = 1)
     {
@@ -69,8 +67,6 @@ class EditorController extends Controller
         );
     }
 
-
-    /* CRUD ****************************************************** */
 
     public function createEditorAction(Request $request)
     {
