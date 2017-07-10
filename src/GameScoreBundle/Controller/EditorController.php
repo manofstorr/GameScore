@@ -90,7 +90,7 @@ class EditorController extends Controller
                     ->getFlashBag()
                     ->add('info', 'Editeur ajouté !');
                 return $this->redirectToRoute('game_score_view_editor',
-                    array('editor_id' => $editor->getId()));
+                    array('id' => $editor->getId()));
 
             }
         }
@@ -100,13 +100,13 @@ class EditorController extends Controller
 
     }
 
-    public function updateEditorAction(Request $request, int $editor_id)
+    public function updateEditorAction(Request $request, int $id)
     {
         $editor = $this
             ->getDoctrine()
             ->getManager()
             ->getRepository('GameScoreBundle:Editor')
-            ->find($editor_id);
+            ->find($id);
 
         $form = $this->createForm(EditorType::class, $editor);
         if ($request->isMethod('POST')) {
@@ -121,7 +121,7 @@ class EditorController extends Controller
                     ->getFlashBag()
                     ->add('info', 'Editeur mis à jour.');
                 return $this->redirectToRoute('game_score_view_editor',
-                    array('editor_id' => $editor->getId()));
+                    array('id' => $editor->getId()));
             }
 
         }
