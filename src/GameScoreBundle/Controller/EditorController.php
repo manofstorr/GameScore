@@ -27,7 +27,7 @@ class EditorController extends Controller
         $this->EditorRepository = $em->getRepository('GameScoreBundle:Editor');
     }
 
-    public function EditorCollectionAction($page = 1)
+    public function collectionAction($page = 1)
     {
         $this->setEditorRepository();
         $nbPerPage = $this->container->getParameter('standard_number_of_elements_per_page');

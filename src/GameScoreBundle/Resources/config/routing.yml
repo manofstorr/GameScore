@@ -30,11 +30,17 @@ game_score_view_game:
             game_id: \d+
 
 # Routes for Editors
+game_score_editor_view:
+    path:     /editor/view/{id}
+    defaults:
+        _controller: GameScoreBundle:Editor:view
+        requirements:
+            id: \d+
 
 game_score_editor_collection:
     path:     /editor/collection/{page}
     defaults:
-        _controller: GameScoreBundle:Editor:editorCollection
+        _controller: GameScoreBundle:Editor:collection
     requirements:
         page: \d+
 
@@ -51,12 +57,6 @@ game_score_editor_update:
         requirements:
           id: \d+
 
-game_score_editor_view:
-    path:     /editor/view/{id}
-    defaults:
-        _controller: GameScoreBundle:Editor:view
-        requirements:
-            id: \d+
 
 # Routes for Authors
 
