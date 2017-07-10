@@ -51,7 +51,7 @@ game_score_editor_update:
         requirements:
           id: \d+
 
-game_score_view_editor:
+game_score_editor_view:
     path:     /editor/view/{id}
     defaults:
         _controller: GameScoreBundle:Editor:view

@@ -89,7 +89,7 @@ class EditorController extends Controller
                     ->getSession()
                     ->getFlashBag()
                     ->add('info', 'Editeur ajouté !');
-                return $this->redirectToRoute('game_score_view_editor',
+                return $this->redirectToRoute('game_score_editor_view',
                     array('id' => $editor->getId()));
 
             }
@@ -115,7 +115,7 @@ class EditorController extends Controller
                     ->getSession()
                     ->getFlashBag()
                     ->add('info', 'Editeur mis à jour.');
-                return $this->redirectToRoute('game_score_view_editor',
+                return $this->redirectToRoute('game_score_editor_view',
                     array('id' => $editor->getId()));
             }
 
