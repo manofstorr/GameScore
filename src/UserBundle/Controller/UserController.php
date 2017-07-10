@@ -15,24 +15,21 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
+
 class UserController extends Controller
 {
     /**
-     * @param Request $request
-     * @param int $id
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
-     *
      * @Security("has_role('ROLE_ADMIN')")
      */
-    public function updateAction(Request $request, int $id)
+    public function updateAction(Request $request, User $user)
     {
-        $userManager = $this->get('fos_user.user_manager');
-        $user = $userManager->findUserBy(array('id' => $id));
         $form = $this->createForm(UserType::class, $user);
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
             if ($form->isValid()) {
-                $userManager->updateUser($user);
+                $this
+                    ->get('fos_user.user_manager')
+                    ->updateUser($user);
                 $request
                     ->getSession()
                     ->getFlashBag()
@@ -48,8 +45,6 @@ class UserController extends Controller
     }
 
     /**
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
      * @Security("has_role('ROLE_ADMIN')")
      */
     public function collectionAction()
@@ -62,17 +57,10 @@ class UserController extends Controller
     }
 
     /**
-     * @param int $id
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
      * @Security("has_role('ROLE_ADMIN')")
      */
-    public function viewAction(\User $user, int $id)
+    public function viewAction(User $user)
     {
-        /*
-        $userManager = $this->get('fos_user.user_manager');
-        $user = $userManager->findUserBy(array('id' => $id));
-        */
         return $this->render('UserBundle:User:view.html.twig',
             array('user' => $user));
     }
