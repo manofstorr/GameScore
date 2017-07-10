@@ -100,13 +100,8 @@ class EditorController extends Controller
 
     }
 
-    public function updateEditorAction(Request $request, int $id)
+    public function updateEditorAction(Request $request, Editor $editor)
     {
-        $editor = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository('GameScoreBundle:Editor')
-            ->find($id);
 
         $form = $this->createForm(EditorType::class, $editor);
         if ($request->isMethod('POST')) {
