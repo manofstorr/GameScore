@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use GameScoreBundle\Form\EditorType;
 use GameScoreBundle\Entity\Editor;
+
 //use Doctrine\ORM\Tools\Pagination\Paginator;
 
 
@@ -26,7 +27,7 @@ class EditorController extends Controller
         $this->EditorRepository = $em->getRepository('GameScoreBundle:Editor');
     }
 
-    public function EditorCollectionAction($page=1)
+    public function EditorCollectionAction($page = 1)
     {
         $this->setEditorRepository();
         $nbPerPage = $this->container->getParameter('standard_number_of_elements_per_page');
@@ -51,22 +52,15 @@ class EditorController extends Controller
             'GameScoreBundle:Editor:editorCollection.html.twig',
             array(
                 'editorCollection' => $EditorCollection,
-                'nbOfPages'     => $nbOfPages,
-                'page'        => $page,
+                'nbOfPages' => $nbOfPages,
+                'page' => $page,
             )
         );
     }
 
 
-    public function readEditorAction($editor_id)
+    public function readEditorAction(Editor $editor)
     {
-        $this->setEditorRepository();
-        $editor = $this->EditorRepository->find($editor_id);
-
-        if ($editor === null) {
-            throw new NotFoundHttpException('Aucun éditeur trouvé avec cet id : ' . $editor_id);
-        }
-
         return $this->render(
             'GameScoreBundle:editor:readEditor.html.twig',
             array(
