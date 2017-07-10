@@ -44,7 +44,7 @@ game_score_create_editor:
     defaults:
         _controller: GameScoreBundle:Editor:createEditor
 
-game_score_update_editor:
+game_score_editor_update:
     path:     /editor/update/{id}
     defaults:
         _controller: GameScoreBundle:Editor:updateEditor
