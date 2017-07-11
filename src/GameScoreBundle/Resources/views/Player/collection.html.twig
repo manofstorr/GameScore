@@ -11,7 +11,7 @@
         <a href="{{ path('game_score_create_player') }}">Nouveau joueur</a>
     </p>
     <ul class="pagination">
-        {% for p in range('a', 'z') %}
+        {% for p in alphapageArray %}
             <li{% if p == page %} class="active"{% endif %}>
                 <a href="{{ path('game_score_player_collection', {'page': p}) }}">{{ p }}</a>
             </li>

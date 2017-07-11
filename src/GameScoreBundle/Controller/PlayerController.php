@@ -76,8 +76,27 @@ class PlayerController extends Controller
             array(
                 'playerCollection' => $PlayerCollection,
                 'page' => $page,
+                'alphapageArray' => $this->getAlphaIndex()
             )
         );
+    }
+
+    public function getAlphaIndex()
+    {
+        $em = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('GameScoreBundle:Player');
+        $players = $em->findAll();
+        // building initial array for alphabetical pseudo-pagination
+        $alphapageArray = array();
+        foreach ($players as $player){
+            $index = substr($player->getFirstname(), 0,1);
+            if (!in_array($index, $alphapageArray)){
+                $alphapageArray[] = $index;
+            }
+        }
+        return $alphapageArray;
     }
 
     public function createAction(Request $request)
