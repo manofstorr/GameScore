@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %} GameScore {% endblock %}</title>
     {% block stylesheets %}
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
-        {% endblock %}
-    {% stylesheets 'bundles/gamescore/css/overload.css' %}
-    <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
-    {% endstylesheets %}
+        {% stylesheets
+        filter='cssrewrite'
+        'bundles/gamescore/css/bootstrap.min.css'
+        'bundles/gamescore/css/overload.css' %}
+        <link rel="stylesheet" href="{{ asset_url }}" type="text/css"/>
+        {% endstylesheets %}
+    {% endblock %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
@@ -42,11 +43,13 @@
     <nav class="navbar">
         <ul class="nav nav-pills nav-stacks">
             <li><a class="btn btn-default active" href="{{ path('game_score_homepage') }}">Home</a></li>
-            <li><a class="btn btn-default" href="{{ path('game_score_game_collection', {page: 'A'}) }}">Les jeux<span class="badge">97</span></a></li>
+            <li><a class="btn btn-default" href="{{ path('game_score_game_collection', {page: 'A'}) }}">Les jeux<span
+                            class="badge">97</span></a></li>
             <li><a class="btn btn-default" href="{{ path('game_score_author_collection') }}">Les auteurs</a></li>
             <li><a class="btn btn-default" href="{{ path('game_score_editor_collection', {page: 1}) }}">Les éditeurs</a>
             </li>
-            <li><a class="btn btn-default" href="{{ path('game_score_player_collection', {page: 'a'}) }}">Les joueurs</a>
+            <li><a class="btn btn-default" href="{{ path('game_score_player_collection', {page: 'a'}) }}">Les
+                    joueurs</a>
             </li>
             <li><a class="btn btn-default" href="{{ path('user_collection') }}">Les utilisateurs</a>
             </li>
