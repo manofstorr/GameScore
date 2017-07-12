@@ -45,14 +45,14 @@ game_score_editor_collection:
 game_score_editor_create:
     path:     /editor/create/
     defaults:
-        _controller: GameScoreBundle:Editor:createEditor
+        _controller: GameScoreBundle:Editor:create
 
 game_score_editor_update:
     path:     /editor/update/{id}
     defaults:
-        _controller: GameScoreBundle:Editor:updateEditor
-        requirements:
-          id: \d+
+        _controller: GameScoreBundle:Editor:update
+    requirements:
+        id: \d+
 
 # Routes for Authors
 game_score_author_view:

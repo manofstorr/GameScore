@@ -25,6 +25,17 @@ class EditorController extends Controller
     }
 
 
+    public function viewAction(Editor $editor)
+    {
+        return $this->render(
+            'GameScoreBundle:editor:view.html.twig',
+            array(
+                'editor' => $editor
+            )
+        );
+    }
+
+
     public function collectionAction($page = 1)
     {
         $this->setEditorRepository();
@@ -57,18 +68,7 @@ class EditorController extends Controller
     }
 
 
-    public function viewAction(Editor $editor)
-    {
-        return $this->render(
-            'GameScoreBundle:editor:view.html.twig',
-            array(
-                'editor' => $editor
-            )
-        );
-    }
-
-
-    public function createEditorAction(Request $request)
+    public function createAction(Request $request)
     {
 
         $editor = new Editor();
@@ -90,15 +90,13 @@ class EditorController extends Controller
 
             }
         }
-
         return $this->render('GameScoreBundle:Editor:form.html.twig',
             array('form' => $form->createView()));
-
     }
 
-    public function updateEditorAction(Request $request, Editor $editor)
-    {
 
+    public function updateAction(Request $request, Editor $editor)
+    {
         $form = $this->createForm(EditorType::class, $editor);
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
@@ -114,9 +112,7 @@ class EditorController extends Controller
                 return $this->redirectToRoute('game_score_editor_view',
                     array('id' => $editor->getId()));
             }
-
         }
-
         return $this->render('GameScoreBundle:Editor:form.html.twig',
             array('form' => $form->createView()));
 
