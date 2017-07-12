@@ -15,7 +15,7 @@
             <ul class="list-group">
                 {% for playedGame in playedGames %}
                     <li class="list-group-item">
-                        <a href="{{ path('game_score_view_game', {'game_id':playedGame.gameid}) }}">{{ playedGame.gamename }}</a>
+                        <a href="{{ path('game_score_game_view', {'game_id':playedGame.gameid}) }}">{{ playedGame.gamename }}</a>
                         ({{ playedGame.playdate|date("d M Y") }})
                         <a href="#">{{ playedGame.nbPlayers }} joueurs</a>
                         {% if playedGame.score >= playedGame.MAXScore %}

@@ -112,7 +112,7 @@ class GameController extends Controller
                     ->getSession()
                     ->getFlashBag()
                     ->add('info', 'Le jeu a bien été créé.');
-                return $this->redirectToRoute('game_score_view_game',
+                return $this->redirectToRoute('game_score_game_view',
                     array('game_id' => $game->getId()));
             }
 
@@ -142,7 +142,7 @@ class GameController extends Controller
                     ->getSession()
                     ->getFlashBag()
                     ->add('info', 'Le jeu a bien été mis à jour.');
-                return $this->redirectToRoute('game_score_view_game',
+                return $this->redirectToRoute('game_score_game_view',
                     array('game_id' => $game->getId()));
             }
         }

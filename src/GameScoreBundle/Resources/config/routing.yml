@@ -22,7 +22,7 @@ game_score_game_update:
         requirements:
           game_id: \d+
 
-game_score_view_game:
+game_score_game_view:
     path:     /game/view/{game_id}
     defaults:
         _controller: GameScoreBundle:Game:readGame
