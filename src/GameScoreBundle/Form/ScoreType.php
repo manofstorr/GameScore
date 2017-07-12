@@ -2,7 +2,9 @@
 
 namespace GameScoreBundle\Form;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,7 +15,13 @@ class ScoreType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('score')->add('play')->add('player');
+        $builder
+            ->add('score', IntegerType::class)
+            ->add('player', EntityType::class,
+                array(
+                    'class' => 'GameScoreBundle:Player',
+                    'choice_label' => 'firstname',
+                    'multiple' => false));
     }
     
     /**

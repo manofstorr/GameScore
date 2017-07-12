@@ -110,5 +110,16 @@ game_score_play_view:
     path:     /play/view/{play_id}
     defaults:
         _controller: GameScoreBundle:Play:view
-        requirements:
-            player_id: \d+
+    requirements:
+        player_id: \d+
+
+game_score_play_create:
+    path:     /play/create/
+    defaults:
+        _controller: GameScoreBundle:Play:create
+
+# Routes for scores
+game_score_score_create:
+    path: /score/create/
+    defaults:
+        _controller: GameScoreBundle:Score:Create

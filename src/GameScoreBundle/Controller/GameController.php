@@ -36,7 +36,7 @@ class GameController extends Controller
         }
 
         return $this->render(
-            'GameScoreBundle:Game:gameCollection.html.twig',
+            'GameScoreBundle:Game:collection.html.twig',
             array(
                 'gameCollection' => $gameCollection,
                 'page' => $page,
@@ -83,7 +83,7 @@ class GameController extends Controller
             ->getScoresWithPlaysByGame($game);
 
         return $this->render(
-            'GameScoreBundle:Game:readGame.html.twig',
+            'GameScoreBundle:Game:view.html.twig',
             array(
                 'game' => $game,
                 'scores' => $scores
