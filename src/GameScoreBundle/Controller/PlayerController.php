@@ -114,7 +114,7 @@ class PlayerController extends Controller
                     ->getSession()
                     ->getFlashBag()
                     ->add('info', 'Joueur ajouté !');
-                return $this->redirectToRoute('game_score_view_player',
+                return $this->redirectToRoute('game_score_player_view',
                     array('player_id' => $player->getId()));
             }
         }
@@ -142,7 +142,7 @@ class PlayerController extends Controller
                     ->getSession()
                     ->getFlashBag()
                     ->add('info', 'Joueur mis à jour.');
-                return $this->redirectToRoute('game_score_view_player',
+                return $this->redirectToRoute('game_score_player_view',
                     array('player_id' => $player->getId()));
             }
         }

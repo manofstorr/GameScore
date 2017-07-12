@@ -55,7 +55,7 @@ game_score_editor_update:
           id: \d+
 
 # Routes for Authors
-game_score_view_author:
+game_score_author_view:
     path:     /author/view/{author_id}
     defaults:
         _controller: GameScoreBundle:Author:readAuthor
@@ -80,31 +80,32 @@ game_score_author_update:
           author_id: \d+
 
 # Routes for Players
-
-game_score_player_collection:
-    path:     /player/collection/{page}
-    defaults:
-        _controller: GameScoreBundle:Player:collection
-
-game_score_create_player:
-    path:     /player/create/
-    defaults:
-        _controller: GameScoreBundle:Player:create
-
-game_score_update_player:
-    path:     /player/update/{player_id}
-    defaults:
-        _controller: GameScoreBundle:Player:update
-    requirements:
-        player_id: \d+
-
-game_score_view_player:
+game_score_player_view:
     path:     /player/view/{player_id}/{page}
     defaults:
         _controller: GameScoreBundle:Player:view
         page: 1
         requirements:
             player_id: \d+
+
+game_score_player_collection:
+    path:     /player/collection/{page}
+    defaults:
+        _controller: GameScoreBundle:Player:collection
+
+game_score_player_create:
+    path:     /player/create/
+    defaults:
+        _controller: GameScoreBundle:Player:create
+
+game_score_player_update:
+    path:     /player/update/{player_id}
+    defaults:
+        _controller: GameScoreBundle:Player:update
+    requirements:
+        player_id: \d+
+
+
 
 # Routes for plays
 

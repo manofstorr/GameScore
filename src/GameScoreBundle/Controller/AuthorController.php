@@ -86,7 +86,7 @@ class AuthorController extends Controller
                     ->getSession()
                     ->getFlashBag()
                     ->add('info', 'Auteur ajouté !');
-                return $this->redirectToRoute('game_score_view_author',
+                return $this->redirectToRoute('game_score_author_view',
                     array('author_id' => $author->getId()));
             }
         }
@@ -116,7 +116,7 @@ class AuthorController extends Controller
                     ->getSession()
                     ->getFlashBag()
                     ->add('info', 'Auteur mis à jour.');
-                return $this->redirectToRoute('game_score_view_author',
+                return $this->redirectToRoute('game_score_author_view',
                     array('author_id' => $author->getId()));
             }
 

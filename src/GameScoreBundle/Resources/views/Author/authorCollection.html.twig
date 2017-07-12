@@ -15,7 +15,7 @@
             <li>
                 {{ author.firstname ~ ' ' ~ author.lastname }}
                 -
-                <a href="{{ path('game_score_view_author', { 'author_id':author.id }) }}">Fiche</a>
+                <a href="{{ path('game_score_author_view', { 'author_id':author.id }) }}">Fiche</a>
                 -
                 <a href="{{ path('game_score_author_update', { 'author_id':author.id }) }}">Maj</a>
             </li>
