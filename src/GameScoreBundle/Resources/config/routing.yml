@@ -58,14 +58,14 @@ game_score_editor_update:
 game_score_author_view:
     path:     /author/view/{author_id}
     defaults:
-        _controller: GameScoreBundle:Author:readAuthor
+        _controller: GameScoreBundle:Author:view
         requirements:
             author_id: \d+
 
 game_score_author_collection:
     path:     /author/collection/
     defaults:
-        _controller: GameScoreBundle:Author:authorCollection
+        _controller: GameScoreBundle:Author:collection
 
 game_score_author_create:
     path:     /author/create/

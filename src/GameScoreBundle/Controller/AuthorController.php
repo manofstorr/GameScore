@@ -32,7 +32,7 @@ class AuthorController extends Controller
         $this->authorRepository = $em->getRepository('GameScoreBundle:Author');
     }
 
-    public function authorCollectionAction()
+    public function collectionAction()
     {
         $this->setAuthorRepository();
         $authorCollection = $this->authorRepository->findAll();
@@ -42,7 +42,7 @@ class AuthorController extends Controller
         }
 
         return $this->render(
-            'GameScoreBundle:Author:authorCollection.html.twig',
+            'GameScoreBundle:Author:collection.html.twig',
             array(
                 'authorCollection' => $authorCollection
             )
@@ -50,7 +50,7 @@ class AuthorController extends Controller
     }
 
 
-    public function readAuthorAction($author_id)
+    public function viewAction($author_id)
     {
         $this->setAuthorRepository();
         $author = $this->authorRepository->find($author_id);
@@ -60,7 +60,7 @@ class AuthorController extends Controller
         }
 
         return $this->render(
-            'GameScoreBundle:Author:readAuthor.html.twig',
+            'GameScoreBundle:Author:view.html.twig',
             array(
                 'author' => $author
             )
