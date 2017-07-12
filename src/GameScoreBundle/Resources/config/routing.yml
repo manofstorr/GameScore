@@ -70,12 +70,12 @@ game_score_author_collection:
 game_score_author_create:
     path:     /author/create/
     defaults:
-        _controller: GameScoreBundle:Author:createAuthor
+        _controller: GameScoreBundle:Author:create
 
 game_score_author_update:
     path:     /author/update/{author_id}
     defaults:
-        _controller: GameScoreBundle:Author:updateAuthor
+        _controller: GameScoreBundle:Author:update
         requirements:
           author_id: \d+
 

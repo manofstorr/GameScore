@@ -14,12 +14,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 
 class AuthorController extends Controller
@@ -68,9 +62,7 @@ class AuthorController extends Controller
     }
 
 
-    /* CRUD ****************************************************** */
-
-    public function createAuthorAction(Request $request)
+    public function createAction(Request $request)
     {
 
         $author = new Author();
@@ -96,7 +88,7 @@ class AuthorController extends Controller
 
     }
 
-    public function updateAuthorAction(Request $request, int $author_id)
+    public function updateAction(Request $request, int $author_id)
     {
         $author = $this
             ->getDoctrine()
@@ -119,9 +111,7 @@ class AuthorController extends Controller
                 return $this->redirectToRoute('game_score_author_view',
                     array('author_id' => $author->getId()));
             }
-
         }
-
         return $this->render('GameScoreBundle:Author:form.html.twig',
             array('form' => $form->createView()));
 
