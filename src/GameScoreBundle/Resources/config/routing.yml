@@ -3,12 +3,17 @@ game_score_homepage:
     defaults: { _controller: GameScoreBundle:GameScore:index }
 
 # Routes for Games
+game_score_game_view:
+    path:     /game/view/{game_id}
+    defaults:
+        _controller: GameScoreBundle:Game:readGame
+        requirements:
+            game_id: \d+
 
 game_score_game_collection:
     path:     /game/collection/{page}
     defaults:
         _controller: GameScoreBundle:Game:gameCollection
-
 
 game_score_game_create:
     path:     /game/create/
@@ -21,13 +26,6 @@ game_score_game_update:
         _controller: GameScoreBundle:Game:updateGame
         requirements:
           game_id: \d+
-
-game_score_game_view:
-    path:     /game/view/{game_id}
-    defaults:
-        _controller: GameScoreBundle:Game:readGame
-        requirements:
-            game_id: \d+
 
 # Routes for Editors
 game_score_editor_view:
@@ -44,7 +42,6 @@ game_score_editor_collection:
     requirements:
         page: \d+
 
-
 game_score_editor_create:
     path:     /editor/create/
     defaults:
@@ -57,32 +54,30 @@ game_score_editor_update:
         requirements:
           id: \d+
 
-
 # Routes for Authors
-
-game_score_author_collection:
-    path:     /author/collection/
-    defaults:
-        _controller: GameScoreBundle:Author:authorCollection
-
-game_score_create_author:
-    path:     /author/create/
-    defaults:
-        _controller: GameScoreBundle:Author:createAuthor
-
-game_score_update_author:
-    path:     /author/update/{author_id}
-    defaults:
-        _controller: GameScoreBundle:Author:updateAuthor
-        requirements:
-          author_id: \d+
-
 game_score_view_author:
     path:     /author/view/{author_id}
     defaults:
         _controller: GameScoreBundle:Author:readAuthor
         requirements:
             author_id: \d+
+
+game_score_author_collection:
+    path:     /author/collection/
+    defaults:
+        _controller: GameScoreBundle:Author:authorCollection
+
+game_score_author_create:
+    path:     /author/create/
+    defaults:
+        _controller: GameScoreBundle:Author:createAuthor
+
+game_score_author_update:
+    path:     /author/update/{author_id}
+    defaults:
+        _controller: GameScoreBundle:Author:updateAuthor
+        requirements:
+          author_id: \d+
 
 # Routes for Players
 
