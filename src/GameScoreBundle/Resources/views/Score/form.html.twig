@@ -7,6 +7,10 @@
 {% block gamescore_body %}
     <h2>{{ 'form' |trans|capitalize }} : {{ 'score' |trans|capitalize }}</h2>
 
+    <p>
+        {{ play.date|date("d/m/Y") }} : {{ play.game.name }}
+    </p>
+
     <div class="well">
         {{ form(form) }}
     </div>

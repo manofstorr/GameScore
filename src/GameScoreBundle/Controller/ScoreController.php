@@ -12,16 +12,22 @@ namespace GameScoreBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use GameScoreBundle\Entity\Score;
+use GameScoreBundle\Entity\Play;
 use GameScoreBundle\Form\ScoreType;
 
 class ScoreController extends Controller
 {
 
-    public function createAction(Request $request)
+    public function createAction(Request $request, $id)
     {
 
+        $play = $this
+            ->getDoctrine()->getManager()
+            ->getRepository('GameScoreBundle:Play')
+            ->find($id);
+
         $score = new Score();
-        $form = $this->createForm(ScoreType::class, $score);
+        $form = $this->createForm(ScoreType::class, $score, array('play_id' => $id));
 
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
@@ -39,9 +45,11 @@ class ScoreController extends Controller
             }
         }
         return $this->render('GameScoreBundle:Score:form.html.twig',
-            array('form' => $form->createView()));
-
-
+            array(
+                'form' => $form->createView(),
+                'play' => $play
+            )
+        );
     }
 
 }

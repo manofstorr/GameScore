@@ -31,14 +31,7 @@ class PlayType extends AbstractType
                     'multiple' => false
                 )
             )
-            /*
-            ->add('score', CollectionType::class, array(
-                'entry_type'   => ScoreType::class,
-                'allow_add'    => true,
-                'allow_delete' => true
-            ))
-            */
-            ->add('save and declare players', SubmitType::class);
+            ->add('save and declare players', SubmitType::class)
             ;
     }
     
