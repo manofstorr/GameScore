@@ -15,7 +15,7 @@ game_score_game_create:
     defaults:
         _controller: GameScoreBundle:Game:createGame
 
-game_score_update_game:
+game_score_game_update:
     path:     /game/update/{game_id}
     defaults:
         _controller: GameScoreBundle:Game:updateGame
