@@ -30,4 +30,5 @@ class GameRepository extends EntityRepository
             ->getQuery();
         return $query->getResult();
     }
+
 }
