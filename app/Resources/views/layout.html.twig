@@ -46,7 +46,7 @@
         <ul class="nav nav-pills nav-stacks">
             <li><a class="btn btn-default active" href="{{ path('game_score_homepage') }}">Home</a></li>
             <li><a class="btn btn-default" href="{{ path('game_score_game_collection', {page: 'A'}) }}">Les jeux<span
-                            class="badge">97</span></a></li>
+                            class="badge">{{ service_game.getTotalNumberOfGames() }}</span></a></li>
             <li><a class="btn btn-default" href="{{ path('game_score_author_collection') }}">Les auteurs</a></li>
             <li><a class="btn btn-default" href="{{ path('game_score_editor_collection', {page: 1}) }}">Les éditeurs</a>
             </li>

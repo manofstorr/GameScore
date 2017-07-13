@@ -29,7 +29,7 @@ class ServiceGame
 
     public function getTotalNumberOfGames() {
 
-        return $this->em->getRepository('GameScoreBundle:Game')->findAll()->count();
+        return count($this->em->getRepository('GameScoreBundle:Game')->findAll());
         /*
         $qb = $this->em->createQueryBuilder();
 

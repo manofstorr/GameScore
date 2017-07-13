@@ -1,8 +1,9 @@
 services:
-  game_score_get_number_of_games:
-    class: GameScoreBundle\Controller\GameController
+  service_game:
+    class: GameScoreBundle\Service\ServiceGame
     arguments:
       - "@doctrine.orm.entity_manager"
+      - "@service_container"
 
 #    game_score.example:
 #        class: GameScoreBundle\Example
