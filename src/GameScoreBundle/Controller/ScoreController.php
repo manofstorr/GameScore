@@ -18,16 +18,10 @@ use GameScoreBundle\Form\ScoreType;
 class ScoreController extends Controller
 {
 
-    public function createAction(Request $request, $id)
+    public function createAction(Request $request, Play $play)
     {
-
-        $play = $this
-            ->getDoctrine()->getManager()
-            ->getRepository('GameScoreBundle:Play')
-            ->find($id);
-
         $score = new Score();
-        $form = $this->createForm(ScoreType::class, $score, array('play_id' => $id));
+        $form = $this->createForm(ScoreType::class, $score, array('play_id' => $play->getId()));
 
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);

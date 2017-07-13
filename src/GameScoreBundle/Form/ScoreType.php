@@ -10,7 +10,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Doctrine\ORM\EntityRepository;
 
-
 class ScoreType extends AbstractType
 {
     /**
