@@ -34,13 +34,10 @@ class ScoreController extends Controller
                     ->getSession()
                     ->getFlashBag()
                     ->add('info', 'Score ajouté !');
-                /*
-                return $this->redirectToRoute('game_score_score_create',
-                    array(
-                        'id' => $play->getId(),
-                    )
-                );
-                */
+
+                if (isset($_POST['gamescorebundle_score']['save_and_stop'])) {
+                    return $this->redirectToRoute('game_score_homepage');
+                }
             }
         }
         return $this->render('GameScoreBundle:Score:form.html.twig',
