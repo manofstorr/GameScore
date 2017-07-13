@@ -15,3 +15,7 @@
     margin-bottom: 0px;
     border-radius: 0 0 0 0;
 }
+
+.form-hidden-group {
+    display: none;
+}
