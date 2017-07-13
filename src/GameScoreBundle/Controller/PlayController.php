@@ -57,7 +57,10 @@ class PlayController extends Controller
                     ->getFlashBag()
                     ->add('info', 'Partie ajoutée !');
                 return $this->redirectToRoute('game_score_score_create',
-                    array('id' => $play->getId()));
+                    array(
+                        'id' => $play->getId(),
+                    )
+                );
             }
         }
         return $this->render('GameScoreBundle:Play:form.html.twig',

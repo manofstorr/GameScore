@@ -34,16 +34,31 @@ class ScoreController extends Controller
                     ->getSession()
                     ->getFlashBag()
                     ->add('info', 'Score ajouté !');
+                /*
                 return $this->redirectToRoute('game_score_score_create',
-                    array('id' => $play->getId()));
+                    array(
+                        'id' => $play->getId(),
+                    )
+                );
+                */
             }
         }
         return $this->render('GameScoreBundle:Score:form.html.twig',
             array(
                 'form' => $form->createView(),
-                'play' => $play
+                'play' => $play,
+                'previous_scores' => $this->getScoresByGame($play),
             )
         );
+    }
+
+    public function getScoresByGame($play)
+    {
+        return $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('GameScoreBundle:Score')
+            ->findBy(array('play' => $play));
     }
 
 }

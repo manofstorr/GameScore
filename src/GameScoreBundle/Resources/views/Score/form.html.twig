@@ -10,7 +10,12 @@
     <p>
         {{ play.date|date("d/m/Y") }} : {{ play.game.name }}
     </p>
-
+    {% if previous_scores %}
+        {% for previous_score in previous_scores %}
+            {{ previous_score.player.firstname ~ ' ' ~ previous_score.player.lastname }} : {{ previous_score.score }}
+            {% if not loop.last %}, {% endif %}
+        {% endfor %}
+    {% endif %}
 
     <div class="well">
         {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
@@ -39,7 +44,7 @@
             </div>
         </div>
 
-        <div class="form-group form-hidden-group">
+        <div class="form-hidden-group">
             {{ form_widget(form.play) }}
         </div>
 
