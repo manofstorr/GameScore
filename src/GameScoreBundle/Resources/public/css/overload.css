@@ -1,4 +1,4 @@
-.jumbotron{
+.jumbotron {
     background-color: #058189;
     /*background-image: url("../img/platjas89.jpg");*/
     color: white;
@@ -7,13 +7,23 @@
 
 .alert {
     position: absolute;
-    width:100%;
+    width: 100%;
 }
-.navbar-inverse{
+
+.navbar-inverse {
     color: yellowgreen;
     padding-bottom: 0px;
     margin-bottom: 0px;
     border-radius: 0 0 0 0;
+}
+
+.alphaBetaBar {
+    position: absolute;
+    top: 0;
+    background: orange;
+    width: 100%;
+    text-align: center;
+    padding: 0.5em;
 }
 
 .form-hidden-group {

@@ -1,9 +1,25 @@
 services:
+
   service_game:
     class: GameScoreBundle\Service\ServiceGame
     arguments:
       - "@doctrine.orm.entity_manager"
       - "@service_container"
+
+  alphabeta_html_adder:
+    class: GameScoreBundle\Service\AlphaBetaHTMLAdder
+    arguments:
+      - "@service_container"
+
+  alphabeta_listener:
+    class: GameScoreBundle\Listener\AlphaBetaListener
+    arguments:
+      - "@alphabeta_html_adder"
+      - "2018-01-01"
+    tags:
+      - {name: kernel.event_listener, event: kernel.response, method: processBeta}
+
+
 
 #    game_score.example:
 #        class: GameScoreBundle\Example
