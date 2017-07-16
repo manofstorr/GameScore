@@ -1,6 +1,9 @@
 body {
-    padding-top: 10px;
     background-color: #F7F7F7;
+}
+
+.navbar-brand-yellow{
+    color: yellow;
 }
 
 [class*="col-"], footer {
