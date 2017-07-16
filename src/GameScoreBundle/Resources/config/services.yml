@@ -15,7 +15,7 @@ services:
     class: GameScoreBundle\Listener\AlphaBetaListener
     arguments:
       - "@alphabeta_html_adder"
-      - "2016-01-01"
+      - "2019-01-01"
     tags:
       - {name: kernel.event_listener, event: kernel.response, method: processBeta}
 

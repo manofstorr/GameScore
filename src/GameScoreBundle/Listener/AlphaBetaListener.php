@@ -31,7 +31,7 @@ class AlphaBetaListener
         $remainingDays = $this->endDate->diff(new \Datetime())->days;
 
         // Si la date est dépassée, on ne fait rien
-        if ($remainingDays > 0) {
+        if ($remainingDays <= 0) {
             return;
         }
 

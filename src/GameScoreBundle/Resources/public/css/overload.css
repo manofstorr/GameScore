@@ -1,5 +1,5 @@
 body {
-    background-color: #F7F7F7;
+    background-color: #ccc;
 }
 
 .navbar-brand-yellow{
@@ -11,8 +11,6 @@ body {
     background-clip: padding-box;
     border: 3px solid transparent;
     border-radius: 7px;
-    /*line-height: 40px;*/
-    /*text-align: center;*/
     padding: 10px;
 }
 
@@ -28,14 +26,14 @@ body {
     width: 100%;
 }
 
-
 .alphaBetaBar {
-    /*position: absolute;
-    /*top: 0;*/
-    background: orange;
-    width: 100%;
-    text-align: center;
+    background: #101110 none repeat scroll 0 0;
+    color: orange;
+    font-size: 0.8em;
+    height: 23px;
     padding: 0.5em;
+    text-align: center;
+    width: 100%;
 }
 
 .form-hidden-group {
