@@ -7,13 +7,11 @@
     {% block stylesheets %}
         {% stylesheets
         filter='cssrewrite'
-        'bundles/gamescore/css/bootstrap.min.css'
+        'bundles/gamescore/css/bootstrap.css'
         'bundles/gamescore/css/overload.css' %}
         <link rel="stylesheet" href="{{ asset_url }}" type="text/css"/>
         {% endstylesheets %}
     {% endblock %}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -23,7 +21,7 @@
         {{ message }}
     </div>
 {% endfor %}
-<nav class="navbar navbar-header">
+<nav class="navbar navbar-inverse navbar-fixed-top">
     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
         Connecté en tant que {{ app.user.username }}
         -
@@ -34,40 +32,59 @@
         <a href={{ path ('fos_user_registration_register') }}>S'enregistrer</a>
     {% endif %}
 </nav>
-<div id="header" class="jumbotron">
-    <div class="container">
-        <h1>Game scores</h1>
-        <p>Propelled by Symfony 3</p>
-    </div>
-</div>
+<header class="page-header">
+    <h1>Game scores</h1>
+    <p>
+    <blockquote>An easy way to store and keep your games and matches</blockquote>
+    <em>Propelled by Symfony 3</em>
+    </p>
+</header>
 
 <div class="container">
-    <nav class="navbar">
-        <ul class="nav nav-pills nav-stacks">
-            <li><a class="btn btn-default active" href="{{ path('game_score_homepage') }}">Home</a></li>
-            <li><a class="btn btn-default" href="{{ path('game_score_game_collection', {page: 'A'}) }}">Les jeux<span
-                            class="badge">{{ service_game.getTotalNumberOfGames() }}</span></a></li>
-            <li><a class="btn btn-default" href="{{ path('game_score_author_collection') }}">Les auteurs</a></li>
-            <li><a class="btn btn-default" href="{{ path('game_score_editor_collection', {page: 1}) }}">Les éditeurs</a>
-            </li>
-            <li><a class="btn btn-default" href="{{ path('game_score_player_collection', {page: 'a'}) }}">Les
-                    joueurs</a>
-            </li>
-            <li><a class="btn btn-default" href="{{ path('user_collection') }}">Les utilisateurs</a>
-            </li>
-            <li><a class="btn btn-default" href="{{ path('game_score_play_create') }}">Nouvelle partie</a>
-            </li>
-        </ul>
-    </nav>
-    <div id="content" class="col-md-9">
-        {% block body %}
-        {% endblock %}
+    <div class="row">
+        <div class="col-md-12">
+            <a class="btn btn-default active" href="{{ path('game_score_homepage') }}">Home</a>
+            <a class="btn btn-default" href="{{ path('game_score_game_collection', {page: 'A'}) }}">Les
+                jeux<span
+                        class="badge">{{ service_game.getTotalNumberOfGames() }}</span></a>
+            <a class="btn btn-default" href="{{ path('game_score_author_collection') }}">Les auteurs</a>
+            <a class="btn btn-default" href="{{ path('game_score_editor_collection', {page: 1}) }}">Les
+                éditeurs</a>
+            <a class="btn btn-default" href="{{ path('game_score_player_collection', {page: 'a'}) }}">Les
+                joueurs</a>
+            <a class="btn btn-default" href="{{ path('user_collection') }}">Les utilisateurs</a>
+            <a class="btn btn-default" href="{{ path('game_score_play_create') }}">Nouvelle partie</a>
+        </div>
     </div>
+    <div class="row">
+        <div class="col-md-4">
+            side
+        </div>
+        <section class="col-md-8">
+            {% block body %}
+            {% endblock %}
+        </section>
+    </div>
+
+
 </div>
 <hr/>
 <footer>
-    <p>Copyright {{ 'now'|date('Y') }} - enviro {{ app.environment|upper }}</p>
-</footer>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-4">
+            <address>
+                <p>contact : david(dot)baudry(at)zoho(dot)com</p>
+            </address>
+        </div>
+        <div class="col-md-4">
+            <p>Copyright {{ 'now'|date('Y') }} - enviro {{ app.environment|upper }}</p>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
 
+</footer>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -1,3 +1,18 @@
+body {
+    padding-top: 10px;
+    background-color: #F7F7F7;
+}
+
+[class*="col-"], footer {
+    background-color: #F2F2F2;
+    background-clip: padding-box;
+    border: 3px solid transparent;
+    border-radius: 7px;
+    /*line-height: 40px;*/
+    /*text-align: center;*/
+    padding: 10px;
+}
+
 .jumbotron {
     background-color: #058189;
     /*background-image: url("../img/platjas89.jpg");*/
@@ -10,16 +25,10 @@
     width: 100%;
 }
 
-.navbar-inverse {
-    color: yellowgreen;
-    padding-bottom: 0px;
-    margin-bottom: 0px;
-    border-radius: 0 0 0 0;
-}
 
 .alphaBetaBar {
-    position: absolute;
-    top: 0;
+    /*position: absolute;
+    /*top: 0;*/
     background: orange;
     width: 100%;
     text-align: center;
