@@ -43,12 +43,12 @@
                         <span class="badge">{{ service_game.getTotalNumberOfGames() }}</span>
                     </a>
                 </li>
-                <li><a href="{{ path('game_score_player_collection', {page: 'a'}) }}">Les
-                        joueurs</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false">More... <span class="caret"></span></a>
                     <ul class="dropdown-menu">
+                        <li><a href="{{ path('game_score_player_collection', {page: 'a'}) }}">Les
+                                joueurs</a></li>
                         <li><a href="{{ path('game_score_author_collection') }}">Les auteurs</a></li>
                         <li>
                             <a href="{{ path('game_score_editor_collection', {page: 1}) }}">Les
@@ -60,6 +60,23 @@
                         <li><a href="{{ path('user_collection') }}">Les utilisateurs</a></li>
                         <li><a href="#">One more separated link</a></li>
                     </ul>
+                </li>
+
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    <li class="navbar-brand-cxtext">
+                        Bonjour {{ app.user.username }}
+                    </li>
+                    <li>
+                        <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+                    </li>
+                {% else %}
+                    <li>
+                        <a href="{{ path('fos_user_security_login') }}">Connexion</a>
+                    </li>
+                    <li>
+                        <a href={{ path ('fos_user_registration_register') }}>S'enregistrer</a>
+                    </li>
+                {% endif %}
                 </li>
             </ul>
         </div><!--/.nav-collapse -->

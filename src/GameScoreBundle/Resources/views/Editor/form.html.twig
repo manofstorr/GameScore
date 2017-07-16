@@ -5,13 +5,26 @@
 {% endblock %}
 
 {% block gamescore_body %}
-    <h2>Formulaire éditeur :</h2>
+    <h2>Editeurs</h2>
 
     <div class="well">
-        {{ form(form) }}
-        {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
-        {{ form_row(form.name) }}
-        {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
+        <legend>Enregistrer ou mettre à jour un éditeur :</legend>
+        {{ form_start(form) }}
+
+        <div class="form-group">
+            <label for="name" class="control-label">
+                {{ form_label(form.name, 'name'|trans|capitalize) }}
+            </label>
+            {{ form_errors(form.name) }}
+            {{ form_widget(form.name) }}
+        </div>
+
+        <div class="form-group">
+            <div>
+                {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary '}}) }}
+            </div>
+        </div>
+
         {{ form_rest(form) }}
         {{ form_end(form) }}
     </div>

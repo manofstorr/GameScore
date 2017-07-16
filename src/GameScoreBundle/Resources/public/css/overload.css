@@ -5,6 +5,11 @@ body {
 .navbar-brand-yellow{
     color: yellow;
 }
+.navbar-brand-cxtext {
+    padding-bottom: 15px;
+    padding-top: 15px;
+    color: #F2F2F2;
+}
 
 [class*="col-"], footer {
     background-color: #F2F2F2;
