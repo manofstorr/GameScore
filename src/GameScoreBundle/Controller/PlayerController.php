@@ -99,6 +99,9 @@ class PlayerController extends Controller
         return $alphapageArray;
     }
 
+    /**
+     * @Security("has_role('ROLE_USER')")
+     */
     public function createAction(Request $request)
     {
         $player = new Player();
@@ -122,6 +125,9 @@ class PlayerController extends Controller
             array('form' => $form->createView()));
     }
 
+    /**
+     * @Security("has_role('ROLE_USER')")
+     */
     public function updateAction(Request $request, int $player_id)
     {
         $player = $this

@@ -122,6 +122,9 @@ class GameController extends Controller
             array('form' => $form->createView()));
     }
 
+    /**
+     * @Security("has_role('ROLE_USER')")
+     */
     public function updateGameAction(Request $request, int $game_id)
     {
         $game = $this
@@ -151,6 +154,9 @@ class GameController extends Controller
             array('form' => $form->createView()));
     }
 
+    /**
+     * @Security("has_role('ROLE_USER')")
+     */
     public function deleteGameAction()
     {
     }

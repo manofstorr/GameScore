@@ -62,22 +62,22 @@
                     </ul>
                 </li>
 
-                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                    <li class="navbar-brand-cxtext">
-                        Bonjour {{ app.user.username }}
-                    </li>
-                    <li>
-                        <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
-                    </li>
-                {% else %}
-                    <li>
-                        <a href="{{ path('fos_user_security_login') }}">Connexion</a>
-                    </li>
-                    <li>
-                        <a href={{ path ('fos_user_registration_register') }}>S'enregistrer</a>
-                    </li>
-                {% endif %}
-                </li>
+                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                        <li class="navbar-brand-text">
+                            Bonjour {{ app.user.username }}
+                        </li>
+                        <li>
+                            <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+                        </li>
+                    {% else %}
+                        <li>
+                            <a href="{{ path('fos_user_security_login') }}">Connexion</a>
+                        </li>
+                        <li>
+                            <a href={{ path ('fos_user_registration_register') }}>S'enregistrer</a>
+                        </li>
+                    {% endif %}
+
             </ul>
         </div><!--/.nav-collapse -->
     </div>

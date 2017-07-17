@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use GameScoreBundle\Form\EditorType;
 use GameScoreBundle\Entity\Editor;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class EditorController extends Controller
 {
@@ -24,7 +25,6 @@ class EditorController extends Controller
         $this->EditorRepository = $em->getRepository('GameScoreBundle:Editor');
     }
 
-
     public function viewAction(Editor $editor)
     {
         return $this->render(
@@ -34,7 +34,6 @@ class EditorController extends Controller
             )
         );
     }
-
 
     public function collectionAction($page = 1)
     {
@@ -67,7 +66,9 @@ class EditorController extends Controller
         );
     }
 
-
+    /**
+     * @Security("has_role('ROLE_USER')")
+     */
     public function createAction(Request $request)
     {
 
@@ -94,7 +95,9 @@ class EditorController extends Controller
             array('form' => $form->createView()));
     }
 
-
+    /**
+     * @Security("has_role('ROLE_USER')")
+     */
     public function updateAction(Request $request, Editor $editor)
     {
         $form = $this->createForm(EditorType::class, $editor);
@@ -118,6 +121,9 @@ class EditorController extends Controller
 
     }
 
+    /**
+     * @Security("has_role('ROLE_USER')")
+     */
     public function deleteEditorAction()
     {
     }

@@ -14,7 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class AuthorController extends Controller
 {
@@ -61,10 +61,11 @@ class AuthorController extends Controller
         );
     }
 
-
+    /**
+     * @Security("has_role('ROLE_USER')")
+     */
     public function createAction(Request $request)
     {
-
         $author = new Author();
         $form = $this->createForm(AuthorType::class, $author);
 
@@ -88,6 +89,9 @@ class AuthorController extends Controller
 
     }
 
+    /**
+     * @Security("has_role('ROLE_USER')")
+     */
     public function updateAction(Request $request, int $author_id)
     {
         $author = $this
@@ -117,6 +121,9 @@ class AuthorController extends Controller
 
     }
 
+    /**
+     * @Security("has_role('ROLE_USER')")
+     */
     public function deleteAuthorAction()
     {
     }

@@ -12,7 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use GameScoreBundle\Entity\Play;
 use GameScoreBundle\Form\PlayType;
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class PlayController extends Controller
 {
@@ -39,7 +39,9 @@ class PlayController extends Controller
         );
     }
 
-
+    /**
+     * @Security("has_role('ROLE_USER')")
+     */
     public function createAction(Request $request)
     {
         $play = new Play();

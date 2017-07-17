@@ -17,7 +17,9 @@ use GameScoreBundle\Form\ScoreType;
 
 class ScoreController extends Controller
 {
-
+    /**
+     * @Security("has_role('ROLE_USER')")
+     */
     public function createAction(Request $request, Play $play)
     {
         $score = new Score();
