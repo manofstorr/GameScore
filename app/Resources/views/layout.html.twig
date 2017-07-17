@@ -61,7 +61,8 @@
                         <li><a href="#">One more separated link</a></li>
                     </ul>
                 </li>
-
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
                     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                         <li class="navbar-text">
                             Bonjour {{ app.user.username }}
