@@ -5,7 +5,11 @@
     Auteurs : Collection - {{ parent() }}
 {% endblock %}
 
-{% block gamescore_body %}
+{% block rightside %}
+    Auteurs populaires :
+{% endblock %}
+
+{% block mainsection %}
     <h2>Auteurs : collection</h2>
     <p>
         <a href="{{ path('game_score_author_create') }}">Nouvel auteur</a>
