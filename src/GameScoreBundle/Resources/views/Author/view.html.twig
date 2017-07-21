@@ -5,6 +5,10 @@
     Auteur : [{{ author.getId() }}] - {{ parent() }}
 {% endblock %}
 
+{% block rightside %}
+    Auteurs populaires :
+{% endblock %}
+
 {% block mainsection %}
     <h2>Auteur : {{ author.firstname ~ ' ' ~ author.lastname }}</h2>
     <p>...</p>

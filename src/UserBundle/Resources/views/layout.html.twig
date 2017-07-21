@@ -1,6 +1,6 @@
 {% extends "::layout.html.twig" %}
 
-{% block body %}
+{% block content %}
 
     {% for key, messages in app.session.flashbag.all() %}
         {% for message in messages %}
@@ -10,7 +10,15 @@
         {% endfor %}
     {% endfor %}
 
-    {% block fos_user_content %}
-    {% endblock fos_user_content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+            </div>
+            <section class="col-md-8">
+                {% block fos_user_content %}
+                {% endblock fos_user_content %}
+            </section>
+        </div>
+    </div>
 
 {% endblock %}

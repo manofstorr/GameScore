@@ -5,7 +5,11 @@
     Editeurs : Collection - {{ parent() }}
 {% endblock %}
 
-{% block gamescore_body %}
+{% block rightside %}
+    Editeurs populaires :
+{% endblock %}
+
+{% block mainsection %}
     <h2>Editeurs : collection</h2>
     <p>
         <a href="{{ path('game_score_editor_create') }}">Nouvel éditeur</a>

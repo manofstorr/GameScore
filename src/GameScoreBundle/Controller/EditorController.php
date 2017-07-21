@@ -25,7 +25,6 @@ class EditorController extends Controller
         $this->EditorRepository = $em->getRepository('GameScoreBundle:Editor');
     }
 
-
     public function viewAction(Editor $editor)
     {
         return $this->render(
