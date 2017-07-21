@@ -76,10 +76,32 @@ class PlayerController extends Controller
             array(
                 'playerCollection' => $PlayerCollection,
                 'page' => $page,
+                'alphapageArray' => $this->getAlphaIndex()
             )
         );
     }
 
+    public function getAlphaIndex()
+    {
+        $em = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('GameScoreBundle:Player');
+        $players = $em->findAll();
+        // building initial array for alphabetical pseudo-pagination
+        $alphapageArray = array();
+        foreach ($players as $player){
+            $index = substr($player->getFirstname(), 0,1);
+            if (!in_array($index, $alphapageArray)){
+                $alphapageArray[] = $index;
+            }
+        }
+        return $alphapageArray;
+    }
+
+    /**
+     * @Security("has_role('ROLE_USER')")
+     */
     public function createAction(Request $request)
     {
         $player = new Player();
@@ -95,7 +117,7 @@ class PlayerController extends Controller
                     ->getSession()
                     ->getFlashBag()
                     ->add('info', 'Joueur ajouté !');
-                return $this->redirectToRoute('game_score_view_player',
+                return $this->redirectToRoute('game_score_player_view',
                     array('player_id' => $player->getId()));
             }
         }
@@ -103,6 +125,9 @@ class PlayerController extends Controller
             array('form' => $form->createView()));
     }
 
+    /**
+     * @Security("has_role('ROLE_USER')")
+     */
     public function updateAction(Request $request, int $player_id)
     {
         $player = $this
@@ -123,7 +148,7 @@ class PlayerController extends Controller
                     ->getSession()
                     ->getFlashBag()
                     ->add('info', 'Joueur mis à jour.');
-                return $this->redirectToRoute('game_score_view_player',
+                return $this->redirectToRoute('game_score_player_view',
                     array('player_id' => $player->getId()));
             }
         }

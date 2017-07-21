@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %} GameScore {% endblock %}</title>
     {% block stylesheets %}
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <!--<link rel="stylesheet" href="/web/css/blackboot.css" />-->
-        <link rel="stylesheet" href="../css/overload.css" />
+        {% stylesheets
+        filter='cssrewrite'
+        'bundles/gamescore/css/bootstrap.css'
+        'bundles/gamescore/css/overload.css' %}
+        <link rel="stylesheet" href="{{ asset_url }}" type="text/css"/>
+        {% endstylesheets %}
     {% endblock %}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -20,43 +21,89 @@
         {{ message }}
     </div>
 {% endfor %}
-<nav class="navbar navbar-header">
-    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-        Connecté en tant que {{ app.user.username }}
-        -
-        <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
-    {% else %}
-        <a href="{{ path('fos_user_security_login') }}">Connexion</a>
-    {% endif %}
-</nav>
-<div id="header" class="jumbotron">
-    <div class="container">
-        <h1>Game scores</h1>
-        <p>Propelled by Symfony 3</p>
-    </div>
-</div>
 
-<div class="container">
-    <nav class="navbar">
-        <ul class="nav nav-pills nav-stacks">
-            <li><a class="btn btn-default active" href="{{ path('game_score_homepage') }}">Home</a></li>
-            <li><a class="btn btn-default" href="{{ path('game_score_game_collection', {page: 'A'}) }}">Les jeux<span class="badge">97</span></a></li>
-            <li><a class="btn btn-default" href="{{ path('game_score_author_collection') }}">Les auteurs</a></li>
-            <li><a class="btn btn-default" href="{{ path('game_score_editor_collection', {page: 1}) }}">Les éditeurs</a>
-            </li>
-            <li><a class="btn btn-default" href="{{ path('game_score_player_collection', {page: 'a'}) }}">Les joueurs</a>
-            </li>
-        </ul>
-    </nav>
-    <div id="content" class="col-md-9">
-        {% block body %}
-        {% endblock %}
+<nav class="navbar navbar-inverse">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#"><span class="navbar-brand-yellow">GameScore</span></a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="{{ path('game_score_homepage') }}">Home</a></li>
+                <li><a href="{{ path('game_score_play_create') }}">Nouvelle partie</a></li>
+                <li>
+                    <a href="{{ path('game_score_game_collection', {page: 'A'}) }}">
+                        Les jeux
+                        <span class="badge">{{ service_game.getTotalNumberOfGames() }}</span>
+                    </a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">More... <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ path('game_score_player_collection', {page: 'a'}) }}">Les
+                                joueurs</a></li>
+                        <li><a href="{{ path('game_score_author_collection') }}">Les auteurs</a></li>
+                        <li>
+                            <a href="{{ path('game_score_editor_collection', {page: 1}) }}">Les
+                                éditeurs</a>
+                        </li>
+                        <li><a href="#">Something else here</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li class="dropdown-header">Users</li>
+                        <li><a href="{{ path('user_collection') }}">Les utilisateurs</a></li>
+                        <li><a href="#">One more separated link</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                        <li class="navbar-text">
+                            Bonjour {{ app.user.username }}
+                        </li>
+                        <li>
+                            <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+                        </li>
+                    {% else %}
+                        <li>
+                            <a href="{{ path('fos_user_security_login') }}">Connexion</a>
+                        </li>
+                        <li>
+                            <a href={{ path ('fos_user_registration_register') }}>S'enregistrer</a>
+                        </li>
+                    {% endif %}
+
+            </ul>
+        </div><!--/.nav-collapse -->
     </div>
-</div>
+</nav>
+{% block content %}
+
+{% endblock %}
+
 <hr/>
 <footer>
-    <p>Copyright {{ 'now'|date('Y') }} - enviro {{ app.environment|upper }}</p>
-</footer>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-4">
+            <address>
+                <p>contact : david(dot)baudry(at)zoho(dot)com</p>
+            </address>
+        </div>
+        <div class="col-md-4">
+            <p>Copyright {{ 'now'|date('Y') }} - enviro {{ app.environment|upper }}</p>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
 
+</footer>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>
 </html>

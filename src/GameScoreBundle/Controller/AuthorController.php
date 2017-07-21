@@ -14,13 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class AuthorController extends Controller
 {
@@ -32,7 +26,7 @@ class AuthorController extends Controller
         $this->authorRepository = $em->getRepository('GameScoreBundle:Author');
     }
 
-    public function authorCollectionAction()
+    public function collectionAction()
     {
         $this->setAuthorRepository();
         $authorCollection = $this->authorRepository->findAll();
@@ -42,7 +36,7 @@ class AuthorController extends Controller
         }
 
         return $this->render(
-            'GameScoreBundle:Author:authorCollection.html.twig',
+            'GameScoreBundle:Author:collection.html.twig',
             array(
                 'authorCollection' => $authorCollection
             )
@@ -50,7 +44,7 @@ class AuthorController extends Controller
     }
 
 
-    public function readAuthorAction($author_id)
+    public function viewAction($author_id)
     {
         $this->setAuthorRepository();
         $author = $this->authorRepository->find($author_id);
@@ -60,19 +54,18 @@ class AuthorController extends Controller
         }
 
         return $this->render(
-            'GameScoreBundle:Author:readAuthor.html.twig',
+            'GameScoreBundle:Author:view.html.twig',
             array(
                 'author' => $author
             )
         );
     }
 
-
-    /* CRUD ****************************************************** */
-
-    public function createAuthorAction(Request $request)
+    /**
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function createAction(Request $request)
     {
-
         $author = new Author();
         $form = $this->createForm(AuthorType::class, $author);
 
@@ -86,7 +79,7 @@ class AuthorController extends Controller
                     ->getSession()
                     ->getFlashBag()
                     ->add('info', 'Auteur ajouté !');
-                return $this->redirectToRoute('game_score_view_author',
+                return $this->redirectToRoute('game_score_author_view',
                     array('author_id' => $author->getId()));
             }
         }
@@ -96,7 +89,10 @@ class AuthorController extends Controller
 
     }
 
-    public function updateAuthorAction(Request $request, int $author_id)
+    /**
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function updateAction(Request $request, int $author_id)
     {
         $author = $this
             ->getDoctrine()
@@ -116,17 +112,18 @@ class AuthorController extends Controller
                     ->getSession()
                     ->getFlashBag()
                     ->add('info', 'Auteur mis à jour.');
-                return $this->redirectToRoute('game_score_view_author',
+                return $this->redirectToRoute('game_score_author_view',
                     array('author_id' => $author->getId()));
             }
-
         }
-
         return $this->render('GameScoreBundle:Author:form.html.twig',
             array('form' => $form->createView()));
 
     }
 
+    /**
+     * @Security("has_role('ROLE_USER')")
+     */
     public function deleteAuthorAction()
     {
     }

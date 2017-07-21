@@ -1,0 +1,15 @@
+{% extends "GameScoreBundle::layout.html.twig" %}
+
+{% block title %}
+    {{ 'play' |trans|capitalize }} : {{ 'form' |trans|capitalize }} - {{ parent() }}
+{% endblock %}
+
+{% block gamescore_body %}
+    <h2>{{ 'form' |trans|capitalize }} : {{ 'play' |trans|capitalize }}</h2>
+
+    <div class="well">
+        {{ form(form) }}
+    </div>
+
+{% endblock %}
+

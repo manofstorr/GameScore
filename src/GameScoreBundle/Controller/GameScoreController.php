@@ -15,7 +15,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\DependencyInjection\Container;
 
-
 class GameScoreController extends Controller
 {
 

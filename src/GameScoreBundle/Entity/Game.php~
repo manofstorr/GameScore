@@ -23,7 +23,7 @@ class Game
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="GameScoreBundle\Entity\Author")
+     * @ORM\ManyToMany(targetEntity="GameScoreBundle\Entity\Author")
      * @ORM\JoinColumn(nullable=true)
      */
     private $author;
@@ -33,6 +33,11 @@ class Game
      * @ORM\JoinColumn(nullable=true)
      */
     private $editor;
+
+    /**
+     * @ORM\OneToOne(targetEntity="OC\PlatformBundle\Entity\Image", cascade={"persist", "remove"})
+     */
+    private $image;
     
     /**
      * @var string
@@ -53,21 +58,21 @@ class Game
      *
      * @ORM\Column(name="has_inverted_score", type="boolean")
      */
-    private $hasInvertedScore;
+    private $hasInvertedScore = false;
 
     /**
      * @var bool
      *
      * @ORM\Column(name="is_collaborative", type="boolean")
      */
-    private $isCollaborative;
+    private $isCollaborative = false;
 
     /**
      * @var bool
      *
      * @ORM\Column(name="is_extension", type="boolean")
      */
-    private $isExtension;
+    private $isExtension = false;
 
     /**
      * @var string
@@ -81,7 +86,7 @@ class Game
      *
      * @ORM\Column(name="year", type="string", length=4, nullable=true)
      */
-    private $year;
+    private $year = '0000';
 
     /**
      * Get id
@@ -242,6 +247,9 @@ class Game
      */
     public function getYear(): string
     {
+        if($this->year === null){
+            $this->setYear('0000');
+        }
         return $this->year;
     }
 
@@ -252,28 +260,67 @@ class Game
     {
         $this->year = $year;
     }
-
-
-
+    
 
     /**
-     * Set author
+     * Set editor
      *
-     * @param \GameScoreBundle\Entity\Author $author
+     * @param \GameScoreBundle\Entity\Editor $editor
      *
      * @return Game
      */
-    public function setAuthor(Author $author)
+    public function setEditor($editor = null)
     {
-        $this->author = $author;
+        $this->editor = $editor;
 
         return $this;
     }
 
     /**
+     * Get editor
+     *
+     * @return \GameScoreBundle\Entity\Editor
+     */
+    public function getEditor()
+    {
+        return $this->editor;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->author = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add author
+     *
+     * @param \GameScoreBundle\Entity\Author $author
+     *
+     * @return Game
+     */
+    public function addAuthor(\GameScoreBundle\Entity\Author $author)
+    {
+        $this->author[] = $author;
+
+        return $this;
+    }
+
+    /**
+     * Remove author
+     *
+     * @param \GameScoreBundle\Entity\Author $author
+     */
+    public function removeAuthor(\GameScoreBundle\Entity\Author $author)
+    {
+        $this->author->removeElement($author);
+    }
+
+    /**
      * Get author
      *
-     * @return \GameScoreBundle\Entity\Author
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getAuthor()
     {

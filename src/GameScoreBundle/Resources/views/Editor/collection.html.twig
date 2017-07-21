@@ -8,16 +8,16 @@
 {% block gamescore_body %}
     <h2>Editeurs : collection</h2>
     <p>
-        <a href="{{ path('game_score_create_editor') }}">Nouvel éditeur</a>
+        <a href="{{ path('game_score_editor_create') }}">Nouvel éditeur</a>
     </p>
     <ul>
         {% for editor in editorCollection %}
             <li>
                 {{ editor.name }}
                 -
-                <a href="{{ path('game_score_view_editor', { 'editor_id':editor.id }) }}">Fiche</a>
+                <a href="{{ path('game_score_editor_view', { 'id':editor.id }) }}">Fiche</a>
                 -
-                <a href="{{ path('game_score_update_editor', { 'editor_id':editor.id }) }}">Maj</a>
+                <a href="{{ path('game_score_editor_update', { 'id':editor.id }) }}">Maj</a>
             </li>
         {% endfor %}
     </ul>

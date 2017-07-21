@@ -2,13 +2,16 @@
 
 namespace GameScoreBundle\Form;
 
-use Doctrine\DBAL\Types\TextType;
 use GameScoreBundle\Entity\Game;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class PlayType extends AbstractType
 {
@@ -21,7 +24,15 @@ class PlayType extends AbstractType
             ->add('date', DateType::class)
             ->add('description', TextareaType::class)
             ->add('location', TextType::class)
-            ->add('game', Game::class);
+            ->add('game', EntityType::class,
+                array(
+                    'class' => 'GameScoreBundle:Game',
+                    'choice_label' => 'name',
+                    'multiple' => false
+                )
+            )
+            ->add('save and declare players', SubmitType::class)
+            ;
     }
     
     /**

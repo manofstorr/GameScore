@@ -1,0 +1,13 @@
+#forms translations
+form: formulaire
+name: nom
+firstname: prénom
+lastname: nom (de famille)
+save: enregistrer
+
+#entities
+author: auteur
+game: jeu
+play: partie
+editor: éditeur
+player: joueur

@@ -13,9 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use GameScoreBundle\Form\EditorType;
 use GameScoreBundle\Entity\Editor;
-//use Doctrine\ORM\Tools\Pagination\Paginator;
-//use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class EditorController extends Controller
 {
@@ -28,7 +26,17 @@ class EditorController extends Controller
     }
 
 
-    public function EditorCollectionAction($page=1)
+    public function viewAction(Editor $editor)
+    {
+        return $this->render(
+            'GameScoreBundle:editor:view.html.twig',
+            array(
+                'editor' => $editor
+            )
+        );
+    }
+
+    public function collectionAction($page = 1)
     {
         $this->setEditorRepository();
         $nbPerPage = $this->container->getParameter('standard_number_of_elements_per_page');
@@ -50,30 +58,19 @@ class EditorController extends Controller
         }
 
         return $this->render(
-            'GameScoreBundle:Editor:editorCollection.html.twig',
+            'GameScoreBundle:Editor:collection.html.twig',
             array(
                 'editorCollection' => $EditorCollection,
-                'nbOfPages'     => $nbOfPages,
-                'page'        => $page,
+                'nbOfPages' => $nbOfPages,
+                'page' => $page,
             )
         );
     }
 
-    // using parameter conversion (implicitely)
-    public function readEditorAction(Editor $editor)
-    {
-        return $this->render(
-            'GameScoreBundle:editor:readEditor.html.twig',
-            array(
-                'editor' => $editor
-            )
-        );
-    }
-
-
-    /* CRUD ****************************************************** */
-
-    public function createEditorAction(Request $request)
+    /**
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function createAction(Request $request)
     {
 
         $editor = new Editor();
@@ -90,25 +87,20 @@ class EditorController extends Controller
                     ->getSession()
                     ->getFlashBag()
                     ->add('info', 'Editeur ajouté !');
-                return $this->redirectToRoute('game_score_view_editor',
-                    array('editor_id' => $editor->getId()));
+                return $this->redirectToRoute('game_score_editor_view',
+                    array('id' => $editor->getId()));
 
             }
         }
-
         return $this->render('GameScoreBundle:Editor:form.html.twig',
             array('form' => $form->createView()));
-
     }
 
-    public function updateEditorAction(Request $request, int $editor_id)
+    /**
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function updateAction(Request $request, Editor $editor)
     {
-        $editor = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository('GameScoreBundle:Editor')
-            ->find($editor_id);
-
         $form = $this->createForm(EditorType::class, $editor);
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
@@ -121,17 +113,18 @@ class EditorController extends Controller
                     ->getSession()
                     ->getFlashBag()
                     ->add('info', 'Editeur mis à jour.');
-                return $this->redirectToRoute('game_score_view_editor',
-                    array('editor_id' => $editor->getId()));
+                return $this->redirectToRoute('game_score_editor_view',
+                    array('id' => $editor->getId()));
             }
-
         }
-
         return $this->render('GameScoreBundle:Editor:form.html.twig',
             array('form' => $form->createView()));
 
     }
 
+    /**
+     * @Security("has_role('ROLE_USER')")
+     */
     public function deleteEditorAction()
     {
     }

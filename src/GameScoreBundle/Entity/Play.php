@@ -4,6 +4,7 @@ namespace GameScoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+
 /**
  * Play
  *

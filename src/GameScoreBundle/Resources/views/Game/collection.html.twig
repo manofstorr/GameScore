@@ -8,7 +8,7 @@
 {% block gamescore_body %}
     <h2>Games collection</h2>
     {% if is_granted('ROLE_ADMIN') %}
-        <p><a href="{{ path('game_score_create_game') }}">Nouveau jeu</a></p>
+        <p><a href="{{ path('game_score_game_create') }}">Nouveau jeu</a></p>
     {% endif %}
     <ul class="pagination">
         {% for p in alphapageArray %}
@@ -29,8 +29,8 @@
                     {% endfor %}
                 {% endif %}
                 <br/>
-                <a href="{{ path('game_score_view_game', {'game_id':game.id}) }}">Fiche</a>
-                - <a href="{{ path('game_score_update_game', {'game_id':game.id}) }}">Maj</a>
+                <a href="{{ path('game_score_game_view', {'game_id':game.id}) }}">Fiche</a>
+                - <a href="{{ path('game_score_game_update', {'game_id':game.id}) }}">Maj</a>
             </li>
         {% endfor %}
     </ul>

@@ -1,0 +1,46 @@
+body {
+    background-color: #ccc;
+}
+
+.navbar-brand-yellow{
+    color: yellow;
+}
+.navbar-brand-cxtext {
+    padding-bottom: 15px;
+    padding-top: 15px;
+    color: #F2F2F2;
+}
+
+[class*="col-"], footer {
+    background-color: #F2F2F2;
+    background-clip: padding-box;
+    border: 3px solid transparent;
+    border-radius: 7px;
+    padding: 10px;
+}
+
+.jumbotron {
+    background-color: #058189;
+    /*background-image: url("../img/platjas89.jpg");*/
+    color: white;
+    text-shadow: 2px 2px #000;
+}
+
+.alert {
+    position: absolute;
+    width: 100%;
+}
+
+.alphaBetaBar {
+    background: #101110 none repeat scroll 0 0;
+    color: orange;
+    font-size: 0.8em;
+    height: 23px;
+    padding: 0.5em;
+    text-align: center;
+    width: 100%;
+}
+
+.form-hidden-group {
+    display: none;
+}

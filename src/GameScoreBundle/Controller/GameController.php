@@ -36,7 +36,7 @@ class GameController extends Controller
         }
 
         return $this->render(
-            'GameScoreBundle:Game:gameCollection.html.twig',
+            'GameScoreBundle:Game:collection.html.twig',
             array(
                 'gameCollection' => $gameCollection,
                 'page' => $page,
@@ -83,7 +83,7 @@ class GameController extends Controller
             ->getScoresWithPlaysByGame($game);
 
         return $this->render(
-            'GameScoreBundle:Game:readGame.html.twig',
+            'GameScoreBundle:Game:view.html.twig',
             array(
                 'game' => $game,
                 'scores' => $scores
@@ -94,7 +94,7 @@ class GameController extends Controller
     /* CRUD ****************************************************** */
 
     /**
-     * @Security("has_role('ROLE_ADMIN')")
+     * @Security("has_role('ROLE_USER')")
      */
     public function createGameAction(Request $request)
     {
@@ -112,7 +112,7 @@ class GameController extends Controller
                     ->getSession()
                     ->getFlashBag()
                     ->add('info', 'Le jeu a bien été créé.');
-                return $this->redirectToRoute('game_score_view_game',
+                return $this->redirectToRoute('game_score_game_view',
                     array('game_id' => $game->getId()));
             }
 
@@ -122,6 +122,9 @@ class GameController extends Controller
             array('form' => $form->createView()));
     }
 
+    /**
+     * @Security("has_role('ROLE_USER')")
+     */
     public function updateGameAction(Request $request, int $game_id)
     {
         $game = $this
@@ -142,7 +145,7 @@ class GameController extends Controller
                     ->getSession()
                     ->getFlashBag()
                     ->add('info', 'Le jeu a bien été mis à jour.');
-                return $this->redirectToRoute('game_score_view_game',
+                return $this->redirectToRoute('game_score_game_view',
                     array('game_id' => $game->getId()));
             }
         }
@@ -151,6 +154,9 @@ class GameController extends Controller
             array('form' => $form->createView()));
     }
 
+    /**
+     * @Security("has_role('ROLE_USER')")
+     */
     public function deleteGameAction()
     {
     }

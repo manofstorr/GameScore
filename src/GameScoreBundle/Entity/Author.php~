@@ -24,16 +24,16 @@ class Author
     /**
      * @var string
      *
-     * @ORM\Column(name="firstName", type="string", length=255, unique=false)
+     * @ORM\Column(name="firstname", type="string", length=255, unique=false)
      */
-    private $firstName;
+    private $firstname;
 
 /**
      * @var string
      *
-     * @ORM\Column(name="lastName", type="string", length=255, unique=false)
+     * @ORM\Column(name="lastname", type="string", length=255, unique=false)
      */
-    private $lastName;
+    private $lastname;
 
 
     /**
@@ -47,27 +47,50 @@ class Author
     }
 
     /**
-     * Set name
+     * Set firstName
      *
-     * @param string $name
+     * @param string $firstname
      *
      * @return Author
      */
-    public function setName($name)
+    public function setFirstname($firstname)
     {
-        $this->name = $name;
+        $this->firstname = $firstname;
 
         return $this;
     }
 
     /**
-     * Get name
+     * Get firstname
      *
      * @return string
      */
-    public function getName()
+    public function getFirstname()
     {
-        return $this->name;
+        return $this->firstname;
+    }
+
+    /**
+     * Set lastName
+     *
+     * @param string $lastname
+     *
+     * @return Author
+     */
+    public function setLastname($lastname)
+    {
+        $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    /**
+     * Get last_name
+     *
+     * @return string
+     */
+    public function getLastname()
+    {
+        return $this->lastname;
     }
 }
-

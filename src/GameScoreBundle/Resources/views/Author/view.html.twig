@@ -5,11 +5,11 @@
     Auteur : [{{ author.getId() }}] - {{ parent() }}
 {% endblock %}
 
-{% block gamescore_body %}
+{% block mainsection %}
     <h2>Auteur : {{ author.firstname ~ ' ' ~ author.lastname }}</h2>
     <p>...</p>
 
     <p>
-        <a href="{{ path('game_score_update_author', {'author_id':author.id}) }}">Maj</a>
+        <a href="{{ path('game_score_author_update', {'author_id':author.id}) }}">Maj</a>
     </p>
 {% endblock %}

@@ -4,11 +4,37 @@
     Auteurs : Formulaire - {{ parent() }}
 {% endblock %}
 
-{% block gamescore_body %}
-    <h2>Formulaire auteur :</h2>
+{% block mainsection %}
+    <h2>{{ 'form'|trans|capitalize }} : {{ 'author'|trans }}</h2>
 
     <div class="well">
-        {{ form(form) }}
+        <legend>Remplissez tous les champs</legend>
+        {{ form_start(form) }}
+
+        <div class="form-group">
+            <label for="firstname" class="control-label">
+                {{ form_label(form.firstname, 'firstname'|trans|capitalize) }}
+            </label>
+            {{ form_errors(form.firstname) }}
+            {{ form_widget(form.firstname) }}
+        </div>
+
+        <div class="form-group">
+            <label for="lastname" class="control-label">
+                {{ form_label(form.lastname, 'lastname'|trans|capitalize) }}
+            </label>
+            {{ form_errors(form.lastname) }}
+            {{ form_widget(form.lastname) }}
+        </div>
+
+        <div class="form-group">
+            <div>
+                {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary btn-block'}}) }}
+            </div>
+        </div>
+
+        {{ form_rest(form) }}
+        {{ form_end(form) }}
     </div>
 
 {% endblock %}
