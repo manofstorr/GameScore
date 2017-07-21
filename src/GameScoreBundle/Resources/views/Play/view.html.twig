@@ -4,7 +4,11 @@
     Partie : [{{ play.getId() }}] - {{ parent() }}
 {% endblock %}
 
-{% block gamescore_body %}
+{% block rightside %}
+    ?
+{% endblock %}
+
+{% block mainsection %}
     <h2>Partie : {{ play.id }}</h2>
     <p>
         Date : {{ play.date|date('d M Y à H:i') }}

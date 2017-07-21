@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use GameScoreBundle\Entity\Score;
 use GameScoreBundle\Entity\Play;
 use GameScoreBundle\Form\ScoreType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class ScoreController extends Controller
 {
