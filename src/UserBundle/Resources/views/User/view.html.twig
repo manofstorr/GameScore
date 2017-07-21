@@ -4,7 +4,11 @@
     User : [{{ user.username }}] - {{ parent() }}
 {% endblock %}
 
-{% block gamescore_body %}
+{% block rightside %}
+    ?
+{% endblock %}
+
+{% block mainsection %}
     <h2>User : {{ user.username }} ({{ user.id }})</h2>
     <p>{{ user.email }}</p>
     <p>Last login : {{ user.lastlogin|date("Y-m-d H:i:s") }}</p>
