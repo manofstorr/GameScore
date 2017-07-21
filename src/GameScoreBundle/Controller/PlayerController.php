@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use GameScoreBundle\Entity\Player;
 use GameScoreBundle\Entity\Score;
 use GameScoreBundle\Form\PlayerType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 
 class PlayerController extends Controller

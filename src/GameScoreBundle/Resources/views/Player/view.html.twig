@@ -4,7 +4,11 @@
     Joueur : [{{ player.getId() }}] - {{ parent() }}
 {% endblock %}
 
-{% block gamescore_body %}
+{% block rightside %}
+    ?
+{% endblock %}
+
+{% block mainsection %}
     <h2>Joueur : {{ player.firstname ~ ' ' ~ player.lastname }}
         {% if player.star %}
             &nbsp;&nbsp;&#9733;
