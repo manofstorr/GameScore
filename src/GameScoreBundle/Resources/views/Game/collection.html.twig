@@ -1,12 +1,14 @@
 {% extends "GameScoreBundle::layout.html.twig" %}
 
-
 {% block title %}
     Games Collection - {{ parent() }}
 {% endblock %}
 
-{% block gamescore_body %}
-    <h2>Games collection</h2>
+{% block rightside %}
+    Jeux populaires :
+{% endblock %}
+
+{% block mainsection %}    <h2>Games collection</h2>
     {% if is_granted('ROLE_ADMIN') %}
         <p><a href="{{ path('game_score_game_create') }}">Nouveau jeu</a></p>
     {% endif %}

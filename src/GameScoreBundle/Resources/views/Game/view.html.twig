@@ -5,7 +5,11 @@
     Game : [{{ game.getId() }}] - {{ parent() }}
 {% endblock %}
 
-{% block gamescore_body %}
+{% block rightside %}
+    Editeurs populaires :
+{% endblock %}
+
+{% block mainsection %}
     <h2>{{ game.name }}</h2>
     <p>{{ game.description }}</p>
     <p>
