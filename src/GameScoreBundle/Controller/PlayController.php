@@ -11,6 +11,7 @@ namespace GameScoreBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use GameScoreBundle\Entity\Play;
+use GameScoreBundle\Controller\ScoreController;
 use GameScoreBundle\Form\PlayType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
@@ -24,19 +25,28 @@ class PlayController extends Controller
         $this->PlayRepository = $em->getRepository('GameScoreBundle:Play');
     }
 
-    public function viewAction($play_id)
+    public function viewAction(Play $play)
     {
-        $this->setPlayRepository();
-        $play = $this->PlayRepository->find($play_id);
-        if ($play === null) {
-            throw new NotFoundHttpException('Aucune prtie de jeu (play) trouvée avec cet id : ' . $play_id);
-        }
         return $this->render(
             'GameScoreBundle:play:view.html.twig',
             array(
-                'play' => $play
+                'play' => $play,
+                'scores' => $this->getScores($play)
             )
         );
+    }
+
+    private function getScores(Play $play)
+    {
+        // todo: How ti use directly the ScoreController method ?
+        return $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('GameScoreBundle:Score')
+            ->findBy(
+                array('play' => $play),
+                array('score' => 'desc')
+            );
     }
 
     /**

@@ -39,7 +39,7 @@ class ScoreController extends Controller
                     ->add('info', 'Score ajouté !');
 
                 if (isset($_POST['gamescorebundle_score']['save_and_stop'])) {
-                    return $this->redirectToRoute('game_score_homepage');
+                    return $this->redirectToRoute('game_score_play_view', array('id' => $play->getId()));
                 }
             }
         }
@@ -47,7 +47,7 @@ class ScoreController extends Controller
             array(
                 'form' => $form->createView(),
                 'play' => $play,
-                'previous_scores' => $this->getScoresByGame($play),
+                'scores' => $this->getScoresByGame($play),
             )
         );
     }
@@ -58,7 +58,10 @@ class ScoreController extends Controller
             ->getDoctrine()
             ->getManager()
             ->getRepository('GameScoreBundle:Score')
-            ->findBy(array('play' => $play));
+            ->findBy(
+                array('play' => $play),
+                array('score' => 'desc')
+            );
     }
 
 }

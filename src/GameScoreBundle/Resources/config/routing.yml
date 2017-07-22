@@ -81,12 +81,12 @@ game_score_author_update:
 
 # Routes for Players
 game_score_player_view:
-    path:     /player/view/{player_id}/{page}
+    path:     /player/view/{id}/{page}
     defaults:
         _controller: GameScoreBundle:Player:view
         page: 1
         requirements:
-            player_id: \d+
+            id: \d+
 
 game_score_player_collection:
     path:     /player/collection/{page}
@@ -107,11 +107,11 @@ game_score_player_update:
 
 # Routes for plays
 game_score_play_view:
-    path:     /play/view/{play_id}
+    path:     /play/{id}
     defaults:
         _controller: GameScoreBundle:Play:view
     requirements:
-        player_id: \d+
+        id: \d+
 
 game_score_play_create:
     path:     /play/create/

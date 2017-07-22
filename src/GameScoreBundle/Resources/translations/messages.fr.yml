@@ -11,3 +11,4 @@ game: jeu
 play: partie
 editor: éditeur
 player: joueur
+players: joueurs

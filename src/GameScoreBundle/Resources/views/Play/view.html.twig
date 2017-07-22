@@ -15,5 +15,6 @@
         <br />
         Jeu : {{ play.game.name }}
     </p>
+    {% include 'GameScoreBundle:Score:scoresIncluded.html.twig' with {'scores' : scores } %}
 
 {% endblock %}

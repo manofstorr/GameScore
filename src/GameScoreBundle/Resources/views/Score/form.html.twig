@@ -14,12 +14,7 @@
     <p>
         {{ play.date|date("d/m/Y") }} : {{ play.game.name }}
     </p>
-    {% if previous_scores %}
-        {% for previous_score in previous_scores %}
-            {{ previous_score.player.firstname ~ ' ' ~ previous_score.player.lastname }} : {{ previous_score.score }}
-            {% if not loop.last %}, {% endif %}
-        {% endfor %}
-    {% endif %}
+    {% include 'GameScoreBundle:Score:scoresIncluded.html.twig' with {'scores' : scores } %}
 
     <div class="well">
         {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}

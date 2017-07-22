@@ -1,0 +1,10 @@
+<p>
+    {% if scores %}
+        <strong>{{ 'players'|trans|capitalize }} :</strong>
+        <br />
+        {% for score in scores %}
+                <a href="{{ path('game_score_player_view', {'id' : score.player.id}) }}">{{ score.player.firstname ~ ' ' ~ score.player.lastname }}</a> : {{ score.score }}
+            {% if not loop.last %}<br />{% endif %}
+        {% endfor %}
+    {% endif %}
+</p>
