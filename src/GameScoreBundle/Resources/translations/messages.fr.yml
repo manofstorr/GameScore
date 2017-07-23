@@ -12,3 +12,7 @@ play: partie
 editor: éditeur
 player: joueur
 players: joueurs
+
+# plays
+Last played games: Dernières parties jouées
+Played games count: Nombre de parties jouées

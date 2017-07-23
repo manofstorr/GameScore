@@ -21,42 +21,25 @@ class PlayerController extends Controller
 
     private $PlayerRepository;
 
-    private function setPlayerRepository()
+
+    /*
+     * Action methods
+     */
+
+    public function viewAction(Player $player)
     {
-        $em = $this->getDoctrine()->getManager();
-        $this->PlayerRepository = $em->getRepository('GameScoreBundle:Player');
-    }
-
-    public function viewAction(int $player_id, $page=1)
-    {
-        $this->setPlayerRepository();
-        $player = $this->PlayerRepository->find($player_id);
-        if ($player === null) {
-            throw new NotFoundHttpException('Aucun joueur trouvé avec cet id : ' . $player_id);
-        }
-        $nbPerPage = ($this->container->getParameter('standard_number_of_elements_per_page'))*2;
-        $limit = ($page-1)*$nbPerPage;
-
-        $playedGames = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository('GameScoreBundle:Play')
-            ->getPlayedGamesyPlayer($player_id, $limit, $nbPerPage);
-
-        // todo : other function
-        $em = $this->getDoctrine()->getManager();
-        $scoreRepository = $em->getRepository('GameScoreBundle:Score');
-        // todo : find better way to count
-        $totalNumberofPlayedGames =  count($scoreRepository->findBy(array('player' => $player)));
-        $nbOfPages = ceil($totalNumberofPlayedGames/$nbPerPage);
+        $limitOfPlayedGamesShown = $this->getParameter('limit_of_played_games_shown');
+        // find played games with scores
+        $lastPlayedGames = $this->getPlayedGamesByPlayer($player, $limitOfPlayedGamesShown);
+        $totalPlayedGames = $this->getTotalOfPlayedGamesByPlayer($player);
 
         return $this->render(
             'GameScoreBundle:player:view.html.twig',
             array(
                 'player' => $player,
-                'playedGames' => $playedGames,
-                'page' => $page,
-                'nbOfPages' => $nbOfPages,
+                'playedGames' => $lastPlayedGames,
+                'limitOfPlayedGamesShown' => $limitOfPlayedGamesShown,
+                'totalPlayedGames' => $totalPlayedGames
             )
         );
     }
@@ -82,24 +65,6 @@ class PlayerController extends Controller
         );
     }
 
-    public function getAlphaIndex()
-    {
-        $em = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository('GameScoreBundle:Player');
-        $players = $em->findAll();
-        // building initial array for alphabetical pseudo-pagination
-        $alphapageArray = array();
-        foreach ($players as $player){
-            $index = substr($player->getFirstname(), 0,1);
-            if (!in_array($index, $alphapageArray)){
-                $alphapageArray[] = $index;
-            }
-        }
-        return $alphapageArray;
-    }
-
     /**
      * @Security("has_role('ROLE_USER')")
      */
@@ -119,7 +84,7 @@ class PlayerController extends Controller
                     ->getFlashBag()
                     ->add('info', 'Joueur ajouté !');
                 return $this->redirectToRoute('game_score_player_view',
-                    array('player_id' => $player->getId()));
+                    array('id' => $player->getId()));
             }
         }
         return $this->render('GameScoreBundle:Player:form.html.twig',
@@ -129,14 +94,8 @@ class PlayerController extends Controller
     /**
      * @Security("has_role('ROLE_USER')")
      */
-    public function updateAction(Request $request, int $player_id)
+    public function updateAction(Request $request, Player $player)
     {
-        $player = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository('GameScoreBundle:Player')
-            ->find($player_id);
-
         $form = $this->createForm(PlayerType::class, $player);
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
@@ -144,17 +103,65 @@ class PlayerController extends Controller
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($player);
                 $em->flush();
-
                 $request
                     ->getSession()
                     ->getFlashBag()
                     ->add('info', 'Joueur mis à jour.');
                 return $this->redirectToRoute('game_score_player_view',
-                    array('player_id' => $player->getId()));
+                    array('id' => $player->getId()));
             }
         }
         return $this->render('GameScoreBundle:Player:form.html.twig',
             array('form' => $form->createView()));
+    }
+
+    /*
+     * Other methods
+     */
+
+    private function setPlayerRepository()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $this->PlayerRepository = $em->getRepository('GameScoreBundle:Player');
+    }
+
+    public function getAlphaIndex()
+    {
+        $em = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('GameScoreBundle:Player');
+        $players = $em->findAll();
+        // building initial array for alphabetical pseudo-pagination
+        $alphapageArray = array();
+        foreach ($players as $player) {
+            $index = substr($player->getFirstname(), 0, 1);
+            if (!in_array($index, $alphapageArray)) {
+                $alphapageArray[] = $index;
+            }
+        }
+        return $alphapageArray;
+    }
+
+    private function getPlayedGamesByPlayer(Player $player, $limit)
+    {
+        $playedGames = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('GameScoreBundle:Play')
+            ->getPlayedGamesByPlayer($player->getId(), $limit, null);
+        return $playedGames;
+    }
+
+    private function getTotalOfPlayedGamesByPlayer(Player $player)
+    {
+        $playedGames = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('GameScoreBundle:Score')
+            ->findBy(array('player' => $player));
+        $numberOfPlayedGames = count($playedGames);
+        return $numberOfPlayedGames;
     }
 
 

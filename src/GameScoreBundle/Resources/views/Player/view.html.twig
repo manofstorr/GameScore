@@ -9,42 +9,11 @@
 {% endblock %}
 
 {% block mainsection %}
-    <h2>Joueur : {{ player.firstname ~ ' ' ~ player.lastname }}
+    <h2>{{ player.firstname ~ ' ' ~ player.lastname }}
         {% if player.star %}
             &nbsp;&nbsp;&#9733;
-        {% endif %}</h2>
-    {% if playedGames %}
-        <div class="panel panel-default">
-            <div class="panel-heading">Parties jouées</div>
-            <ul class="list-group">
-                {% for playedGame in playedGames %}
-                    <li class="list-group-item">
-                        <a href="{{ path('game_score_game_view', {'game_id':playedGame.gameid}) }}">{{ playedGame.gamename }}</a>
-                        ({{ playedGame.playdate|date("d M Y") }})
-                        <a href="#">{{ playedGame.nbPlayers }} joueurs</a>
-                        {% if playedGame.score >= playedGame.MAXScore %}
-                            &#9733;
-                        {% else %}
-                            (best = {{ playedGame.MAXScore }})
-                        {% endif %}
-                        <span class="badge badge-inverse">{{ playedGame.score }}</span>
-                    </li>
-                {% endfor %}
-            </ul>
-        </div>
-        <ul class="pagination">
-            {% for p in range(1, nbOfPages) %}
-                <li{% if p == page %} class="active"{% endif %}>
-                    <a href="{{ path('game_score_player_view', {'player_id': player.id, 'page': p}) }}">{{ p }}</a>
-                </li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-
-    <p>...</p>
-
-
-    <p>
-        <a href="{{ path('game_score_player_update', {'player_id':player.id}) }}">Maj</a>
-    </p>
+        {% endif %}
+    [<a href="{{ path('game_score_player_update', {'id':player.id}) }}">Maj</a>] </h2>
+    {% include 'GameScoreBundle:Play:totalPlayedGamesIncluded.html.twig' with {'totalPlayedGames' : totalPlayedGames } %}
+    {% include 'GameScoreBundle:Play:playedGamesIncluded.html.twig' with {'playedGames' : playedGames } %}
 {% endblock %}

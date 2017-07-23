@@ -1,0 +1,34 @@
+{% if playedGames %}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            {% if limitOfPlayedGamesShown is defined %}
+                {{ limitOfPlayedGamesShown }}
+            {% endif %}
+            {{ 'Last played games'|trans|capitalize }} :
+        </div>
+        <ul class="list-group">
+            {% for playedGame in playedGames %}
+                <li class="list-group-item">
+                    <a href="{{ path('game_score_game_view', {'game_id':playedGame.gameid}) }}">{{ playedGame.gamename }}</a>
+                    ({{ playedGame.playdate|date("d M Y") }})
+                    <a href="#">{{ playedGame.nbPlayers }} joueurs</a>
+                    {% if playedGame.score >= playedGame.MAXScore %}
+                        &#9733;
+                    {% else %}
+                        (best = {{ playedGame.MAXScore }})
+                    {% endif %}
+                    <span class="badge badge-inverse">{{ playedGame.score }}</span>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% if nbOfPage is defined %}
+        <ul class="pagination">
+            {% for p in range(1, nbOfPages) %}
+                <li{% if p == page %} class="active"{% endif %}>
+                    <a href="{{ path('game_score_player_view', {'player_id': player.id, 'page': p}) }}">{{ p }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endif %}

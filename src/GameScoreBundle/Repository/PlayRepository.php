@@ -15,9 +15,14 @@ use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\DoctrineParamConve
 class PlayRepository extends EntityRepository
 {
     // played games for a player
-    public function getPlayedGamesyPlayer($player_id, $page, $nbPerPage)
+    public function getPlayedGamesByPlayer($player_id, $page, $nbPerPage)
     {
-
+        // constructing Limit clause
+        if ($nbPerPage) {
+            $limitClause = "LIMIT ".$page.", ".$nbPerPage." ";
+        } else {
+            $limitClause = "LIMIT ".$page." ";
+        }
         $em = $this->getEntityManager();
         $connection = $em->getConnection();
         $statement = $connection->prepare("
@@ -33,15 +38,12 @@ class PlayRepository extends EntityRepository
               INNER JOIN game ON (game.id = play.game_id)
             WHERE scoreplayer.player_id = :player_id
             GROUP BY play.id
-            ORDER BY play.date DESC 
-            LIMIT ".$page.", ".$nbPerPage."
-        ");
+            ORDER BY play.date DESC "
+            . $limitClause
+        );
         $statement->bindValue('player_id', $player_id);
-        //$statement->bindValue('page', $page);
-        //$statement->bindValue('nbperpage', $nbPerPage);
         $statement->execute();
         $results = $statement->fetchAll();
         return $results;
-
     }
 }
