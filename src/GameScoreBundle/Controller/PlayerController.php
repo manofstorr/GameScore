@@ -23,23 +23,22 @@ class PlayerController extends Controller
     public function viewAction(Player $player)
     {
         $limitOfPlayedGamesShown = $this->getParameter('limit_of_played_games_shown');
-        // find played games with scores
-        $lastPlayedGamesX = $this->getPlayedGamesByPlayerX($player, $limitOfPlayedGamesShown);
         $totalPlayedGames = $this->getTotalOfPlayedGamesByPlayer($player);
 
         // new way to do :
         // call play service
-        $playService = $this->container->get('play_service');
-        $playService->getPlayedGamesByPlayer($player->getId(), 10, null);
-
+        $plays = $this
+            ->container
+            ->get('play_service')
+            ->getPlayedGames('player_id', $player->getId(), 10, null);
 
         return $this->render(
             'GameScoreBundle:player:view.html.twig',
             array(
                 'player' => $player,
-                'playedGames' => $lastPlayedGamesX,
                 'limitOfPlayedGamesShown' => $limitOfPlayedGamesShown,
-                'totalPlayedGames' => $totalPlayedGames
+                'totalPlayedGames' => $totalPlayedGames,
+                'plays' => $plays
             )
         );
     }

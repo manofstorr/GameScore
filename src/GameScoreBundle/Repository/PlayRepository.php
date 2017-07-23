@@ -27,7 +27,7 @@ class PlayRepository extends EntityRepository
         $em = $this->getEntityManager();
         $connection = $em->getConnection();
         $statement = $connection->prepare("
-            SELECT play.id, play.date as playdate
+            SELECT play.id
             FROM play
               INNER JOIN score scoreplayer ON (scoreplayer.play_id = play.id)
               INNER JOIN player ON (player.id = scoreplayer.player_id)

@@ -1,4 +1,4 @@
-{% if playedGames %}
+{% if plays %}
     <div class="panel panel-info">
         <div class="panel-heading">
             {% if limitOfPlayedGamesShown is defined %}
@@ -7,21 +7,23 @@
             {{ 'Last played games'|trans|capitalize }} :
         </div>
         <ul class="list-group">
-            {% for playedGame in playedGames %}
+            {% for play in plays %}
                 <li class="list-group-item">
-                    <a href="{{ path('game_score_game_view', {'game_id':playedGame.gameid}) }}">{{ playedGame.gamename }}</a>
-                    ({{ playedGame.playdate|date("d M Y") }})
-                    <a href="#">{{ playedGame.nbPlayers }} joueurs</a>
-                    {% if playedGame.score >= playedGame.MAXScore %}
-                        &#9733;
-                    {% else %}
-                        (best = {{ playedGame.MAXScore }})
-                    {% endif %}
-                    <span class="badge badge-inverse">{{ playedGame.score }}</span>
-                    <ul>
-                        {% for player in playedGame.score %}
-                            {{ player.firstname }}
-                            {%  endfor %}
+                    <h4>
+                        <a href="{{ path('game_score_game_view', {'game_id':play.game.id}) }}">{{ play.game.name }}</a>
+                    </h4>
+                    <p class="text-muted">{{ play.description }} @ {{ play.location }}
+                        , {{ play.date|date("d M Y") }},
+                        {{ play.nbPlayers }} joueurs
+                    </p>
+                    <ul class="alternate">
+                        {% for player in play.player %}
+                            <li class="list-unstyled">
+                                {{ player.firstname }} {{ player.lastname }}
+                                <a href="{{ path('game_score_player_view', {'id': player.id}) }}" class="small">voir</a>
+                                <span class="badge badge-inverse pull-right">{{ player.score }}</span>
+                            </li>
+                        {% endfor %}
                     </ul>
                 </li>
             {% endfor %}
@@ -31,7 +33,7 @@
         <ul class="pagination">
             {% for p in range(1, nbOfPages) %}
                 <li{% if p == page %} class="active"{% endif %}>
-                    <a href="{{ path('game_score_player_view', {'player_id': player.id, 'page': p}) }}">{{ p }}</a>
+                    <a href="{{ path('game_score_player_view', {'id': player.id}) }}">{{ p }}</a>
                 </li>
             {% endfor %}
         </ul>
