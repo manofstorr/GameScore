@@ -14,8 +14,37 @@ use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\DoctrineParamConve
  */
 class PlayRepository extends EntityRepository
 {
+
+    // retun array of play id
+    public function getPlaysByPlayer($player_id, $limit, $nbPerPage)
+    {
+        // constructing Limit clause
+        if ($nbPerPage) {
+            $limitClause = "LIMIT ".$limit.", ".$nbPerPage." ";
+        } else {
+            $limitClause = "LIMIT ".$limit." ";
+        }
+        $em = $this->getEntityManager();
+        $connection = $em->getConnection();
+        $statement = $connection->prepare("
+            SELECT play.id, play.date as playdate
+            FROM play
+              INNER JOIN score scoreplayer ON (scoreplayer.play_id = play.id)
+              INNER JOIN player ON (player.id = scoreplayer.player_id)
+            WHERE scoreplayer.player_id = :player_id
+            GROUP BY play.id
+            ORDER BY play.date DESC "
+            . $limitClause
+        );
+        $statement->bindValue('player_id', $player_id);
+        $statement->execute();
+        $results = $statement->fetchAll();
+        return $results;
+
+    }
+
     // played games for a player
-    public function getPlayedGamesByPlayer($player_id, $page, $nbPerPage)
+    public function getPlayedGamesByPlayerX($player_id, $page, $nbPerPage)
     {
         // constructing Limit clause
         if ($nbPerPage) {
@@ -42,6 +71,8 @@ class PlayRepository extends EntityRepository
             . $limitClause
         );
         $statement->bindValue('player_id', $player_id);
+        //$statement->bindValue('page', $page);
+        //$statement->bindValue('nbperpage', $nbPerPage);
         $statement->execute();
         $results = $statement->fetchAll();
         return $results;

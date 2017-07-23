@@ -15,7 +15,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\DependencyInjection\Container;
 
-class ServiceGame
+class GameService
 {
     protected $em;
     private $container;
@@ -29,7 +29,12 @@ class ServiceGame
 
     public function getTotalNumberOfGames() {
 
-        return count($this->em->getRepository('GameScoreBundle:Game')->findAll());
+        return count(
+            $this
+                ->em
+                ->getRepository('GameScoreBundle:Game')
+                ->findAll()
+        );
         /*
         $qb = $this->em->createQueryBuilder();
 

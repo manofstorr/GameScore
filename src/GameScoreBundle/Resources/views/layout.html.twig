@@ -4,21 +4,9 @@
     Games @ {{ parent() }} %}
 {% endblock %}
 
-
 {% block content %}
     <div class="container">
-        {% block firstrow %}
+        {% block mainsection %}
         {% endblock %}
-        <div class="row">
-            <div class="col-md-4">
-                {% block rightside %}
-                {% endblock %}
-            </div>
-            <section class="col-md-8">
-                {% block mainsection %}
-                {% endblock %}
-            </section>
-        </div>
     </div>
-
 {% endblock %}

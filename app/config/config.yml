@@ -42,7 +42,7 @@ twig:
     form_themes:
       - 'bootstrap_3_layout.html.twig'
     globals:
-        service_game: "@service_game"
+        game_service: "@game_service"
 
 # Doctrine Configuration
 doctrine:

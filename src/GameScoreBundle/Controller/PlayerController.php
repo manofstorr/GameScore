@@ -24,14 +24,20 @@ class PlayerController extends Controller
     {
         $limitOfPlayedGamesShown = $this->getParameter('limit_of_played_games_shown');
         // find played games with scores
-        $lastPlayedGames = $this->getPlayedGamesByPlayer($player, $limitOfPlayedGamesShown);
+        $lastPlayedGamesX = $this->getPlayedGamesByPlayerX($player, $limitOfPlayedGamesShown);
         $totalPlayedGames = $this->getTotalOfPlayedGamesByPlayer($player);
+
+        // new way to do :
+        // call play service
+        $playService = $this->container->get('play_service');
+        $playService->getPlayedGamesByPlayer($player->getId(), 10, null);
+
 
         return $this->render(
             'GameScoreBundle:player:view.html.twig',
             array(
                 'player' => $player,
-                'playedGames' => $lastPlayedGames,
+                'playedGames' => $lastPlayedGamesX,
                 'limitOfPlayedGamesShown' => $limitOfPlayedGamesShown,
                 'totalPlayedGames' => $totalPlayedGames
             )
@@ -134,15 +140,16 @@ class PlayerController extends Controller
         return $alphapageArray;
     }
 
-    private function getPlayedGamesByPlayer(Player $player, $limit)
+    private function getPlayedGamesByPlayerX(Player $player, $limit)
     {
         $playedGames = $this
             ->getDoctrine()
             ->getManager()
             ->getRepository('GameScoreBundle:Play')
-            ->getPlayedGamesByPlayer($player->getId(), $limit, null);
+            ->getPlayedGamesByPlayerX($player->getId(), $limit, null);
         return $playedGames;
     }
+
 
     private function getTotalOfPlayedGamesByPlayer(Player $player)
     {

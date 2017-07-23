@@ -1,7 +1,13 @@
 services:
 
-  service_game:
-    class: GameScoreBundle\Service\ServiceGame
+  game_service:
+    class: GameScoreBundle\Service\GameService
+    arguments:
+      - "@doctrine.orm.entity_manager"
+      - "@service_container"
+
+  play_service:
+    class: GameScoreBundle\Service\PlayService
     arguments:
       - "@doctrine.orm.entity_manager"
       - "@service_container"

@@ -4,7 +4,7 @@
     Welcome - {{ parent() }}
 {% endblock %}
 
-{% block firstrow %}
+{% block mainsection %}
     <div class="row">
         <div class="col-md-12">
             <!-- Main jumbotron for a primary marketing message or call to action -->
@@ -29,12 +29,14 @@
             </div>
         </div>
     </div>
-{% endblock %}
 
-{% block rightside %}
-    Plopside
-{% endblock %}
+    <div class="row">
+        <div class="col-md-4">
+            sider
+        </div>
+        <section class="col-md-8">
+            section
+        </section>
+    </div>
 
-{% block mainsection %}
-    Plop
 {% endblock %}

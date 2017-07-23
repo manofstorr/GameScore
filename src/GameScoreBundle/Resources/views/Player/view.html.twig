@@ -4,16 +4,19 @@
     Joueur : [{{ player.getId() }}] - {{ parent() }}
 {% endblock %}
 
-{% block rightside %}
-    ?
-{% endblock %}
-
 {% block mainsection %}
-    <h2>{{ player.firstname ~ ' ' ~ player.lastname }}
-        {% if player.star %}
-            &nbsp;&nbsp;&#9733;
-        {% endif %}
-    [<a href="{{ path('game_score_player_update', {'id':player.id}) }}">Maj</a>] </h2>
-    {% include 'GameScoreBundle:Play:totalPlayedGamesIncluded.html.twig' with {'totalPlayedGames' : totalPlayedGames } %}
-    {% include 'GameScoreBundle:Play:playedGamesIncluded.html.twig' with {'playedGames' : playedGames } %}
+    <section class="col-md-12">
+        <h2>{{ player.firstname ~ ' ' ~ player.lastname }}
+            {% if player.star %}
+                &nbsp;&nbsp;&#9733;
+            {% endif %}
+            <span class="pull-right">
+                <a href="{{ path('game_score_player_update', {'id':player.id}) }}">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                </a>
+            </span>
+        </h2>
+        {% include 'GameScoreBundle:Play:totalPlayedGamesIncluded.html.twig' with {'totalPlayedGames' : totalPlayedGames } %}
+        {% include 'GameScoreBundle:Play:playedGamesIncluded.html.twig' with {'playedGames' : playedGames } %}
+    </section>
 {% endblock %}

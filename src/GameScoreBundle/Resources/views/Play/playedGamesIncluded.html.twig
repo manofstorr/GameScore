@@ -18,6 +18,11 @@
                         (best = {{ playedGame.MAXScore }})
                     {% endif %}
                     <span class="badge badge-inverse">{{ playedGame.score }}</span>
+                    <ul>
+                        {% for player in playedGame.score %}
+                            {{ player.firstname }}
+                            {%  endfor %}
+                    </ul>
                 </li>
             {% endfor %}
         </ul>
