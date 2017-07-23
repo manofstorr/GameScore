@@ -11,17 +11,11 @@ namespace GameScoreBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use GameScoreBundle\Entity\Player;
-use GameScoreBundle\Entity\Score;
 use GameScoreBundle\Form\PlayerType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
-
 class PlayerController extends Controller
 {
-
-    private $PlayerRepository;
-
-
     /*
      * Action methods
      */
@@ -50,8 +44,11 @@ class PlayerController extends Controller
         if ($page === '') {
             throw $this->createNotFoundException("La page demandée (" . $page . ") n'existe pas.");
         }
-        $this->setPlayerRepository();
-        $PlayerCollection = $this->PlayerRepository->getPlayers($page);
+        $PlayerCollection = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('GameScoreBundle:Player')
+            ->getPlayers($page);
         if ($PlayerCollection === null) {
             throw new NotFoundHttpException('Impossible de charger la collection de joueurs.');
         }
@@ -118,12 +115,6 @@ class PlayerController extends Controller
     /*
      * Other methods
      */
-
-    private function setPlayerRepository()
-    {
-        $em = $this->getDoctrine()->getManager();
-        $this->PlayerRepository = $em->getRepository('GameScoreBundle:Player');
-    }
 
     public function getAlphaIndex()
     {
