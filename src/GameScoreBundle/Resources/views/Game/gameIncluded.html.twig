@@ -1,11 +1,23 @@
 <div class="panel panel-info">
     <div class="panel-heading">
-        <h3>{{ game.name }}</h3>
+        {% if extended_mode is defined %}
+        <h3>
+            {{ game.name }}<span class="pull-right">
+            <a href="{{ path('game_score_game_update', {'id':game.id}) }}">
+                <span class="glyphicon glyphicon-pencil"></span>
+            </a>
+            </span>
+        </h3>
+        {% else %}
+            <h4><a href="{{ path('game_score_game_view', { 'id':game.id }) }}">{{ game.name }}</a></h4>
+        {% endif %}
     </div>
     <ul class="list-group">
-        <li class="list-group-item">
-            {{ game.description }}
-        </li>
+        {% if extended_mode is defined %}
+            <li class="list-group-item">
+                {{ game.description }}
+            </li>
+        {% endif %}
         <li class="list-group-item">
             {{ 'editor'|trans|capitalize }} :
             {% if game.editor %}
@@ -22,32 +34,34 @@
                 {% endfor %}
             {% endif %}
         </li>
-        <li class="list-group-item">
-            Collaboratif :
-            {% if game.getIsCollaborative %}
-                Oui
-            {% else %}
-                Non
-            {% endif %}
-            <br/>
-            Extension :
-            {% if game.getIsExtension %}
-                Oui
-            {% else %}
-                Non
-            {% endif %}
-            <br/>
-            Le plus petit score gagne :
-            {% if game.getHasInvertedScore %}
-                Oui
-            {% else %}
-                Non
-            {% endif %}
-        </li>
-        <li class="list-group-item">
-            {% if game.image %}
-                <img src="{{ asset(game.image.WebPath) }}" alt="{{ game.image.alt }}" height="200">
-            {% endif %}
-        </li>
+        {% if extended_mode is defined %}
+            <li class="list-group-item">
+                Collaboratif :
+                {% if game.getIsCollaborative %}
+                    Oui
+                {% else %}
+                    Non
+                {% endif %}
+                <br/>
+                Extension :
+                {% if game.getIsExtension %}
+                    Oui
+                {% else %}
+                    Non
+                {% endif %}
+                <br/>
+                Le plus petit score gagne :
+                {% if game.getHasInvertedScore %}
+                    Oui
+                {% else %}
+                    Non
+                {% endif %}
+            </li>
+            <li class="list-group-item">
+                {% if game.image %}
+                    <img src="{{ asset(game.image.WebPath) }}" alt="{{ game.image.alt }}" height="200">
+                {% endif %}
+            </li>
+        {% endif %}
     </ul>
 </div>

@@ -21,11 +21,11 @@ game_score_game_create:
         _controller: GameScoreBundle:Game:createGame
 
 game_score_game_update:
-    path:     /game/update/{game_id}
+    path:     /game/update/{id}
     defaults:
-        _controller: GameScoreBundle:Game:updateGame
+        _controller: GameScoreBundle:Game:update
         requirements:
-          game_id: \d+
+          id: \d+
 
 # Routes for Editors
 game_score_editor_view:

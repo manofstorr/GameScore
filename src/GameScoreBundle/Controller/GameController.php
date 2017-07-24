@@ -75,7 +75,9 @@ class GameController extends Controller
             'GameScoreBundle:Game:view.html.twig',
             array(
                 'game' => $game,
-                'plays' => $plays
+                'plays' => $plays,
+                'extended_mode' => true
+
             )
         );
     }
@@ -114,14 +116,8 @@ class GameController extends Controller
     /**
      * @Security("has_role('ROLE_USER')")
      */
-    public function updateGameAction(Request $request, int $game_id)
+    public function updateAction(Request $request, Game $game)
     {
-        $game = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository('GameScoreBundle:Game')
-            ->find($game_id);
-
         $form = $this->createForm(GameType::class, $game);
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
@@ -135,10 +131,9 @@ class GameController extends Controller
                     ->getFlashBag()
                     ->add('info', 'Le jeu a bien été mis à jour.');
                 return $this->redirectToRoute('game_score_game_view',
-                    array('game_id' => $game->getId()));
+                    array('id' => $game->getId()));
             }
         }
-
         return $this->render('GameScoreBundle:Game:form.html.twig',
             array('form' => $form->createView()));
     }
