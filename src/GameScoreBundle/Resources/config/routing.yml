@@ -4,11 +4,11 @@ game_score_homepage:
 
 # Routes for Games
 game_score_game_view:
-    path:     /game/view/{game_id}
+    path:     /game/{id}
     defaults:
-        _controller: GameScoreBundle:Game:readGame
+        _controller: GameScoreBundle:Game:view
         requirements:
-            game_id: \d+
+            id: \d+
 
 game_score_game_collection:
     path:     /game/collection/{page}

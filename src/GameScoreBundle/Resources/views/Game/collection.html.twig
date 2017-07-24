@@ -33,7 +33,7 @@
                         {% endfor %}
                     {% endif %}
                     <br/>
-                    <a href="{{ path('game_score_game_view', {'game_id':game.id}) }}">Fiche</a>
+                    <a href="{{ path('game_score_game_view', {'id':game.id}) }}">Fiche</a>
                     - <a href="{{ path('game_score_game_update', {'game_id':game.id}) }}">Maj</a>
                 </li>
             {% endfor %}

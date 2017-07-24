@@ -63,24 +63,8 @@ class GameController extends Controller
         return $alphapageArray;
     }
 
-    public function readGameAction($game_id)
+    public function viewAction(Game $game)
     {
-        $em = $this
-            ->getDoctrine()
-            ->getManager();
-
-        $game = $em
-            ->getRepository('GameScoreBundle:Game')
-            ->find($game_id);
-
-        if ($game === null) {
-            throw new NotFoundHttpException('Aucun jeu trouvé avec cet id : ' . $game_id);
-        }
-
-        $scores = $em
-            ->getRepository('GameScoreBundle:Score')
-            ->getScoresWithPlaysByGame($game);
-
         // find plays
         $plays = $this
             ->container
@@ -91,7 +75,6 @@ class GameController extends Controller
             'GameScoreBundle:Game:view.html.twig',
             array(
                 'game' => $game,
-                'scores' => $scores,
                 'plays' => $plays
             )
         );
