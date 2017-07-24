@@ -1,0 +1,53 @@
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h3>{{ game.name }}</h3>
+    </div>
+    <ul class="list-group">
+        <li class="list-group-item">
+            {{ game.description }}
+        </li>
+        <li class="list-group-item">
+            {{ 'editor'|trans|capitalize }} :
+            {% if game.editor %}
+                {{ game.editor.name }} <a href="{{ path('game_score_editor_view', { 'id':game.editor.id }) }}">Maj</a>
+            {% endif %}
+        </li>
+
+        <li class="list-group-item">
+            {{ 'author'|trans|capitalize }}(s) :
+            {% if game.author %}
+                {% for author in game.author %}
+                    {{ author.firstname }}
+                    {{ author.lastname }}
+                {% endfor %}
+            {% endif %}
+        </li>
+        <li class="list-group-item">
+            Collaboratif :
+            {% if game.getIsCollaborative %}
+                Oui
+            {% else %}
+                Non
+            {% endif %}
+            <br/>
+            Extension :
+            {% if game.getIsExtension %}
+                Oui
+            {% else %}
+                Non
+            {% endif %}
+            <br/>
+            Le plus petit score gagne :
+            {% if game.getHasInvertedScore %}
+                Oui
+            {% else %}
+                Non
+            {% endif %}
+        </li>
+        <li class="list-group-item">
+            {% if game.image %}
+                <img src="{{ asset(game.image.WebPath) }}" alt="{{ game.image.alt }}" height="200">
+            {% endif %}
+        </li>
+    </ul>
+</div>

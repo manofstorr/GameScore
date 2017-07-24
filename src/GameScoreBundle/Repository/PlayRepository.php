@@ -40,41 +40,29 @@ class PlayRepository extends EntityRepository
         $statement->execute();
         $results = $statement->fetchAll();
         return $results;
-
     }
 
-    // played games for a player
-    public function getPlayedGamesByPlayerX($player_id, $page, $nbPerPage)
+    public function getPlaysByGame($game_id, $limit, $nbPerPage)
     {
         // constructing Limit clause
         if ($nbPerPage) {
-            $limitClause = "LIMIT ".$page.", ".$nbPerPage." ";
+            $limitClause = "LIMIT ".$limit.", ".$nbPerPage." ";
         } else {
-            $limitClause = "LIMIT ".$page." ";
+            $limitClause = "LIMIT ".$limit." ";
         }
         $em = $this->getEntityManager();
         $connection = $em->getConnection();
         $statement = $connection->prepare("
-            SELECT game.id as gameid, game.name as gamename, play.id, play.date as playdate, 
-            COUNT(scores.id) AS nbPlayers, scoreplayer.score as score, player.firstname,
-            (SELECT MAX(score) 
-             FROM score
-             WHERE play_id = play.id) AS MAXScore
+            SELECT play.id
             FROM play
-              INNER JOIN score scores ON (scores.play_id = play.id)
-              INNER JOIN score scoreplayer ON (scoreplayer.play_id = play.id)
-              INNER JOIN player ON (player.id = scoreplayer.player_id)
-              INNER JOIN game ON (game.id = play.game_id)
-            WHERE scoreplayer.player_id = :player_id
-            GROUP BY play.id
+            WHERE game_id = :game_id
             ORDER BY play.date DESC "
             . $limitClause
         );
-        $statement->bindValue('player_id', $player_id);
-        //$statement->bindValue('page', $page);
-        //$statement->bindValue('nbperpage', $nbPerPage);
+        $statement->bindValue('game_id', $game_id);
         $statement->execute();
         $results = $statement->fetchAll();
         return $results;
     }
+
 }

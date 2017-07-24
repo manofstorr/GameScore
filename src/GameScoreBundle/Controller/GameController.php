@@ -81,11 +81,18 @@ class GameController extends Controller
             ->getRepository('GameScoreBundle:Score')
             ->getScoresWithPlaysByGame($game);
 
+        // find plays
+        $plays = $this
+            ->container
+            ->get('play_service')
+            ->getPlayedGames('game_id', $game->getId(), 10, null);
+
         return $this->render(
             'GameScoreBundle:Game:view.html.twig',
             array(
                 'game' => $game,
-                'scores' => $scores
+                'scores' => $scores,
+                'plays' => $plays
             )
         );
     }

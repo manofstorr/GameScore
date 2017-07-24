@@ -32,6 +32,9 @@ class PlayService
             case 'player_id' :
                 $this->setPlaysIds($this->getPlayedGamesByPlayer($ByValue, $limit, $offset));
                 break;
+            case 'game_id' :
+                $this->setPlaysIds($this->getPlayedGamesByGame($ByValue, $limit, $offset));
+                break;
         }
         if (count($this->getPlaysIds()) == 0) {
             return false;
@@ -61,6 +64,9 @@ class PlayService
         return $plays;
     }
 
+    /*
+     * Retrieving array of play ids methods :
+     */
     private function getPlayedGamesByPlayer($player_id, $limit, $offset)
     {
         $playedGameIds = $this
@@ -69,6 +75,17 @@ class PlayService
             ->getPlaysByPlayer($player_id, $limit, null);
         return $playedGameIds;
     }
+
+    private function getPlayedGamesByGame($game_id, $limit, $offset)
+    {
+        $playedGameIds = $this
+            ->em
+            ->getRepository('GameScoreBundle:Play')
+            ->getPlaysByGame($game_id, $limit, null);
+        return $playedGameIds;
+    }
+
+
 
     private function getPlayById($id)
     {

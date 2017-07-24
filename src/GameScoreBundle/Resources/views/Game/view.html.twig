@@ -10,70 +10,8 @@
 {% endblock %}
 
 {% block mainsection %}
-    <section class="col-md-8">
-        <h2>{{ game.name }}</h2>
-        <p>{{ game.description }}</p>
-        <p>
-            {% if game.author %}
-                Auteur(s) :
-                {% for author in game.author %}
-                    {{ author.firstname ~ ' ' ~ author.lastname }}
-                {% endfor %}
-            {% else %}
-                Pas d'auteur
-            {% endif %}
-        </p>
-        <p>
-            {% if game.editor %}
-                Editeur : {{ game.editor.name }}
-            {% else %}
-                Pas d'éditeur
-            {% endif %}
-        </p>
-        <p>
-            {% if game.getIsCollaborative %}
-                Collaboratif<br/>
-            {% endif %}
-            {% if game.getIsExtension %}
-                Extension<br/>
-            {% endif %}
-            {% if game.getHasInvertedScore %}
-                Le plus petit score gagne<br/>
-            {% endif %}
-        </p>
-
-        <p>
-            {% if game.image %}
-                <img src="{{ asset(game.image.WebPath) }}" alt="{{ game.image.alt }}" height="200">
-            {% endif %}
-        </p>
-
-        <p>
-            {% if scores %}
-                {% set currentplay = 0 %}
-                Parties :
-                <br/>
-                {% for score in scores %}
-                    {% if currentplay != score.play.id %}
-                        {% set currentplay = score.play.id %}
-                        part. [{{ currentplay }}] du
-                        {{ score.play.date|date("d M Y") }}
-                        <br/>
-                        {{ score.play.description }}
-                        <br/>
-                    {% endif %}
-                    {{ score.player.firstname }}
-                    {{ score.score }}
-                    <br/>
-                {% endfor %}
-            {% endif %}
-        </p>
-
-        <p>
-            <a href="{{ path('game_score_game_update', {'game_id':game.id}) }}">Maj</a>
-        </p>
+    <section class="col-md-12">
+        {% include 'GameScoreBundle:Game:gameIncluded.html.twig' with {'game' : game } %}
+        {% include 'GameScoreBundle:Play:playedGamesIncluded.html.twig' with {'plays' : plays } %}
     </section>
-    <aside class="col-md-4">
-        infos
-    </aside>
 {% endblock %}
