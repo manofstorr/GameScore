@@ -13,12 +13,12 @@ game_score_game_view:
 game_score_game_collection:
     path:     /game/collection/{page}
     defaults:
-        _controller: GameScoreBundle:Game:gameCollection
+        _controller: GameScoreBundle:Game:collection
 
 game_score_game_create:
     path:     /game/create/
     defaults:
-        _controller: GameScoreBundle:Game:createGame
+        _controller: GameScoreBundle:Game:create
 
 game_score_game_update:
     path:     /game/update/{id}

@@ -22,7 +22,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 class GameController extends Controller
 {
 
-    public function gameCollectionAction($page='a')
+    public function collectionAction($page='a')
     {
         $em = $this
             ->getDoctrine()
@@ -87,7 +87,7 @@ class GameController extends Controller
     /**
      * @Security("has_role('ROLE_USER')")
      */
-    public function createGameAction(Request $request)
+    public function createAction(Request $request)
     {
         $game = new Game();
         $form = $this->createForm(GameType::class, $game);
