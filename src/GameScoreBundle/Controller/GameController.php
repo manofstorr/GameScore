@@ -55,14 +55,13 @@ class GameController extends Controller
         // building initial array for alphabetical pseudo-pagination
         $alphapageArray = array();
         foreach ($gameCollection as $game){
-            $index = substr($game->getName(), 0,1);
+            $index = strtolower(substr($game->getName(), 0,1));
             if (!in_array($index, $alphapageArray)){
                 $alphapageArray[] = $index;
             }
         }
         return $alphapageArray;
     }
-
 
     public function readGameAction($game_id)
     {

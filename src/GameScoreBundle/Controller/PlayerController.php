@@ -127,11 +127,11 @@ class PlayerController extends Controller
             ->getDoctrine()
             ->getManager()
             ->getRepository('GameScoreBundle:Player');
-        $players = $em->findAll();
+        $players = $em->findBy(array(), array('firstname' => 'ASC'));
         // building initial array for alphabetical pseudo-pagination
         $alphapageArray = array();
         foreach ($players as $player) {
-            $index = substr($player->getFirstname(), 0, 1);
+            $index = strtolower(substr($player->getFirstname(), 0, 1));
             if (!in_array($index, $alphapageArray)) {
                 $alphapageArray[] = $index;
             }
