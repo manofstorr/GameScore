@@ -22,7 +22,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 class GameController extends Controller
 {
 
-    public function collectionAction($page='a')
+    public function collectionAction($page = 'a')
     {
         $em = $this
             ->getDoctrine()
@@ -54,9 +54,9 @@ class GameController extends Controller
         $gameCollection = $em->getAllGames();
         // building initial array for alphabetical pseudo-pagination
         $alphapageArray = array();
-        foreach ($gameCollection as $game){
-            $index = strtolower(substr($game->getName(), 0,1));
-            if (!in_array($index, $alphapageArray)){
+        foreach ($gameCollection as $game) {
+            $index = strtolower(substr($game->getName(), 0, 1));
+            if (!in_array($index, $alphapageArray)) {
                 $alphapageArray[] = $index;
             }
         }
@@ -65,18 +65,31 @@ class GameController extends Controller
 
     public function viewAction(Game $game)
     {
-        // find plays
+        // find last plays
+        $limitOfPlayedGamesShown = $this->getParameter('limit_of_played_games_shown');
         $plays = $this
             ->container
             ->get('play_service')
-            ->getPlayedGames('game_id', $game->getId(), 10, null);
+            ->getPlayedGames('game_id', $game->getId(), $limitOfPlayedGamesShown, null);
+
+        // count played games all times
+        $totalPlayedGames = count(
+            $this
+                ->getDoctrine()
+                ->getManager()
+                ->getRepository('GameScoreBundle:Play')
+                ->findBy(
+                    array('game' => $game)
+            )
+        );
 
         return $this->render(
             'GameScoreBundle:Game:view.html.twig',
             array(
                 'game' => $game,
                 'plays' => $plays,
-                'extended_mode' => true
+                'extended_mode' => true,
+                'totalPlayedGames' => $totalPlayedGames
 
             )
         );

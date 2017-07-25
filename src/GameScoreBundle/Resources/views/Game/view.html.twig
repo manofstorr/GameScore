@@ -11,6 +11,7 @@
 {% block mainsection %}
     <section class="col-md-12">
         {% include 'GameScoreBundle:Game:gameIncluded.html.twig' with {'game' : game } %}
+        {% include 'GameScoreBundle:Play:totalPlayedGamesIncluded.html.twig' with {'totalPlayedGames' : totalPlayedGames } %}
         {% include 'GameScoreBundle:Play:playedGamesIncluded.html.twig' with {'plays' : plays } %}
     </section>
 {% endblock %}
