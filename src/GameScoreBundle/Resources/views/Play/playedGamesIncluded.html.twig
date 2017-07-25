@@ -17,13 +17,16 @@
                         {{ play.nbPlayers }} joueurs
                     </p>
                     <ul class="alternate">
-                        {% for player in play.player %}
-                            <li class="list-unstyled">
-                                {{ player.firstname }} {{ player.lastname }}
-                                <a href="{{ path('game_score_player_view', {'id': player.id}) }}" class="small">voir</a>
-                                <span class="badge badge-inverse pull-right">{{ player.score }}</span>
-                            </li>
-                        {% endfor %}
+                        {% if play.nbPlayers > 0 %}
+                            {% for player in play.player %}
+                                <li class="list-unstyled">
+                                    {{ player.firstname }} {{ player.lastname }}
+                                    <a href="{{ path('game_score_player_view', {'id': player.id}) }}"
+                                       class="small">voir</a>
+                                    <span class="badge badge-inverse pull-right">{{ player.score }}</span>
+                                </li>
+                            {% endfor %}
+                        {% endif %}
                     </ul>
                 </li>
             {% endfor %}

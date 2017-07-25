@@ -9,37 +9,32 @@
 {% endblock %}
 
 {% block mainsection %}
-    <h2>{{ 'form' |trans|capitalize }} : {{ 'score' |trans|capitalize }}</h2>
-
-    <p>
-        {{ play.date|date("d/m/Y") }} : {{ play.game.name }}
-    </p>
-    {% include 'GameScoreBundle:Score:scoresIncluded.html.twig' with {'scores' : scores } %}
-
+    <h2>{{ 'play'|trans|capitalize }} {{ 'of'|trans }} {{ play.game.name }}</h2>
+    {% include 'GameScoreBundle:Play:playedGamesIncluded.html.twig' with {'plays' : plays } %}
     <div class="well">
-        {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+        <legend>{{ 'add a score'|trans|capitalize }} :</legend>
+        {{ form_start(form) }}
 
         <div class="form-group">
-            {{ form_label(form.player, "Player : ", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+            <label for="player" class="control-label">
+                {{ form_label(form.player, 'player'|trans|capitalize) }}
+            </label>
             {{ form_errors(form.player) }}
-            <div class="col-sm-10">
-                {{ form_widget(form.player, {'attr': {'class': 'form-control'}}) }}
-            </div>
+            {{ form_widget(form.player) }}
         </div>
 
         <div class="form-group">
-            {{ form_label(form.score, "Score : ", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+            <label for="score" class="control-label">
+                {{ form_label(form.score, 'score'|trans|capitalize) }}
+            </label>
             {{ form_errors(form.score) }}
-            <div class="col-sm-10">
-                {{ form_widget(form.score, {'attr': {'class': 'form-control'}}) }}
-            </div>
+            {{ form_widget(form.score) }}
         </div>
 
         <div class="form-group">
-            <div class="col-sm-2"></div>
-            <div class="col-sm-10">
-                {{ form_widget(form.save_and_declare_other_players, {'attr': {'class': 'btn btn-secondary'}}) }}
-                {{ form_widget(form.save_and_stop, {'attr': {'class': 'btn btn-primary'}}) }}
+            <div>
+                {{ form_widget(form.save_and_declare_other_players, {'attr': {'class': 'btn btn-primary'}}) }}
+                {{ form_widget(form.save_and_stop, {'attr': {'class': 'btn btn-danger'}}) }}
             </div>
         </div>
 
@@ -47,6 +42,7 @@
             {{ form_widget(form.play) }}
         </div>
 
+        {{ form_rest(form) }}
         {{ form_end(form) }}
     </div>
 

@@ -35,6 +35,10 @@ class PlayService
             case 'game_id' :
                 $this->setPlaysIds($this->getPlayedGamesByGame($ByValue, $limit, $offset));
                 break;
+            case 'single_play_id' :
+                $this->setPlaysIds(array(0 => $ByValue));
+                break;
+
         }
         if (count($this->getPlaysIds()) == 0) {
             return false;

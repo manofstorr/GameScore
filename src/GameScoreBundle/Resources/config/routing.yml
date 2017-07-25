@@ -105,13 +105,6 @@ game_score_player_update:
         id: \d+
 
 # Routes for plays
-game_score_play_view:
-    path:     /play/{id}
-    defaults:
-        _controller: GameScoreBundle:Play:view
-    requirements:
-        id: \d+
-
 game_score_play_create:
     path:     /play/create/
     defaults:

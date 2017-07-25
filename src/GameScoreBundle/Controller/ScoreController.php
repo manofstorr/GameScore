@@ -39,15 +39,22 @@ class ScoreController extends Controller
                     ->add('info', 'Score ajouté !');
 
                 if (isset($_POST['gamescorebundle_score']['save_and_stop'])) {
-                    return $this->redirectToRoute('game_score_play_view', array('id' => $play->getId()));
+                    return $this->redirectToRoute('game_score_game_view', array('id' => $play->getGame()->getId()));
                 }
             }
         }
+        // play info via service
+        $plays = $this
+            ->container
+            ->get('play_service')
+            ->getPlayedGames('single_play_id', $play->getId(), 1, null);
+
         return $this->render('GameScoreBundle:Score:form.html.twig',
             array(
                 'form' => $form->createView(),
                 'play' => $play,
                 'scores' => $this->getScoresByGame($play),
+                'plays' => $plays
             )
         );
     }

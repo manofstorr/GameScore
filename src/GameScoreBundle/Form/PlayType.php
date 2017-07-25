@@ -31,7 +31,7 @@ class PlayType extends AbstractType
                     'multiple' => false
                 )
             )
-            ->add('save and declare players', SubmitType::class)
+            ->add('save_and_declare_players', SubmitType::class)
             ;
     }
     
