@@ -8,7 +8,6 @@
 
 namespace GameScoreBundle\Controller;
 
-
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use GameScoreBundle\Entity\Score;
@@ -24,7 +23,15 @@ class ScoreController extends Controller
     public function createAction(Request $request, Play $play)
     {
         $score = new Score();
-        $form = $this->createForm(ScoreType::class, $score, array('play_id' => $play->getId()));
+        // retrieve players yet in the plays > they wont't be proposed by the form
+        $form = $this->createForm(
+            ScoreType::class,
+            $score,
+            array(
+                'play_id' => $play->getId(),
+                'players_out' => array(1,2,4)
+            )
+        );
 
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
@@ -32,14 +39,18 @@ class ScoreController extends Controller
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($score);
                 $em->flush();
-
                 $request
                     ->getSession()
                     ->getFlashBag()
                     ->add('info', 'Score ajouté !');
 
                 if (isset($_POST['gamescorebundle_score']['save_and_stop'])) {
-                    return $this->redirectToRoute('game_score_game_view', array('id' => $play->getGame()->getId()));
+                    return $this->redirectToRoute(
+                        'game_score_game_view',
+                        array(
+                            'id' => $play->getGame()->getId()
+                        )
+                    );
                 }
             }
         }

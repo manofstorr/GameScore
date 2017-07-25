@@ -5,6 +5,7 @@ namespace GameScoreBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Tools\Pagination\Paginator;
+use GameScoreBundle\Entity\Player;
 
 /**
  * PlayerRepository
@@ -24,4 +25,5 @@ class PlayerRepository extends EntityRepository
 
         return new Paginator($query, true);
     }
+
 }
