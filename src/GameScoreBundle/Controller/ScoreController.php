@@ -17,25 +17,41 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class ScoreController extends Controller
 {
+
+    /*
+     * Action methods
+     */
+
     /**
      * @Security("has_role('ROLE_USER')")
      */
     public function createAction(Request $request, Play $play)
     {
         $score = new Score();
-        // retrieve players yet in the plays > they wont't be proposed by the form
-        $form = $this->createForm(
-            ScoreType::class,
-            $score,
-            array(
-                'play_id' => $play->getId(),
-                'players_out' => array(1,2,4)
-            )
-        );
+        $PlayersYetInThePlay = array(0);
 
         if ($request->isMethod('POST')) {
+            // declare form for check
+            $form = $this->createForm(
+                ScoreType::class,
+                $score,
+                array(
+                    'play_id' => $play->getId(),
+                    'players_out' => $PlayersYetInThePlay,
+                )
+            );
             $form->handleRequest($request);
             if ($form->isValid()) {
+                // simple exit
+                if (isset($_POST['gamescorebundle_score']['stop_without_saving_current_score'])) {
+                    return $this->redirectToRoute(
+                        'game_score_game_view',
+                        array(
+                            'id' => $play->getGame()->getId()
+                        )
+                    );
+                }
+                // else persist
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($score);
                 $em->flush();
@@ -43,7 +59,7 @@ class ScoreController extends Controller
                     ->getSession()
                     ->getFlashBag()
                     ->add('info', 'Score ajouté !');
-
+                // exit after persist
                 if (isset($_POST['gamescorebundle_score']['save_and_stop'])) {
                     return $this->redirectToRoute(
                         'game_score_game_view',
@@ -54,12 +70,23 @@ class ScoreController extends Controller
                 }
             }
         }
-        // play info via service
+        // continue declaring players
+
+        // get play info via service
         $plays = $this
             ->container
             ->get('play_service')
             ->getPlayedGames('single_play_id', $play->getId(), 1, null);
 
+        // redeclare form without players yet scored
+        $form = $this->createForm(
+            ScoreType::class,
+            $score,
+            array(
+                'play_id' => $play->getId(),
+                'players_out' => $this->getPlayersYetInthePlay($play),
+            )
+        );
         return $this->render('GameScoreBundle:Score:form.html.twig',
             array(
                 'form' => $form->createView(),
@@ -70,6 +97,9 @@ class ScoreController extends Controller
         );
     }
 
+    /*
+     * Other methods
+     */
     public function getScoresByGame($play)
     {
         return $this
@@ -80,6 +110,20 @@ class ScoreController extends Controller
                 array('play' => $play),
                 array('score' => 'desc')
             );
+    }
+
+    public function getPlayersYetInthePlay($play)
+    {
+        // retrieve players yet in the plays > they wont't be proposed by the form
+        $PlayersYetInThePlay = array(0);
+        $getPlayersYetInthePlay = $this->getDoctrine()
+            ->getManager()
+            ->getRepository('GameScoreBundle:Score')
+            ->findBy(array('play' => $play));
+        foreach ($getPlayersYetInthePlay as $line) {
+            array_push($PlayersYetInThePlay, $line->getPlayer()->getId());
+        }
+        return $PlayersYetInThePlay;
     }
 
 }

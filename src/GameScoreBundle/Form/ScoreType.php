@@ -23,12 +23,6 @@ class ScoreType extends AbstractType
 
         $builder
             ->add('score', IntegerType::class)
-            ->add('player', EntityType::class,
-                array(
-                    'class' => 'GameScoreBundle:Player',
-                    'choice_label' => 'firstname',
-                    'multiple' => false)
-            )
             ->add('play', EntityType::class,
                 array(
                     'class' => 'GameScoreBundle:Play',
@@ -55,6 +49,7 @@ class ScoreType extends AbstractType
             )
             ->add('save_and_declare_other_players', SubmitType::class)
             ->add('save_and_stop', SubmitType::class)
+            ->add('stop_without_saving_current_score', SubmitType::class)
         ;
     }
     
