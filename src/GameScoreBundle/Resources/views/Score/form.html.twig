@@ -33,9 +33,8 @@
 
         <div class="form-group">
             <div>
-                {{ form_widget(form.save_and_declare_other_players, {'attr': {'class': 'btn btn-primary'}}) }}
-                {{ form_widget(form.save_and_stop, {'attr': {'class': 'btn btn-warning'}}) }}
-                {{ form_widget(form.stop_without_saving_current_score, {'attr': {'class': 'btn btn-danger'}}) }}
+                {{ form_widget(form.save_player, {'attr': {'class': 'btn btn-primary'}}) }}
+                {{ form_widget(form.stop_and_exit, {'attr': {'class': 'btn btn-danger'}}) }}
             </div>
         </div>
 

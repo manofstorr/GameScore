@@ -28,30 +28,27 @@ class ScoreController extends Controller
     public function createAction(Request $request, Play $play)
     {
         $score = new Score();
-        $PlayersYetInThePlay = array(0);
-
         if ($request->isMethod('POST')) {
+
+            if (isset($_POST['gamescorebundle_score']['stop_and_exit'])) {
+                return $this->redirectToRoute(
+                    'game_score_game_view',
+                    array(
+                        'id' => $play->getGame()->getId()
+                    )
+                );
+            }
             // declare form for check
             $form = $this->createForm(
                 ScoreType::class,
                 $score,
                 array(
                     'play_id' => $play->getId(),
-                    'players_out' => $PlayersYetInThePlay,
+                    'players_out' => array(0),
                 )
             );
             $form->handleRequest($request);
             if ($form->isValid()) {
-                // simple exit
-                if (isset($_POST['gamescorebundle_score']['stop_without_saving_current_score'])) {
-                    return $this->redirectToRoute(
-                        'game_score_game_view',
-                        array(
-                            'id' => $play->getGame()->getId()
-                        )
-                    );
-                }
-                // else persist
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($score);
                 $em->flush();
@@ -59,26 +56,15 @@ class ScoreController extends Controller
                     ->getSession()
                     ->getFlashBag()
                     ->add('info', 'Score ajouté !');
-                // exit after persist
-                if (isset($_POST['gamescorebundle_score']['save_and_stop'])) {
-                    return $this->redirectToRoute(
-                        'game_score_game_view',
-                        array(
-                            'id' => $play->getGame()->getId()
-                        )
-                    );
-                }
             }
         }
-        // continue declaring players
-
-        // get play info via service
+        // preparing view :
+        // 1. get play info via service
         $plays = $this
             ->container
             ->get('play_service')
             ->getPlayedGames('single_play_id', $play->getId(), 1, null);
-
-        // redeclare form without players yet scored
+        // 2. redeclare form without players yet scored
         $form = $this->createForm(
             ScoreType::class,
             $score,
@@ -91,7 +77,6 @@ class ScoreController extends Controller
             array(
                 'form' => $form->createView(),
                 'play' => $play,
-                'scores' => $this->getScoresByGame($play),
                 'plays' => $plays
             )
         );

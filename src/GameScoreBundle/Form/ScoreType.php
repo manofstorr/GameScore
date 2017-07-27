@@ -47,9 +47,8 @@ class ScoreType extends AbstractType
                     },
                     'multiple' => false)
             )
-            ->add('save_and_declare_other_players', SubmitType::class)
-            ->add('save_and_stop', SubmitType::class)
-            ->add('stop_without_saving_current_score', SubmitType::class)
+            ->add('save_player', SubmitType::class)
+            ->add('stop_and_exit', SubmitType::class)
         ;
     }
     
