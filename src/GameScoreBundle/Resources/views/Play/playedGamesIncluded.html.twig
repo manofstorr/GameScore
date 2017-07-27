@@ -24,6 +24,8 @@
                                     <a href="{{ path('game_score_player_view', {'id': player.id}) }}"
                                        class="small">voir</a>
                                     <span class="badge badge-inverse pull-right">{{ player.score }}</span>
+                                    <a href="{{ path('game_score_score_update', {'id': player.scoreid}) }}"
+                                       class="small">upd</a>
                                 </li>
                             {% endfor %}
                         {% endif %}

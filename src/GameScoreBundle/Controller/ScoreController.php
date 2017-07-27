@@ -82,6 +82,51 @@ class ScoreController extends Controller
         );
     }
 
+    public function updateAction(Request $request, Score $score)
+    {
+        // declare form for check
+        $form = $this->createForm(
+            ScoreType::class,
+            $score,
+            array(
+                'play_id' => $score->getPlay()->getId(),
+                'players_out' => array(0),
+            )
+        );
+
+        if ($request->isMethod('POST')) {
+            $form->handleRequest($request);
+            if ($form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($score);
+                $em->flush();
+
+                $request
+                    ->getSession()
+                    ->getFlashBag()
+                    ->add('info', 'Score mis à jour.');
+                return $this->redirectToRoute(
+                    'game_score_game_view',
+                    array(
+                        'id' => $score->getPlay()->getGame()->getId()
+                    )
+                );
+            }
+        }
+        $plays = $this
+            ->container
+            ->get('play_service')
+            ->getPlayedGames('single_play_id', $score->getPlay()->getId(), 1, null);
+
+        return $this->render('GameScoreBundle:Score:form.html.twig',
+            array(
+                'form' => $form->createView(),
+                'play' => $score->getPlay(),
+                'plays' => $plays
+            )
+        );
+    }
+
     /*
      * Other methods
      */

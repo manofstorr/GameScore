@@ -114,6 +114,13 @@ game_score_play_create:
 game_score_score_create:
     path: /play/{id}/score/create/
     defaults:
-        _controller: GameScoreBundle:Score:Create
+        _controller: GameScoreBundle:Score:create
     requirements:
-            player_id: \d+
+        id: \d+
+
+game_score_score_update:
+    path: /score/update/{id}
+    defaults:
+        _controller: GameScoreBundle:Score:update
+    requirements:
+        id: \d+

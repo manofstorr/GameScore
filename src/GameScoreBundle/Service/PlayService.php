@@ -58,6 +58,7 @@ class PlayService
             $scores = $this->getScoresByPlayId($playedGameId);
             foreach ($scores as $playerKey => $score) {
                 //var_dump($score);
+                $plays[$playKey]['player'][$playerKey]['scoreid'] = $score->getId();
                 $plays[$playKey]['player'][$playerKey]['id'] = $score->getPlayer()->getId();
                 $plays[$playKey]['player'][$playerKey]['firstname'] = $score->getPlayer()->getFirstname();
                 $plays[$playKey]['player'][$playerKey]['lastname'] = $score->getPlayer()->getLastname();
