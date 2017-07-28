@@ -8,9 +8,11 @@
 {% block mainsection %}
     <section class="col-md-12">
         <h2>Joueurs : collection</h2>
-        <p>
-            <a href="{{ path('game_score_player_create') }}">Nouveau joueur</a>
-        </p>
+        {% if is_granted('ROLE_ADMIN') %}
+            <p>
+                <a class="btn btn-primary" href="{{ path('game_score_player_create') }}">Nouveau joueur</a>
+            </p>
+        {% endif %}
         <ul class="pagination">
             {% for p in alphapageArray %}
                 <li{% if p == page %} class="active"{% endif %}>
@@ -18,9 +20,9 @@
                 </li>
             {% endfor %}
         </ul>
-        <ul>
+        <ul class="list-group">
             {% for player in playerCollection %}
-                <li>
+                <li class="list-group-item">
                     {{ player.firstname ~ ' ' ~ player.lastname }}
                     {% if player.star %}
                     &nbsp;&#9733;

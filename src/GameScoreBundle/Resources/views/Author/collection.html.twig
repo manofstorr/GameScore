@@ -14,7 +14,7 @@
         {% if is_granted('ROLE_ADMIN') %}
             <p><a class="btn btn-primary" href="{{ path('game_score_author_create') }}">Nouvel auteur</a></p>
         {% endif %}
-        <ul>
+        <ul class="list-group">
             {% for author in authors %}
                 <li class="list-group-item">
                     {{ author.firstname ~ ' ' ~ author.lastname }}
