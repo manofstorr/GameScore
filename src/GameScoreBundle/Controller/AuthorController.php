@@ -29,7 +29,7 @@ class AuthorController extends Controller
     public function collectionAction()
     {
         $this->setAuthorRepository();
-        $authors = $this->authorRepository->findAll();
+        $authors = $this->authorRepository->findBy(array(), array('lastname' => 'ASC'));
 
         if ($authors === null) {
             throw new NotFoundHttpException('Impossible de charger la collection d\'auteurs.');
