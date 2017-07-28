@@ -20,6 +20,9 @@ class PlayerController extends Controller
      * Action methods
      */
 
+    /**
+     * @Security("has_role('ROLE_USER')")
+     */
     public function viewAction(Player $player)
     {
         $limitOfPlayedGamesShown = $this->getParameter('limit_of_played_games_shown');
@@ -43,6 +46,9 @@ class PlayerController extends Controller
         );
     }
 
+    /**
+     * @Security("has_role('ROLE_USER')")
+     */
     public function collectionAction($page)
     {
         // Todo : make better condition
@@ -139,17 +145,6 @@ class PlayerController extends Controller
         return $alphapageArray;
     }
 
-    private function getPlayedGamesByPlayerX(Player $player, $limit)
-    {
-        $playedGames = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository('GameScoreBundle:Play')
-            ->getPlayedGamesByPlayerX($player->getId(), $limit, null);
-        return $playedGames;
-    }
-
-
     private function getTotalOfPlayedGamesByPlayer(Player $player)
     {
         $playedGames = $this
@@ -160,6 +155,5 @@ class PlayerController extends Controller
         $numberOfPlayedGames = count($playedGames);
         return $numberOfPlayedGames;
     }
-
 
 }
