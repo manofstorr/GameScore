@@ -110,6 +110,13 @@ game_score_play_create:
     defaults:
         _controller: GameScoreBundle:Play:create
 
+game_score_play_update:
+    path: /play/update/{id}
+    defaults:
+        _controller: GameScoreBundle:Play:update
+    requirements:
+        id: \d+
+
 # Routes for scores
 game_score_score_create:
     path: /play/{id}/score/create/

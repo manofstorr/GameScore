@@ -52,4 +52,31 @@ class PlayController extends Controller
             array('form' => $form->createView()));
     }
 
+    public function updateAction(Request $request, Play $play)
+    {
+        $form = $this->createForm(PlayType::class, $play);
+
+        if ($request->isMethod('POST')) {
+            $form->handleRequest($request);
+            if ($form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($play);
+                $em->flush();
+
+                $request
+                    ->getSession()
+                    ->getFlashBag()
+                    ->add('info', 'Partie mise à jour.');
+                return $this->redirectToRoute(
+                    'game_score_game_view',
+                    array(
+                        'id' => $play->getGame()->getId()
+                    )
+                );
+            }
+        }
+        return $this->render('GameScoreBundle:Play:form.html.twig',
+            array('form' => $form->createView()));
+    }
+
 }

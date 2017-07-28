@@ -64,7 +64,7 @@ class ScoreController extends Controller
             ->container
             ->get('play_service')
             ->getPlayedGames('single_play_id', $play->getId(), 1, null);
-        // 2. redeclare form without players yet scored
+        // 2. redeclare form without players yet scored (need to be done after persist)
         $form = $this->createForm(
             ScoreType::class,
             $score,
