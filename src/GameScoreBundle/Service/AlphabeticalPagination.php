@@ -29,8 +29,8 @@ class AlphabeticalPagination
         switch ($entityname) {
             case 'game' :
                 $em = $this->em->getRepository('GameScoreBundle:Game');
-                $collection = $em->getAllGames();
-                foreach ($collection as $item) {
+                $items = $em->getAllGames();
+                foreach ($items as $item) {
                     $index = strtolower(substr($item->getName(), 0, 1));
                     if (!in_array($index, $alphapageArray)) {
                         $alphapageArray[] = $index;
@@ -38,6 +38,14 @@ class AlphabeticalPagination
                 }
                 break;
             case 'player' :
+                $em = $this->em->getRepository('GameScoreBundle:Player');
+                $items  = $em->findBy(array(), array('firstname' => 'ASC'));
+                foreach ($items as $item) {
+                    $index = strtolower(substr($item->getFirstname(), 0, 1));
+                    if (!in_array($index, $alphapageArray)) {
+                        $alphapageArray[] = $index;
+                    }
+                }
                 break;
         }
         return $alphapageArray;
