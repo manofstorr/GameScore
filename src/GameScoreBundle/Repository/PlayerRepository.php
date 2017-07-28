@@ -2,7 +2,6 @@
 
 namespace GameScoreBundle\Repository;
 
-
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use GameScoreBundle\Entity\Player;

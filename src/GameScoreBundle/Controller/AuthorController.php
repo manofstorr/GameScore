@@ -26,19 +26,28 @@ class AuthorController extends Controller
         $this->authorRepository = $em->getRepository('GameScoreBundle:Author');
     }
 
-    public function collectionAction()
+    public function collectionAction($page)
     {
-        $this->setAuthorRepository();
-        $authors = $this->authorRepository->findBy(array(), array('lastname' => 'ASC'));
+        $authors = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('GameScoreBundle:Author')
+            ->getByPage($page);
 
         if ($authors === null) {
             throw new NotFoundHttpException('Impossible de charger la collection d\'auteurs.');
         }
 
+        $alphabeticalIndex = $this
+            ->container->get('alphabetical_pagination')
+            ->getAlphabeticalPagination('author');
+
         return $this->render(
             'GameScoreBundle:Author:collection.html.twig',
             array(
-                'authors' => $authors
+                'authors' => $authors,
+                'page' => $page,
+                'alphapageArray' => $alphabeticalIndex
             )
         );
     }

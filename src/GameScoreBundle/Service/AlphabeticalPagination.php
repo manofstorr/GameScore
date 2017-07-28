@@ -47,6 +47,16 @@ class AlphabeticalPagination
                     }
                 }
                 break;
+            case 'author' :
+                $em = $this->em->getRepository('GameScoreBundle:Author');
+                $items  = $em->findBy(array(), array('lastname' => 'ASC'));
+                foreach ($items as $item) {
+                    $index = strtolower(substr($item->getLastname(), 0, 1));
+                    if (!in_array($index, $alphapageArray)) {
+                        $alphapageArray[] = $index;
+                    }
+                }
+                break;
         }
         return $alphapageArray;
     }

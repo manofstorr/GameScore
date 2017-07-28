@@ -63,7 +63,7 @@ game_score_author_view:
             author_id: \d+
 
 game_score_author_collection:
-    path:     /author/collection/
+    path:     /author/collection/{page}
     defaults:
         _controller: GameScoreBundle:Author:collection
 

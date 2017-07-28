@@ -3,6 +3,7 @@
 namespace GameScoreBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * AuthorRepository
@@ -12,4 +13,14 @@ use Doctrine\ORM\EntityRepository;
  */
 class AuthorRepository extends EntityRepository
 {
+    public function getByPage($page)
+    {
+        $query = $this->createQueryBuilder('a')
+            ->where('a.lastname LIKE :word')
+            ->setParameter('word', $page.'%')
+            ->orderBy('a.lastname', 'ASC')
+            ->getQuery();
+
+        return new Paginator($query, true);
+    }
 }
