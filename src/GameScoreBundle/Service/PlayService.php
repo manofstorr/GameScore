@@ -48,7 +48,7 @@ class PlayService
         foreach ($this->getPlaysIds() as $playKey => $playedGameId) {
             // retrieve play data
             $play = $this->getPlayById($playedGameId);
-            $plays[$playKey]['id'] = $playedGameId;
+            $plays[$playKey]['playid'] = $play[0]->getId();
             $plays[$playKey]['date'] = $play[0]->getDate();
             $plays[$playKey]['description'] = $play[0]->getDescription();
             $plays[$playKey]['location'] = $play[0]->getLocation();
