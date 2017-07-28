@@ -35,32 +35,18 @@ class GameController extends Controller
             throw new NotFoundHttpException('Impossible de charger la collection de jeux.');
         }
 
+        $alphabeticalIndex = $this
+            ->container->get('alphabetical_pagination')
+            ->getAlphabeticalPagination('game');
+
         return $this->render(
             'GameScoreBundle:Game:collection.html.twig',
             array(
                 'gameCollection' => $gameCollection,
                 'page' => $page,
-                'alphapageArray' => $this->getAlphaIndex()
+                'alphapageArray' => $alphabeticalIndex
             )
         );
-    }
-
-    public function getAlphaIndex()
-    {
-        $em = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository('GameScoreBundle:Game');
-        $gameCollection = $em->getAllGames();
-        // building initial array for alphabetical pseudo-pagination
-        $alphapageArray = array();
-        foreach ($gameCollection as $game) {
-            $index = strtolower(substr($game->getName(), 0, 1));
-            if (!in_array($index, $alphapageArray)) {
-                $alphapageArray[] = $index;
-            }
-        }
-        return $alphapageArray;
     }
 
     public function viewAction(Game $game)

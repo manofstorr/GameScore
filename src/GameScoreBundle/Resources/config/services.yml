@@ -12,6 +12,12 @@ services:
       - "@doctrine.orm.entity_manager"
       - "@service_container"
 
+  alphabetical_pagination:
+    class: GameScoreBundle\Service\AlphabeticalPagination
+    arguments:
+      - "@doctrine.orm.entity_manager"
+      - "@service_container"
+
   alphabeta_html_adder:
     class: GameScoreBundle\Service\AlphaBetaHTMLAdder
     arguments:
