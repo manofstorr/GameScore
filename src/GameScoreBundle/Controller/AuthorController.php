@@ -29,16 +29,16 @@ class AuthorController extends Controller
     public function collectionAction()
     {
         $this->setAuthorRepository();
-        $authorCollection = $this->authorRepository->findAll();
+        $authors = $this->authorRepository->findAll();
 
-        if ($authorCollection === null) {
+        if ($authors === null) {
             throw new NotFoundHttpException('Impossible de charger la collection d\'auteurs.');
         }
 
         return $this->render(
             'GameScoreBundle:Author:collection.html.twig',
             array(
-                'authorCollection' => $authorCollection
+                'authors' => $authors
             )
         );
     }
