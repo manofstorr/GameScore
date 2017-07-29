@@ -10,8 +10,10 @@ author: auteur
 game: jeu
 play: partie
 editor: éditeur
+editors list: liste des éditeurs
 player: joueur
 players: joueurs
+players list: liste des joueurs
 
 #plays
 Last played games: Dernières parties jouées
@@ -22,6 +24,7 @@ add a score: ajouter un score
 
 #casual
 of: de
+new: nouveau
 
 #actions
 see card: voir fiche

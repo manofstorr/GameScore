@@ -7,12 +7,11 @@
 
 {% block mainsection %}
     <section class="col-md-12">
-        <h2><i class="fa fa-address-book" aria-hidden="true"></i> Joueurs : collection</h2>
+        <h2><i class="fa fa-address-book" aria-hidden="true"></i>&nbsp;{{ 'players list'|trans|capitalize }}
         {% if is_granted('ROLE_ADMIN') %}
-            <p>
-                <a class="btn btn-primary" href="{{ path('game_score_player_create') }}">Nouveau joueur</a>
-            </p>
+            <a class="btn btn-primary pull-right" href="{{ path('game_score_player_create') }}">{{ 'new'|trans|capitalize }}</a>
         {% endif %}
+        </h2>
         <ul class="pagination">
             {% for p in alphapageArray %}
                 <li{% if p == page %} class="active"{% endif %}>

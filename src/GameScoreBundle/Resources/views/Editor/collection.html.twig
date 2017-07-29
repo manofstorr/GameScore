@@ -10,27 +10,34 @@
 {% endblock %}
 
 {% block mainsection %}
-    <h2>Editeurs : collection</h2>
-    <p>
-        <a href="{{ path('game_score_editor_create') }}">Nouvel éditeur</a>
-    </p>
-    <ul>
-        {% for editor in editorCollection %}
-            <li>
-                {{ editor.name }}
-                -
-                <a href="{{ path('game_score_editor_view', { 'id':editor.id }) }}">Fiche</a>
-                -
-                <a href="{{ path('game_score_editor_update', { 'id':editor.id }) }}">Maj</a>
-            </li>
-        {% endfor %}
-    </ul>
-    <ul class="pagination">
-        {% for p in range(1, nbOfPages) %}
-            <li{% if p == page %} class="active"{% endif %}>
-                <a href="{{ path('game_score_editor_collection', {'page': p}) }}">{{ p }}</a>
-            </li>
-        {% endfor %}
-    </ul>
+    <section class="col-md-12">
+        <h2>&nbsp;{{ 'editors list'|trans|capitalize }}
+            {% if is_granted('ROLE_ADMIN') %}
+                <a class="btn btn-primary pull-right"
+                   href="{{ path('game_score_editor_create') }}">{{ 'new'|trans|capitalize }}</a>
+            {% endif %}
+        </h2>
+        <ul class="pagination">
+            {% for p in range(1, nbOfPages) %}
+                <li{% if p == page %} class="active"{% endif %}>
+                    <a href="{{ path('game_score_editor_collection', {'page': p}) }}">{{ p }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+        <ul class="list-group">
+            {% for editor in editorCollection %}
+                <li class="list-group-item">
+                    {{ editor.name }}
+                    <div class="btn-group pull-right">
+                        <a class="btn btn-default btn-xs"
+                           href="{{ path('game_score_editor_view', { 'id':editor.id }) }}">{{ 'see card'|trans|capitalize }}</a>
+                        <a class="btn btn-warning btn-xs"
+                           href="{{ path('game_score_editor_update', { 'id':editor.id }) }}">{{ 'update'|trans|capitalize }}</a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </section>
+
 
 {% endblock %}
