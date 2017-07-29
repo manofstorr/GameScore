@@ -2,11 +2,10 @@
     <div class="panel-heading">
         {% if extended_mode is defined %}
         <h3>
-            {{ game.name }}<span class="pull-right">
-            <a href="{{ path('game_score_game_update', {'id':game.id}) }}">
-                <span class="glyphicon glyphicon-pencil"></span>
+            {{ game.name }}
+            <a class="btn btn-warning pull-right" href="{{ path('game_score_game_update', {'id':game.id}) }}">
+                {{ 'update'|trans|capitalize }}
             </a>
-            </span>
         </h3>
         {% else %}
             <h4><a href="{{ path('game_score_game_view', { 'id':game.id }) }}">{{ game.name }}</a></h4>
@@ -21,7 +20,7 @@
         <li class="list-group-item">
             {{ 'editor'|trans|capitalize }} :
             {% if game.editor %}
-                {{ game.editor.name }} <a href="{{ path('game_score_editor_view', { 'id':game.editor.id }) }}">Maj</a>
+                 <a href="{{ path('game_score_editor_view', { 'id':game.editor.id }) }}">{{ game.editor.name }}</a>
             {% endif %}
         </li>
 
@@ -29,8 +28,10 @@
             {{ 'author'|trans|capitalize }}(s) :
             {% if game.author %}
                 {% for author in game.author %}
-                    {{ author.firstname }}
-                    {{ author.lastname }}
+                    <a href="{{ path('game_score_author_view', { 'author_id':author.id }) }}">
+                        {{ author.firstname }}
+                        {{ author.lastname }}
+                    </a>
                 {% endfor %}
             {% endif %}
         </li>

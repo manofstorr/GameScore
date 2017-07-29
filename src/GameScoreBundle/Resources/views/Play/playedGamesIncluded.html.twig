@@ -16,19 +16,28 @@
                         , {{ play.date|date("d M Y") }},
                         {{ play.nbPlayers }} joueurs
 
-                        <a href="{{ path('game_score_play_update', {'id': play.playid}) }}"
-                           class="small">upd</a>
+                        <a class="btn btn-default btn-xs pull-right"
+                           href="{{ path('game_score_play_update', {'id': play.playid}) }}"
+                           class="small">{{ 'update'|trans|capitalize }} {{ 'play'|trans }}</a>
                     </p>
-                    <ul class="alternate">
+                    <ul class="list-group">
                         {% if play.nbPlayers > 0 %}
                             {% for player in play.player %}
-                                <li class="list-unstyled">
+                                <li class="list-group-item">
                                     {{ player.firstname }} {{ player.lastname }}
-                                    <a href="{{ path('game_score_player_view', {'id': player.id}) }}"
-                                       class="small">voir</a>
-                                    <span class="badge badge-inverse pull-right">{{ player.score }}</span>
-                                    <a href="{{ path('game_score_score_update', {'id': player.scoreid}) }}"
-                                       class="small">upd</a>
+                                    &nbsp;
+                                    {% if loop.first %}
+                                        <span class="label label-success">{{ player.score }}</span>
+                                    {% else %}
+                                        <span class="label label-info">{{ player.score }}</span>
+                                    {% endif %}
+                                    <div class="btn-group pull-right">
+                                        <a href="{{ path('game_score_player_view', {'id': player.id}) }}"
+                                           class="small">{{ 'see card'|trans|capitalize }}</a>
+                                        &nbsp;|&nbsp;
+                                        <a href="{{ path('game_score_score_update', {'id': player.scoreid}) }}"
+                                           class="small">{{ 'update'|trans|capitalize }} {{ 'score'|trans }}</a>
+                                    </div>
                                 </li>
                             {% endfor %}
                         {% endif %}
