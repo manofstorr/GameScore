@@ -11,9 +11,8 @@
                 &nbsp;&nbsp;&#9733;
             {% endif %}
             <span class="pull-right">
-                <a href="{{ path('game_score_player_update', {'id':player.id}) }}">
-                    <span class="glyphicon glyphicon-pencil"></span>
-                </a>
+                <a class="btn btn-warning"
+                   href="{{ path('game_score_player_update', { 'id':player.id }) }}">{{ 'update'|trans|capitalize }}</a>
             </span>
         </h2>
         {% include 'GameScoreBundle:Play:totalPlayedGamesIncluded.html.twig' with {'totalPlayedGames' : totalPlayedGames } %}
