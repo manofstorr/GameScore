@@ -8,7 +8,8 @@
         {% stylesheets
         filter='cssrewrite'
         'bundles/gamescore/css/bootstrap.css'
-        'bundles/gamescore/css/overload.css' %}
+        'bundles/gamescore/css/overload.css'
+        'bundles/gamescore/css/font-awesome.min.css' %}
         <link rel="stylesheet" href="{{ asset_url }}" type="text/css"/>
         {% endstylesheets %}
     {% endblock %}
@@ -47,7 +48,7 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false">More... <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="{{ path('game_score_player_collection', {page: 'a'}) }}">Les
+                        <li><a href="{{ path('game_score_player_collection', {page: 'a'}) }}"><i class="fa fa-address-book" aria-hidden="true"></i> Les
                                 joueurs</a></li>
                         <li><a href="{{ path('game_score_author_collection', {page: 'a'}) }}">Les auteurs</a></li>
                         <li>
