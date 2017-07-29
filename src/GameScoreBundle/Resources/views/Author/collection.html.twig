@@ -27,10 +27,12 @@
             {% for author in authors %}
                 <li class="list-group-item">
                     {{ author.firstname ~ ' ' ~ author.lastname }}
-                    -
-                    <a href="{{ path('game_score_author_view', { 'author_id':author.id }) }}">Fiche</a>
-                    -
-                    <a href="{{ path('game_score_author_update', { 'author_id':author.id }) }}">Maj</a>
+                    <div class="btn-group pull-right">
+                        <a class="btn btn-default btn-xs"
+                           href="{{ path('game_score_author_view', { 'author_id':author.id }) }}">{{ 'see card'|trans|capitalize }}</a>
+                        <a class="btn btn-warning btn-xs"
+                           href="{{ path('game_score_author_update', { 'author_id':author.id }) }}">{{ 'update'|trans|capitalize }}</a>
+                    </div>
                 </li>
             {% endfor %}
         </ul>
