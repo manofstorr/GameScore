@@ -1,0 +1,10 @@
+<div class="btn-group pull-right ">
+    <a class="btn btn-default btn-xs"
+       href="{{ path('game_score_' ~  entity ~ '_view', { 'id': id }) }}">{{ 'card'|trans|capitalize }}</a>
+    {% if useroleadmin %}
+    {% if is_granted('ROLE_ADMIN') %}
+    <a class="btn btn-warning btn-xs"
+       href="{{ path('game_score_' ~ entity ~ '_update', { 'id': id }) }}">{{ 'update'|trans|capitalize }}</a>
+    {% endif %}
+    {% endif %}
+</div>

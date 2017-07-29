@@ -1,12 +1,14 @@
 @media all and (max-device-width: 480px)
 {
-    .phonesmaller {
-        font-size: 0.75em;
+    .phonehidding {
+        display: none;
     }
 
 }
 
 @media all and (min-device-width: 480px)
 {
-
+    .bigscreenhidding {
+        display: none;
+    }
 }

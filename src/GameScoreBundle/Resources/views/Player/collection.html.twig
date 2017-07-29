@@ -25,22 +25,11 @@
         <ul class="list-group">
             {% for player in playerCollection %}
                 <li class="list-group-item">
-                    <div class="row">
-                        <div class="col-md-10">
-                            {{ player.firstname ~ ' ' ~ player.lastname }}
-                            {% if player.star %}
-                                &nbsp;&#9733;
-                            {% endif %}
-                        </div>
-                        <div class="col-md-2">
-                            <div class="btn-group pull-right">
-                                <a class="btn btn-default btn-xs"
-                                   href="{{ path('game_score_player_view', { 'id':player.id }) }}">{{ 'card'|trans|capitalize }}</a>
-                                <a class="btn btn-warning btn-xs"
-                                   href="{{ path('game_score_player_update', { 'id':player.id }) }}">{{ 'update'|trans|capitalize }}</a>
-                            </div>
-                        </div>
-                    </div>
+                    {{ player.firstname ~ ' ' ~ player.lastname }}
+                    {% if player.star %}
+                        &nbsp;&#9733;
+                    {% endif %}
+                    {% include 'GameScoreBundle:Service:entityLink.html.twig' with {'useroleadmin' : true, 'entity' : 'player', 'id' : player.id } %}
                 </li>
             {% endfor %}
         </ul>
