@@ -10,10 +10,11 @@
 
 {% block mainsection %}
     <section class="col-md-12">
-        <h2>Authors collection</h2>
+        <h2>{{ 'authors list'|trans|capitalize }}
         {% if is_granted('ROLE_ADMIN') %}
-            <p><a class="btn btn-primary" href="{{ path('game_score_author_create') }}">Nouvel auteur</a></p>
+            <a class="btn btn-primary pull-right" href="{{ path('game_score_author_create') }}">{{ 'new'|trans|capitalize }}</a>
         {% endif %}
+        </h2>
         <ul class="pagination">
             {% for p in alphapageArray %}
                 {% if p != "" %}

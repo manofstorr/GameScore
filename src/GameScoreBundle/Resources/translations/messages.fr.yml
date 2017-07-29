@@ -7,7 +7,9 @@ save: enregistrer
 
 #entities
 author: auteur
+authors list: liste d'auteurs
 game: jeu
+games collection: collection de jeux
 play: partie
 editor: éditeur
 editors list: liste des éditeurs
