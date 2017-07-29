@@ -8,9 +8,12 @@
 {% block mainsection %}
     <section class="col-md-12">
         <h2><i class="fa fa-address-book" aria-hidden="true"></i>&nbsp;{{ 'players list'|trans|capitalize }}
-        {% if is_granted('ROLE_ADMIN') %}
-            <a class="btn btn-primary pull-right" href="{{ path('game_score_player_create') }}">{{ 'new'|trans|capitalize }}</a>
-        {% endif %}
+            <br/>
+            {% if is_granted('ROLE_ADMIN') %}
+                <a class="btn btn-default"
+                   href="{{ path('game_score_player_create') }}">{{ 'new'|trans|capitalize }}
+                </a>
+            {% endif %}
         </h2>
         <ul class="pagination">
             {% for p in alphapageArray %}
@@ -22,15 +25,21 @@
         <ul class="list-group">
             {% for player in playerCollection %}
                 <li class="list-group-item">
-                    {{ player.firstname ~ ' ' ~ player.lastname }}
-                    {% if player.star %}
-                    &nbsp;&#9733;
-                    {% endif %}</h2>
-                    <div class="btn-group pull-right">
-                        <a class="btn btn-default btn-xs"
-                           href="{{ path('game_score_player_view', { 'id':player.id }) }}">{{ 'see card'|trans|capitalize }}</a>
-                        <a class="btn btn-warning btn-xs"
-                           href="{{ path('game_score_player_update', { 'id':player.id }) }}">{{ 'update'|trans|capitalize }}</a>
+                    <div class="row">
+                        <div class="col-md-10">
+                            {{ player.firstname ~ ' ' ~ player.lastname }}
+                            {% if player.star %}
+                                &nbsp;&#9733;
+                            {% endif %}
+                        </div>
+                        <div class="col-md-2">
+                            <div class="btn-group pull-right">
+                                <a class="btn btn-default btn-xs"
+                                   href="{{ path('game_score_player_view', { 'id':player.id }) }}">{{ 'card'|trans|capitalize }}</a>
+                                <a class="btn btn-warning btn-xs"
+                                   href="{{ path('game_score_player_update', { 'id':player.id }) }}">{{ 'update'|trans|capitalize }}</a>
+                            </div>
+                        </div>
                     </div>
                 </li>
             {% endfor %}

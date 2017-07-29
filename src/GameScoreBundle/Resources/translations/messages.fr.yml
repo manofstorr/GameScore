@@ -29,5 +29,6 @@ of: de
 new: nouveau
 
 #actions
+card: fiche
 see card: voir fiche
-update: mettre à jour
+update: Màj

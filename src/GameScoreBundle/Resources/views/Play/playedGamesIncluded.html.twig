@@ -27,6 +27,7 @@
                 <ul class="list-group">
                     {% for player in play.player %}
                         <li class="list-group-item">
+
                             {{ player.firstname }} {{ player.lastname }}
                             &nbsp;
                             {% if loop.first %}
@@ -34,12 +35,14 @@
                             {% else %}
                                 <span class="label label-info">{{ player.score }}</span>
                             {% endif %}
-                            <div class="btn-group pull-right">
-                                <a href="{{ path('game_score_player_view', {'id': player.id}) }}"
-                                   class="small">{{ 'see card'|trans|capitalize }}</a>
-                                &nbsp;|&nbsp;
-                                <a href="{{ path('game_score_score_update', {'id': player.scoreid}) }}"
-                                   class="small">{{ 'update'|trans|capitalize }} {{ 'score'|trans }}</a>
+
+                            <div class="pull-right">
+                                <a class="btn btn-default phonesmaller" href="{{ path('game_score_player_view', {'id': player.id}) }}">
+                                    {{ 'card'|trans|capitalize }}
+                                </a>
+                                <a class="btn btn-warning phonesmaller" href="{{ path('game_score_score_update', {'id': player.scoreid}) }}">
+                                    {{ 'update'|trans|capitalize }}
+                                </a>
                             </div>
                         </li>
                     {% endfor %}

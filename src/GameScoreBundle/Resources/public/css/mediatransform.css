@@ -1,0 +1,12 @@
+@media all and (max-device-width: 480px)
+{
+    .phonesmaller {
+        font-size: 0.75em;
+    }
+
+}
+
+@media all and (min-device-width: 480px)
+{
+
+}
