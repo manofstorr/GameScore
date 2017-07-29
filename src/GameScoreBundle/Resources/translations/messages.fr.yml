@@ -13,7 +13,7 @@ editor: éditeur
 player: joueur
 players: joueurs
 
-# plays
+#plays
 Last played games: Dernières parties jouées
 Played games count: Nombre de parties jouées
 location: lieu
@@ -22,3 +22,7 @@ add a score: ajouter un score
 
 #casual
 of: de
+
+#actions
+see card: voir fiche
+update: mettre à jour

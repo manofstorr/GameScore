@@ -27,10 +27,12 @@
                     {% if player.star %}
                     &nbsp;&#9733;
                     {% endif %}</h2>
-                    -
-                    <a href="{{ path('game_score_player_view', { 'id':player.id }) }}">Fiche</a>
-                    -
-                    <a href="{{ path('game_score_player_update', { 'id':player.id }) }}">Maj</a>
+                    <div class="btn-group pull-right">
+                        <a class="btn btn-default btn-xs"
+                           href="{{ path('game_score_player_view', { 'id':player.id }) }}">{{ 'see card'|trans|capitalize }}</a>
+                        <a class="btn btn-warning btn-xs"
+                           href="{{ path('game_score_player_update', { 'id':player.id }) }}">{{ 'update'|trans|capitalize }}</a>
+                    </div>
                 </li>
             {% endfor %}
         </ul>
