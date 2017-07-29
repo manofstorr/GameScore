@@ -10,10 +10,9 @@
             {% if player.star %}
                 &nbsp;&nbsp;&#9733;
             {% endif %}
-            <span class="pull-right">
-                <a class="btn btn-warning"
-                   href="{{ path('game_score_player_update', { 'id':player.id }) }}">{{ 'update'|trans|capitalize }}</a>
-            </span>
+            <a class="btn btn-warning pull-right"
+               href="{{ path('game_score_player_update', { 'id':player.id }) }}">{{ 'update'|trans|capitalize }}
+            </a>
         </h2>
         {% include 'GameScoreBundle:Play:totalPlayedGamesIncluded.html.twig' with {'totalPlayedGames' : totalPlayedGames } %}
         {% include 'GameScoreBundle:Play:playedGamesIncluded.html.twig' with {'plays' : plays } %}
