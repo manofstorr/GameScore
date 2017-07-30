@@ -6,14 +6,17 @@
 
 {% block mainsection %}
     <section class="col-md-12">
-        <h2><i class="fa fa-address-card" aria-hidden="true"></i> {{ player.firstname ~ ' ' ~ player.lastname }}
+        <h2>
+            <i class="fa fa-address-card" aria-hidden="true"></i> {{ player.firstname ~ ' ' ~ player.lastname }}
             {% if player.star %}
                 &nbsp;&nbsp;&#9733;
             {% endif %}
-            <a class="btn btn-warning pull-right"
+        </h2>
+        {% if is_granted('ROLE_ADMIN') %}
+            <a class="btn btn-warning"
                href="{{ path('game_score_player_update', { 'id':player.id }) }}">{{ 'update'|trans|capitalize }}
             </a>
-        </h2>
+        {% endif %}
         {% include 'GameScoreBundle:Play:totalPlayedGamesIncluded.html.twig' with {'totalPlayedGames' : totalPlayedGames } %}
         {% include 'GameScoreBundle:Play:playedGamesIncluded.html.twig' with {'plays' : plays } %}
     </section>
