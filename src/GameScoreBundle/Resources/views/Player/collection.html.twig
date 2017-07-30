@@ -24,13 +24,13 @@
         </ul>
         <ul class="list-group">
             {% for player in playerCollection %}
-                <li class="list-group-item">
+                <a href="{{ path('game_score_player_view', { 'id': player.id }) }}" class="list-group-item">
                     {{ player.firstname ~ ' ' ~ player.lastname }}
                     {% if player.star %}
                         &nbsp;&#9733;
                     {% endif %}
-                    {% include 'GameScoreBundle:Service:entityLink.html.twig' with {'useroleadmin' : true, 'entity' : 'player', 'id' : player.id } %}
-                </li>
+                    <i class="fa fa-chevron-right pull-right" aria-hidden="true"></i>
+                </a>
             {% endfor %}
         </ul>
     </section>

@@ -37,10 +37,10 @@
                             {% endif %}
 
                             <div class="pull-right">
-                                <a class="btn btn-default phonesmaller" href="{{ path('game_score_player_view', {'id': player.id}) }}">
+                                <a class="btn btn-default btn-xs" href="{{ path('game_score_player_view', {'id': player.id}) }}">
                                     {{ 'card'|trans|capitalize }}
                                 </a>
-                                <a class="btn btn-warning phonesmaller" href="{{ path('game_score_score_update', {'id': player.scoreid}) }}">
+                                <a class="btn btn-warning btn-xs" href="{{ path('game_score_score_update', {'id': player.scoreid}) }}">
                                     {{ 'update'|trans|capitalize }}
                                 </a>
                             </div>

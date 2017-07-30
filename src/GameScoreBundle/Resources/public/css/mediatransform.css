@@ -1,14 +1,5 @@
 @media all and (max-device-width: 480px)
 {
-    .phonehidding {
-        display: none;
-    }
 
-}
 
-@media all and (min-device-width: 480px)
-{
-    .bigscreenhidding {
-        display: none;
-    }
 }
