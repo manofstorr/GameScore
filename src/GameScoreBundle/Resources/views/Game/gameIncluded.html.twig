@@ -19,17 +19,14 @@
             </li>
         {% endif %}
 
-        <li class="list-group-item disabled">
-            {{ 'editor'|trans|capitalize }} :
-        </li>
         {% if game.editor %}
             <a class="list-group-item" href="{{ path('game_score_editor_view', { 'id':game.editor.id }) }}">
-                {{ game.editor.name }}
+                {{ 'editor'|trans|capitalize }} : {{ game.editor.name }}
                 <i class="fa fa-chevron-right pull-right" aria-hidden="true"></i>
             </a>
         {% else %}
             <li class="list-group-item disabled">
-                {{ 'none'|trans|capitalize }} :
+                {{ 'editor'|trans|capitalize }} : {{ 'none'|trans|capitalize }} :
             </li>
         {% endif %}
 
