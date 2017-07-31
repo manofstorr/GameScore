@@ -1,7 +1,7 @@
 {% extends "GameScoreBundle::layout.html.twig" %}
 
 {% block title %}
-    Joueur : {{ player.firstname }} - {{ parent() }}
+    {{ 'player'|trans|capitalize }} : {{ player.firstname }} - {{ parent() }}
 {% endblock %}
 
 {% block mainsection %}

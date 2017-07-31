@@ -1,11 +1,7 @@
 {% extends "GameScoreBundle::layout.html.twig" %}
 
 {% block title %}
-    Game : [{{ game.getId() }}] - {{ parent() }}
-{% endblock %}
-
-{% block rightside %}
-    Editeurs populaires :
+    {{ 'game'|trans|capitalize }} : {{ game.name }} - {{ parent() }}
 {% endblock %}
 
 {% block mainsection %}
