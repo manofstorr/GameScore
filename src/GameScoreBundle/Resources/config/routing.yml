@@ -57,11 +57,11 @@ game_score_editor_update:
 
 # Routes for Authors
 game_score_author_view:
-    path:     /author/{author_id}
+    path:     /author/{id}
     defaults:
         _controller: GameScoreBundle:Author:view
-        requirements:
-            author_id: \d+
+    requirements:
+        id: \d+
 
 game_score_author_collection:
     path:     /authors/{page}
@@ -74,11 +74,11 @@ game_score_author_create:
         _controller: GameScoreBundle:Author:create
 
 game_score_author_update:
-    path:     /author/update/{author_id}
+    path:     /author/update/{id}
     defaults:
         _controller: GameScoreBundle:Author:update
         requirements:
-          author_id: \d+
+          id: \d+
 
 # Routes for Players
 game_score_player_view:

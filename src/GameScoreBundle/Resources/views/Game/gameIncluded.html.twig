@@ -39,7 +39,7 @@
         </li>
         {% if game.author %}
             {% for author in game.author %}
-                <a class="list-group-item" href="{{ path('game_score_author_view', { 'author_id':author.id }) }}">
+                <a class="list-group-item" href="{{ path('game_score_author_view', { 'id':author.id }) }}">
                     {{ author.firstname ~ ' ' ~ author.lastname }}
                     <i class="fa fa-chevron-right pull-right" aria-hidden="true"></i>
                 </a>

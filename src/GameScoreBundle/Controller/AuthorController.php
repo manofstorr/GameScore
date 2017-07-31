@@ -53,13 +53,13 @@ class AuthorController extends Controller
     }
 
 
-    public function viewAction($author_id)
+    public function viewAction($id)
     {
         $this->setAuthorRepository();
-        $author = $this->authorRepository->find($author_id);
+        $author = $this->authorRepository->find($id);
 
         if ($author === null) {
-            throw new NotFoundHttpException('Aucun auteur trouvé avec cet id : ' . $author_id);
+            throw new NotFoundHttpException('Aucun auteur trouvé avec cet id : ' . $id);
         }
 
         return $this->render(
@@ -101,13 +101,13 @@ class AuthorController extends Controller
     /**
      * @Security("has_role('ROLE_USER')")
      */
-    public function updateAction(Request $request, int $author_id)
+    public function updateAction(Request $request, int $id)
     {
         $author = $this
             ->getDoctrine()
             ->getManager()
             ->getRepository('GameScoreBundle:Author')
-            ->find($author_id);
+            ->find($id);
 
         $form = $this->createForm(AuthorType::class, $author);
         if ($request->isMethod('POST')) {

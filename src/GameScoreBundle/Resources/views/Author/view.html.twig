@@ -12,7 +12,7 @@
 {% block mainsection %}
     <h2>Auteur : {{ author.firstname ~ ' ' ~ author.lastname }}
         <a class="btn btn-warning pull-right"
-            href="{{ path('game_score_author_update', {'author_id':author.id}) }}">{{ 'update'|trans|capitalize }}
+            href="{{ path('game_score_author_update', {'id':author.id}) }}">{{ 'update'|trans|capitalize }}
         </a>
     </h2>
 {% endblock %}
