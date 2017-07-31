@@ -1,3 +1,4 @@
+# Route for home
 game_score_homepage:
     path:     /
     defaults: { _controller: GameScoreBundle:GameScore:index }
@@ -11,7 +12,7 @@ game_score_game_view:
             id: \d+
 
 game_score_game_collection:
-    path:     /game/collection/{page}
+    path:     /games/{page}
     defaults:
         _controller: GameScoreBundle:Game:collection
 
@@ -29,14 +30,14 @@ game_score_game_update:
 
 # Routes for Editors
 game_score_editor_view:
-    path:     /editor/view/{id}
+    path:     /editor/{id}
     defaults:
         _controller: GameScoreBundle:Editor:view
         requirements:
             id: \d+
 
 game_score_editor_collection:
-    path:     /editor/collection/{page}
+    path:     /editors/{page}
     defaults:
         _controller: GameScoreBundle:Editor:collection
     requirements:
@@ -56,14 +57,14 @@ game_score_editor_update:
 
 # Routes for Authors
 game_score_author_view:
-    path:     /author/view/{author_id}
+    path:     /author/{author_id}
     defaults:
         _controller: GameScoreBundle:Author:view
         requirements:
             author_id: \d+
 
 game_score_author_collection:
-    path:     /author/collection/{page}
+    path:     /authors/{page}
     defaults:
         _controller: GameScoreBundle:Author:collection
 
@@ -88,7 +89,7 @@ game_score_player_view:
             id: \d+
 
 game_score_player_collection:
-    path:     /player/collection/{page}
+    path:     /players/{page}
     defaults:
         _controller: GameScoreBundle:Player:collection
 
