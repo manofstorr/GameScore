@@ -1,39 +1,55 @@
 <div class="panel panel-info">
     <div class="panel-heading">
         {% if extended_mode is defined %}
-        <h3>
-            {{ game.name }}
-            <a class="btn btn-warning pull-right" href="{{ path('game_score_game_update', {'id':game.id}) }}">
-                {{ 'update'|trans|capitalize }}
-            </a>
-        </h3>
+            <h3>
+                {{ game.name }}
+                <a class="btn btn-warning pull-right" href="{{ path('game_score_game_update', {'id':game.id}) }}">
+                    {{ 'update'|trans|capitalize }}
+                </a>
+            </h3>
         {% else %}
             <h4><a href="{{ path('game_score_game_view', { 'id':game.id }) }}">{{ game.name }}</a></h4>
         {% endif %}
     </div>
     <ul class="list-group">
+
         {% if extended_mode is defined %}
             <li class="list-group-item">
                 {{ game.description }}
             </li>
         {% endif %}
-        <li class="list-group-item">
+
+        <li class="list-group-item disabled">
             {{ 'editor'|trans|capitalize }} :
-            {% if game.editor %}
-                 <a href="{{ path('game_score_editor_view', { 'id':game.editor.id }) }}">{{ game.editor.name }}</a>
-            {% endif %}
         </li>
-        <li class="list-group-item">
+        {% if game.editor %}
+            <a class="list-group-item" href="{{ path('game_score_editor_view', { 'id':game.editor.id }) }}">
+                {{ game.editor.name }}
+                <i class="fa fa-chevron-right pull-right" aria-hidden="true"></i>
+            </a>
+        {% else %}
+            <li class="list-group-item disabled">
+                {{ 'none'|trans|capitalize }} :
+            </li>
+        {% endif %}
+
+
+        <li class="list-group-item disabled">
             {{ 'author'|trans|capitalize }}(s) :
-            {% if game.author %}
-                {% for author in game.author %}
-                    <a href="{{ path('game_score_author_view', { 'author_id':author.id }) }}">
-                        {{ author.firstname }}
-                        {{ author.lastname }}
-                    </a>
-                {% endfor %}
-            {% endif %}
         </li>
+        {% if game.author %}
+            {% for author in game.author %}
+                <a class="list-group-item" href="{{ path('game_score_author_view', { 'author_id':author.id }) }}">
+                    {{ author.firstname ~ ' ' ~ author.lastname }}
+                    <i class="fa fa-chevron-right pull-right" aria-hidden="true"></i>
+                </a>
+            {% endfor %}
+        {% else %}
+            <li class="list-group-item disabled">
+                {{ 'none'|trans|capitalize }} :
+            </li>
+        {% endif %}
+
         {% if extended_mode is defined %}
             <li class="list-group-item">
                 Collaboratif :
