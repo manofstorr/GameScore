@@ -7,29 +7,36 @@ save: enregistrer
 
 #entities
 author: auteur
-authors list: liste d'auteurs
+authors: les auteurs
 game: jeu
-games collection: collection de jeux
+games: les jeux
 play: partie
 editor: éditeur
-editors list: liste des éditeurs
+editors: les éditeur
 player: joueur
-players: joueurs
-players list: liste des joueurs
+players: les joueurs
 
 #plays
-Last played games: Dernières parties jouées
-Played games count: Nombre de parties jouées
+Last played games: dernières parties jouées
+played games count: nombre de parties jouées
+new play: nouvelle partie
 location: lieu
 let's start by play, players will come soon: commencez par les infos de partie (les joueurs seront déclarés après)
 add a score: ajouter un score
 
 #casual
+hello: bonjour
 of: de
 new: nouveau
 none: aucun
+more: plus
+home: home
 
 #actions
 card: fiche
 see card: voir fiche
-update: Màj
+update: Mettre à jour
+upd: màj
+sign in: s'identifier
+sign out: se déconnecter
+sign up: s'enregistrer
