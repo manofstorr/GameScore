@@ -1,18 +1,21 @@
 {% extends "GameScoreBundle::layout.html.twig" %}
 
-
 {% block title %}
-    Auteur : [{{ author.getId() }}] - {{ parent() }}
-{% endblock %}
-
-{% block rightside %}
-    Auteurs populaires :
+    Auteur : {{ author.name }} - {{ parent() }}
 {% endblock %}
 
 {% block mainsection %}
-    <h2>Auteur : {{ author.firstname ~ ' ' ~ author.lastname }}
-        <a class="btn btn-warning pull-right"
-            href="{{ path('game_score_author_update', {'id':author.id}) }}">{{ 'update'|trans|capitalize }}
-        </a>
-    </h2>
+    <section class="col-md-12">
+        <h2>
+            <i class="fa fa-address-card" aria-hidden="true"></i>
+            {{ 'author'|trans|capitalize }} : {{ author.firstname ~ ' ' ~ author.lastname }}
+        </h2>
+        {% if is_granted('ROLE_ADMIN') %}
+            <a class="btn btn-warning"
+               href="{{ path('game_score_author_update', {'id':author.id}) }}">{{ 'update'|trans|capitalize }}
+            </a>
+        {% endif %}
+        <hr/>
+        <p>...</p>
+    </section>
 {% endblock %}

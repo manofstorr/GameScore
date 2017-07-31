@@ -1,13 +1,14 @@
 {% extends "GameScoreBundle::layout.html.twig" %}
 
 {% block title %}
-    Joueur : [{{ player.getId() }}] - {{ parent() }}
+    Joueur : {{ player.firstname }} - {{ parent() }}
 {% endblock %}
 
 {% block mainsection %}
     <section class="col-md-12">
         <h2>
-            <i class="fa fa-address-card" aria-hidden="true"></i> {{ player.firstname ~ ' ' ~ player.lastname }}
+            <i class="fa fa-address-card" aria-hidden="true"></i>
+            {{ 'player'|trans|capitalize }} : {{ player.firstname ~ ' ' ~ player.lastname }}
             {% if player.star %}
                 &nbsp;&nbsp;&#9733;
             {% endif %}
@@ -17,6 +18,7 @@
                href="{{ path('game_score_player_update', { 'id':player.id }) }}">{{ 'update'|trans|capitalize }}
             </a>
         {% endif %}
+        <hr />
         {% include 'GameScoreBundle:Play:totalPlayedGamesIncluded.html.twig' with {'totalPlayedGames' : totalPlayedGames } %}
         {% include 'GameScoreBundle:Play:playedGamesIncluded.html.twig' with {'plays' : plays } %}
     </section>

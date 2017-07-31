@@ -1,18 +1,21 @@
 {% extends "GameScoreBundle::layout.html.twig" %}
 
-
 {% block title %}
-    Editeur : [{{ editor.getId() }}] - {{ parent() }}
-{% endblock %}
-
-{% block rightside %}
-    Editeurs populaires :
+    {{ 'editor'|trans|capitalize }} : {{ editor.name }} - {{ parent() }}
 {% endblock %}
 
 {% block mainsection %}
-    <h2>Editeur : {{ editor.name }}
-        <a class="btn btn-warning pull-right"
-            href="{{ path('game_score_editor_update', {'id':editor.id}) }}">{{ 'update'|trans|capitalize }}
-        </a>
-    </h2>
+    <section class="col-md-12">
+        <h2>
+            <i class="fa fa-address-card" aria-hidden="true"></i>
+            {{ 'editor'|trans|capitalize }} : {{ editor.name }}
+        </h2>
+        {% if is_granted('ROLE_ADMIN') %}
+            <a class="btn btn-warning"
+               href="{{ path('game_score_editor_update', {'id':editor.id}) }}">{{ 'update'|trans|capitalize }}
+            </a>
+        {% endif %}
+        <hr/>
+        <p>...</p>
+    </section>
 {% endblock %}
