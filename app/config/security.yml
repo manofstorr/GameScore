@@ -23,9 +23,15 @@ security:
         main_login:
             pattern: ^/login$
             anonymous: true
+        main_register:
+            pattern: ^/register/$
+            anonymous: true
+        main_resetting_request:
+            pattern: ^/resetting/request$
+            anonymous: true
         main:
             pattern: ^/
-            anonymous: true
+            anonymous: false
             provider: main
             form_login:
                 login_path: fos_user_security_login
