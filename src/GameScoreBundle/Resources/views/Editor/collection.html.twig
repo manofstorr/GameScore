@@ -1,22 +1,17 @@
 {% extends "GameScoreBundle::layout.html.twig" %}
 
-
 {% block title %}
-    Editeurs : Collection - {{ parent() }}
-{% endblock %}
-
-{% block rightside %}
-    Editeurs populaires :
+    {{ 'editors'|trans|capitalize }} - {{ parent() }}
 {% endblock %}
 
 {% block mainsection %}
     <section class="col-md-12">
-        <h2>&nbsp;{{ 'editors list'|trans|capitalize }}
-            {% if is_granted('ROLE_ADMIN') %}
-                <a class="btn btn-primary pull-right"
-                   href="{{ path('game_score_editor_create') }}">{{ 'new'|trans|capitalize }}</a>
-            {% endif %}
-        </h2>
+        <h2><i class="fa fa-address-book" aria-hidden="true"></i>&nbsp;{{ 'editors'|trans|capitalize }}</h2>
+        {% if is_granted('ROLE_ADMIN') %}
+            <a class="btn btn-primary"
+               href="{{ path('game_score_editor_create') }}">{{ 'new'|trans|capitalize }}</a>
+        {% endif %}
+        <hr/>
         <ul class="pagination">
             {% for p in range(1, nbOfPages) %}
                 <li{% if p == page %} class="active"{% endif %}>

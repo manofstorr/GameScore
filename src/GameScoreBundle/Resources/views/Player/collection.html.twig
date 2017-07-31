@@ -1,21 +1,20 @@
 {% extends "GameScoreBundle::layout.html.twig" %}
 
-
 {% block title %}
-    Joueurs : Collection - {{ parent() }}
+    {{ 'players'|trans|capitalize }} - {{ parent() }}
 {% endblock %}
 
 {% block mainsection %}
     <section class="col-md-12">
         <h2>
-            <i class="fa fa-address-book" aria-hidden="true"></i>&nbsp;{{ 'players list'|trans|capitalize }}
+            <i class="fa fa-address-book" aria-hidden="true"></i>&nbsp;{{ 'players'|trans|capitalize }}
         </h2>
         {% if is_granted('ROLE_ADMIN') %}
-            <a class="btn btn-default"
+            <a class="btn btn-primary"
                href="{{ path('game_score_player_create') }}">{{ 'new'|trans|capitalize }}
             </a>
-            <hr />
         {% endif %}
+        <hr/>
         <ul class="pagination">
             {% for p in alphapageArray %}
                 <li{% if p == page %} class="active"{% endif %}>

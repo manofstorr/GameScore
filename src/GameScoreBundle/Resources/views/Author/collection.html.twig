@@ -1,20 +1,16 @@
 {% extends "GameScoreBundle::layout.html.twig" %}
 
 {% block title %}
-    Auteurs : Collection - {{ parent() }}
-{% endblock %}
-
-{% block rightside %}
-    Auteurs populaires :
+    {{ 'authors'|trans|capitalize }} - {{ parent() }}
 {% endblock %}
 
 {% block mainsection %}
     <section class="col-md-12">
-        <h2>{{ 'authors list'|trans|capitalize }}
+        <h2><i class="fa fa-address-book" aria-hidden="true"></i>&nbsp;{{ 'authors'|trans|capitalize }}</h2>
         {% if is_granted('ROLE_ADMIN') %}
-            <a class="btn btn-primary pull-right" href="{{ path('game_score_author_create') }}">{{ 'new'|trans|capitalize }}</a>
+            <a class="btn btn-primary" href="{{ path('game_score_author_create') }}">{{ 'new'|trans|capitalize }}</a>
         {% endif %}
-        </h2>
+        <hr/>
         <ul class="pagination">
             {% for p in alphapageArray %}
                 {% if p != "" %}
