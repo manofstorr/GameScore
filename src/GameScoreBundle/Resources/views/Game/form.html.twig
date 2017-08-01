@@ -9,67 +9,73 @@
 {% endblock %}
 
 {% block mainsection %}
-    <h2>Formulaire jeu :</h2>
+    <section class="col-md-offset-2 col-md-8">
+        <h2>{{ 'form'|trans|capitalize }} : {{ 'game'|trans }}</h2>
+        <div class="well">
+            <legend>Remplissez tous les champs</legend>
+            {{ form_start(form)}}
 
-    <div class="well">
-        {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
-
-        {# Génération manuelle et éclatée : #}
-        <div class="form-group">
-            {# Génération du label. #}
-            {{ form_label(form.name, "Nom du jeu :", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
-            {# Affichage des erreurs pour ce champ précis. #}
-            {{ form_errors(form.name) }}
-            <div class="col-sm-10">
-                {# Génération de l'input. #}
-                {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+            <div class="form-group">
+                <label for="name" class="control-label">
+                    {{ form_label(form.name, 'name'|trans|capitalize) }}
+                </label>
+                {{ form_errors(form.name) }}
+                {{ form_widget(form.name) }}
             </div>
-        </div>
 
-        <div class="form-group">
-            {{ form_label(form.description, "Description du jeu : ", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
-            {{ form_errors(form.description) }}
-            <div class="col-sm-10">
-                {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+            <div class="form-group">
+                <label for="description" class="control-label">
+                    {{ form_label(form.description, 'description'|trans|capitalize) }}
+                </label>
+                {{ form_errors(form.description) }}
+                {{ form_widget(form.description) }}
             </div>
-        </div>
 
-        <div class="form-group">
-            {{ form_label(form.author, "Auteur(s) :", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
-            {{ form_errors(form.author) }}
-            <div class="col-sm-10">
-                {{ form_widget(form.author, {'attr': {'class': 'form-control'}}) }}
+            <div class="form-group">
+                <label for="author" class="control-label">
+                    {{ form_label(form.author, 'authors'|trans|capitalize) }}
+                </label>
+                {{ form_errors(form.author) }}
+                {{ form_widget(form.author) }}
             </div>
-        </div>
 
-        <div class="form-group">
-            {{ form_label(form.editor, "Editeur :", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
-            {{ form_errors(form.editor) }}
-            <div class="col-sm-10">
-                {{ form_widget(form.editor, {'attr': {'class': 'form-control'}}) }}
+            <div class="form-group">
+                <label for="editor" class="control-label">
+                    {{ form_label(form.editor, 'editor'|trans|capitalize) }}
+                </label>
+                {{ form_errors(form.editor) }}
+                {{ form_widget(form.editor) }}
             </div>
-        </div>
 
-        <div class="form-group">
-            {{ form_label(form.year, "Année de sortie :", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
-            {{ form_errors(form.year) }}
-            <div class="col-sm-10">
-                {{ form_widget(form.year, {'attr': {'class': 'form-control'}}) }}
+            <div class="form-group">
+                <label for="year" class="control-label">
+                    {{ form_label(form.year, 'year'|trans|capitalize) }}
+                </label>
+                {{ form_errors(form.year) }}
+                {{ form_widget(form.year) }}
             </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-2">infos</div>
-            <div class="col-sm-10">
-        {{ form_row(form.has_inverted_score) }}
-        {{ form_row(form.is_collaborative) }}
-        {{ form_row(form.is_extension) }}
-        {{ form_row(form.image) }}
-        {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
-            </div>
-        </div>
-        {{ form_rest(form) }}
-        {{ form_end(form) }}
-    </div>
 
+
+            <div class="form-group">
+                <label for="year" class="control-label">
+                    {{ 'infos'|trans|capitalize }}
+                </label>
+                    {{ form_row(form.has_inverted_score) }}
+                    {{ form_row(form.is_collaborative) }}
+                    {{ form_row(form.is_extension) }}
+                    {{ form_row(form.image) }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div>
+                    {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary btn-block'}}) }}
+                </div>
+            </div>
+
+            {{ form_rest(form) }}
+            {{ form_end(form) }}
+        </div>
+    </section>
 {% endblock %}
 

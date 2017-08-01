@@ -9,10 +9,10 @@
 {% endblock %}
 
 {% block mainsection %}
-    <h2>Editeurs</h2>
-
-    <div class="well">
-        <legend>Enregistrer ou mettre à jour un éditeur :</legend>
+    <section class="col-md-offset-2 col-md-8">
+        <h2>{{ 'form'|trans|capitalize }} : {{ 'editor'|trans }}</h2>
+        <div class="well">
+            <legend>Remplissez tous les champs</legend>
         {{ form_start(form) }}
 
         <div class="form-group">
@@ -25,13 +25,13 @@
 
         <div class="form-group">
             <div>
-                {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary '}}) }}
+                {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary btn-block'}}) }}
             </div>
         </div>
 
         {{ form_rest(form) }}
         {{ form_end(form) }}
     </div>
-
+</section>
 {% endblock %}
 

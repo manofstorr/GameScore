@@ -11,19 +11,8 @@ body {
     color: #F2F2F2;
 }
 
-[class*="col-"], footer {
-    /*
-    background-color: #F2F2F2;
-    background-clip: padding-box;
-    border: 3px solid transparent;
-    border-radius: 7px;
-    padding: 10px;
-    */
-}
-
 .jumbotron {
     background-color: #058189;
-    /*background-image: url("../img/platjas89.jpg");*/
     color: white;
     text-shadow: 2px 2px #000;
 }
@@ -67,8 +56,10 @@ section {
     display: none;
 }
 
-.alternate :nth-child(odd){
-    background-color:#F2F2F2;
-}
-.alternate :nth-child(even){
+footer {
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 40px;
+    background-color: #0a0a0a;
+    color: #ffffff;
 }
