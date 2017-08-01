@@ -1,7 +1,7 @@
 {% extends "GameScoreBundle::layout.html.twig" %}
 
 {% block title %}
-    Auteur : {{ author.name }} - {{ parent() }}
+    Auteur : {{ author.firstname ~ ' ' ~ author.lastname }} - {{ parent() }}
 {% endblock %}
 
 {% block mainsection %}

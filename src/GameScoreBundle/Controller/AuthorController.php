@@ -89,7 +89,7 @@ class AuthorController extends Controller
                     ->getFlashBag()
                     ->add('info', 'Auteur ajouté !');
                 return $this->redirectToRoute('game_score_author_view',
-                    array('author_id' => $author->getId()));
+                    array('id' => $author->getId()));
             }
         }
 
@@ -122,7 +122,7 @@ class AuthorController extends Controller
                     ->getFlashBag()
                     ->add('info', 'Auteur mis à jour.');
                 return $this->redirectToRoute('game_score_author_view',
-                    array('author_id' => $author->getId()));
+                    array('id' => $author->getId()));
             }
         }
         return $this->render('GameScoreBundle:Author:form.html.twig',

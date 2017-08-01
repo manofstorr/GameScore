@@ -32,9 +32,27 @@ section {
     background-color: #f7f7f7;
 }
 
+/* alert / animation */
 .alert {
     position: absolute;
     width: 100%;
+    z-index: 1000;
+    animation:signup-response 0.5s 1;
+    -webkit-animation:signup-response 0.5s 1;
+    animation-fill-mode: forwards;
+
+    animation-delay:5s;
+    -webkit-animation-delay:1s; /* Safari and Chrome */
+    -webkit-animation-fill-mode: forwards;
+
+}
+@keyframes signup-response{
+    from {opacity :1;}
+    to {opacity :0;}
+}
+@-webkit-keyframes signup-response{
+    from {opacity :1;}
+    to {opacity :0;}
 }
 
 .alphaBetaBar {
