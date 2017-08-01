@@ -20,7 +20,7 @@
 
 <body>
 {% for message in app.session.flashbag.get('info') %}
-    <div class="alert alert-info fade in">
+    <div class="alert alert-info fade in alert-animation ">
         <a href="#" class="close" data-dismiss="alert">×</a>
         {{ message }}
     </div>
