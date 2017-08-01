@@ -43,6 +43,9 @@ class Image
     // On ajoute cet attribut pour y stocker le nom du fichier temporairement
     private $tempFilename;
 
+    // default img dir
+    private $uploadDir = 'uploads/img';
+
     /**
      * @ORM\PrePersist()
      * @ORM\PreUpdate()
@@ -112,8 +115,16 @@ class Image
     public function getUploadDir()
     {
         // On retourne le chemin relatif vers l'image pour un navigateur (relatif au répertoire /web donc)
-        return 'uploads/img';
+        // return 'uploads/img';
+        return $this->uploadDir;
     }
+
+    public function setUploadDir($appendDir)
+    {
+        $this->uploadDir =  $this->getUploadDir().'/'.$appendDir;
+    }
+
+
 
     protected function getUploadRootDir()
     {

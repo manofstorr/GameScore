@@ -68,7 +68,7 @@ class GameController extends Controller
                     array('game' => $game)
             )
         );
-
+        $game->getImage()->setUploadDir('game');
         return $this->render(
             'GameScoreBundle:Game:view.html.twig',
             array(
@@ -105,7 +105,6 @@ class GameController extends Controller
                 return $this->redirectToRoute('game_score_game_view',
                     array('game_id' => $game->getId()));
             }
-
         }
 
         return $this->render('GameScoreBundle:Game:form.html.twig',
@@ -117,6 +116,8 @@ class GameController extends Controller
      */
     public function updateAction(Request $request, Game $game)
     {
+        //$img->setChemin('uploads/xxx_profil_xxx/'.$user->getId());
+        $game->getImage()->setUploadDir('game');
         $form = $this->createForm(GameType::class, $game);
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
