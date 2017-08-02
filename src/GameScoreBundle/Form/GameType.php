@@ -47,9 +47,6 @@ class GameType extends AbstractType
                 },
                 'multiple' => true
             ))
-            ->add('image', ImageType::class,
-                array('required' => false)
-            )
             ->add('save', SubmitType::class);
     }
 
