@@ -9,6 +9,7 @@
 {% endblock %}
 
 {% block mainsection %}
+<section class="col-md-offset-2 col-md-8">
     <h2>{{ 'play'|trans|capitalize }} {{ 'of'|trans }} {{ play.game.name }}</h2>
     {% include 'GameScoreBundle:Play:playedGamesIncluded.html.twig' with {'plays' : plays } %}
     <div class="well">
@@ -34,7 +35,6 @@
         <div class="form-group">
             <div>
                 {{ form_widget(form.save_player, {'attr': {'class': 'btn btn-primary'}}) }}
-                {{ form_widget(form.stop_and_exit, {'attr': {'class': 'btn btn-danger'}}) }}
             </div>
         </div>
 
@@ -45,6 +45,6 @@
         {{ form_rest(form) }}
         {{ form_end(form) }}
     </div>
-
+</section>
 {% endblock %}
 

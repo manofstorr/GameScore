@@ -61,9 +61,10 @@ class PlayController extends Controller
                     ->getSession()
                     ->getFlashBag()
                     ->add('info', 'Partie ajoutée !');
-                return $this->redirectToRoute('game_score_score_create',
+                return $this->redirectToRoute('game_score_play_view',
                     array(
                         'id' => $play->getId(),
+                        'mode' => 'update'
                     )
                 );
             }

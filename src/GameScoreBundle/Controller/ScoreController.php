@@ -28,17 +28,19 @@ class ScoreController extends Controller
     public function createAction(Request $request, Play $play)
     {
         $score = new Score();
+
         if ($request->isMethod('POST')) {
 
+            // exit if asked
             if (isset($_POST['gamescorebundle_score']['stop_and_exit'])) {
-                return $this->redirectToRoute(
-                    'game_score_game_view',
+                return $this->redirectToRoute('game_score_play_view',
                     array(
-                        'id' => $play->getGame()->getId()
+                        'id' => $play->getId(),
+                        'mode' => 'update'
                     )
                 );
             }
-            // declare form for check
+
             $form = $this->createForm(
                 ScoreType::class,
                 $score,
@@ -58,13 +60,14 @@ class ScoreController extends Controller
                     ->add('info', 'Score ajouté !');
             }
         }
-        // preparing view :
-        // 1. get play info via service
+
+        // after persist use service to catch play view
         $plays = $this
             ->container
             ->get('play_service')
             ->getPlayedGames('single_play_id', $play->getId(), 1, null);
-        // 2. redeclare form without players yet scored (need to be done after persist)
+
+        // redeclare form without players yet scored (need to be done after persist)
         $form = $this->createForm(
             ScoreType::class,
             $score,
@@ -73,11 +76,13 @@ class ScoreController extends Controller
                 'players_out' => $this->getPlayersYetInthePlay($play),
             )
         );
+
         return $this->render('GameScoreBundle:Score:form.html.twig',
             array(
                 'form' => $form->createView(),
                 'play' => $play,
-                'plays' => $plays
+                'plays' => $plays,
+                'mode' => 'update'
             )
         );
     }
@@ -94,6 +99,11 @@ class ScoreController extends Controller
             )
         );
 
+        $plays = $this
+            ->container
+            ->get('play_service')
+            ->getPlayedGames('single_play_id', $score->getPlay()->getId(), 1, null);
+
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
             if ($form->isValid()) {
@@ -106,17 +116,14 @@ class ScoreController extends Controller
                     ->getFlashBag()
                     ->add('info', 'Score mis à jour.');
                 return $this->redirectToRoute(
-                    'game_score_game_view',
+                    'game_score_play_view',
                     array(
-                        'id' => $score->getPlay()->getGame()->getId()
+                        'id' => $score->getPlay()->getId(),
+                        'mode' => 'update'
                     )
                 );
             }
         }
-        $plays = $this
-            ->container
-            ->get('play_service')
-            ->getPlayedGames('single_play_id', $score->getPlay()->getId(), 1, null);
 
         return $this->render('GameScoreBundle:Score:form.html.twig',
             array(

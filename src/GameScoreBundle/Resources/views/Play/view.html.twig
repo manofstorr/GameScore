@@ -12,8 +12,15 @@
 
             {% include 'GameScoreBundle:Play:playedGameIncluded.html.twig' with {'plays' : plays, 'mode' : mode } %}
 
+            <div class="row">
+                <a class="btn btn-primary" href="{{ path('game_score_score_create', {'id': play.playid}) }}">{{ 'add player'|trans|capitalize }}</a>
+            </div>
 
         {% endfor %}
+
+
+
     </section>
+
 
 {% endblock %}
