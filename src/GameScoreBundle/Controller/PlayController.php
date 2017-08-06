@@ -20,6 +20,23 @@ class PlayController extends Controller
      * Action methods
      */
 
+    public function viewAction(Play $play)
+    {
+        $plays = $this
+            ->container
+            ->get('play_service')
+            ->getPlayedGames('single_play_id', $play->getId(), 1, null);
+
+        return $this->render(
+            'GameScoreBundle:play:view.html.twig',
+            array(
+                'plays' => $plays,
+                'extended_mode' => true,
+                'mode' => 'update'
+            )
+        );
+    }
+
     /**
      * @Security("has_role('ROLE_USER')")
      */

@@ -75,7 +75,8 @@ class GameController extends Controller
                 'game' => $game,
                 'plays' => $plays,
                 'extended_mode' => true,
-                'totalPlayedGames' => $totalPlayedGames
+                'totalPlayedGames' => $totalPlayedGames,
+                'mode' => 'view'
 
             )
         );

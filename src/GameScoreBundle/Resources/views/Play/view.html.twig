@@ -1,20 +1,18 @@
 {% extends "GameScoreBundle::layout.html.twig" %}
 
 {% block title %}
-    Partie : [{{ play.getId() }}] - {{ parent() }}
-{% endblock %}
-
-{% block rightside %}
-    ?
+    Partie : {{ parent() }}
 {% endblock %}
 
 {% block mainsection %}
-    <h2>Partie : {{ play.id }}</h2>
-    <p>
-        Date : {{ play.date|date('d M Y à H:i') }}
-        <br />
-        Jeu : {{ play.game.name }}
-    </p>
-    {% include 'GameScoreBundle:Score:scoresIncluded.html.twig' with {'scores' : scores } %}
+
+    <section class="col-md-offset-2 col-md-8">
+        {% for play in plays %}
+            <h2>{{ 'edition mode'|trans|capitalize }} : {{ 'play'|trans }} {{ play.playid }}</h2>
+
+            {% include 'GameScoreBundle:Play:playedGameIncluded.html.twig' with {'plays' : plays } %}
+
+        {% endfor %}
+    </section>
 
 {% endblock %}
