@@ -20,6 +20,9 @@ class PlayController extends Controller
      * Action methods
      */
 
+    /**
+     * @Security("has_role('ROLE_ADMIN')")
+     */
     public function viewAction(Play $play)
     {
         $plays = $this

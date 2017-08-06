@@ -1,24 +1,22 @@
+{% if mode is not defined %}
+    {% set mode = 'view' %}
+{% endif %}
+
 {% if plays %}
     <h5>{% if limitOfPlayedGamesShown is defined %}
             {{ limitOfPlayedGamesShown }}
         {% endif %}
         {{ 'Last played games'|trans|capitalize }} :</h5>
 
-
-
     {% for play in plays %}
-        {% include 'GameScoreBundle:Play:playedGameIncluded.html.twig' with {'play' : play } %}
+        {% include 'GameScoreBundle:Play:playedGameIncluded.html.twig' with {'play' : play, 'mode' : mode} %}
     {% endfor %}
-
-
-
-
 
     {% if nbOfPage is defined %}
         <ul class="pagination">
             {% for p in range(1, nbOfPages) %}
                 <li{% if p == page %} class="active"{% endif %}>
-                    <a href="{{ path('game_score_player_view', {'id': player.id}) }}">{{ p }}</a>
+                    <a href="#">{{ p }}</a>
                 </li>
             {% endfor %}
         </ul>

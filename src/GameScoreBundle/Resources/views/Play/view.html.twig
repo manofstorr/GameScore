@@ -10,7 +10,8 @@
         {% for play in plays %}
             <h2>{{ 'edition mode'|trans|capitalize }} : {{ 'play'|trans }} {{ play.playid }}</h2>
 
-            {% include 'GameScoreBundle:Play:playedGameIncluded.html.twig' with {'plays' : plays } %}
+            {% include 'GameScoreBundle:Play:playedGameIncluded.html.twig' with {'plays' : plays, 'mode' : mode } %}
+
 
         {% endfor %}
     </section>
