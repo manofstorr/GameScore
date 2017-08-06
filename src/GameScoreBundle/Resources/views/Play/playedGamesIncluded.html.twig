@@ -3,10 +3,12 @@
 {% endif %}
 
 {% if plays %}
-    <h5>{% if limitOfPlayedGamesShown is defined %}
+    <h5>
+        {% if limitOfPlayedGamesShown is defined %}
             {{ limitOfPlayedGamesShown }}
         {% endif %}
-        {{ 'Last played games'|trans|capitalize }} :</h5>
+        {{ 'Last played games'|trans|capitalize }} :
+    </h5>
 
     {% for play in plays %}
         {% include 'GameScoreBundle:Play:playedGameIncluded.html.twig' with {'play' : play, 'mode' : mode} %}

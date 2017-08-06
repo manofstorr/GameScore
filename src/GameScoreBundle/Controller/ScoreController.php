@@ -115,10 +115,12 @@ class ScoreController extends Controller
                     ->getSession()
                     ->getFlashBag()
                     ->add('info', 'Score mis à jour.');
-                return $this->redirectToRoute(
-                    'game_score_play_view',
+
+                return $this->render(
+                    'GameScoreBundle:play:view.html.twig',
                     array(
-                        'id' => $score->getPlay()->getId(),
+                        'plays' => $plays,
+                        'extended_mode' => true,
                         'mode' => 'update'
                     )
                 );
