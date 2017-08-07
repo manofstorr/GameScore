@@ -77,7 +77,7 @@ class PlayService
         $playedGameIds = $this
             ->em
             ->getRepository('GameScoreBundle:Play')
-            ->getPlaysByPlayer($player_id, $limit, null);
+            ->getPlaysByPlayer($player_id, $limit, $offset);
         return $playedGameIds;
     }
 
@@ -86,11 +86,9 @@ class PlayService
         $playedGameIds = $this
             ->em
             ->getRepository('GameScoreBundle:Play')
-            ->getPlaysByGame($game_id, $limit, null);
+            ->getPlaysByGame($game_id, $limit, $offset);
         return $playedGameIds;
     }
-
-
 
     private function getPlayById($id)
     {

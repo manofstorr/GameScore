@@ -28,12 +28,11 @@ class PlayerController extends Controller
         $limitOfPlayedGamesShown = $this->getParameter('limit_of_played_games_shown');
         $totalPlayedGames = $this->getTotalOfPlayedGamesByPlayer($player);
 
-        // new way to do :
         // call play service
         $plays = $this
             ->container
             ->get('play_service')
-            ->getPlayedGames('player_id', $player->getId(), 10, null);
+            ->getPlayedGames('player_id', $player->getId(), 0, $limitOfPlayedGamesShown);
 
         return $this->render(
             'GameScoreBundle:player:view.html.twig',
