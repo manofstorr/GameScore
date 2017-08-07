@@ -89,9 +89,9 @@ class PlayController extends Controller
                     ->getFlashBag()
                     ->add('info', 'Partie mise à jour.');
                 return $this->redirectToRoute(
-                    'game_score_game_view',
+                    'game_score_play_view',
                     array(
-                        'id' => $play->getGame()->getId()
+                        'id' => $play->getId()
                     )
                 );
             }

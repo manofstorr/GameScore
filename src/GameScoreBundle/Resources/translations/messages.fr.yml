@@ -23,7 +23,7 @@ played games count: nombre de parties jouées
 new play: nouvelle partie
 location: lieu
 let's start by play, players will come soon: commencez par les infos de partie (les joueurs seront déclarés après)
-add a score: ajouter un score
+add score: ajouter un score
 
 #casual
 hello: bonjour
@@ -42,3 +42,5 @@ upd: màj
 sign in: s'identifier
 sign out: se déconnecter
 sign up: s'enregistrer
+save: enregistrer
+delete: supprimer
