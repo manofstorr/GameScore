@@ -53,7 +53,6 @@ class ScoreRepository extends EntityRepository
             ->andWhere('play.game = :game')
             ->setParameter('game', $game)
             ->orderBy('score.score', $queryOrder)
-            //->setParameter('queryOrder', $queryOrder)
             ->setMaxResults($limit)
             ->getQuery();
         return $query->getResult();
