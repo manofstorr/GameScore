@@ -35,15 +35,5 @@ class GameService
                 ->getRepository('GameScoreBundle:Game')
                 ->findAll()
         );
-        /*
-        $qb = $this->em->createQueryBuilder();
-
-        $qb->select('u')
-            ->from('mybundleBundle:User', 'u')
-            ->where('u.roles LIKE :roles')
-            ->setParameter('roles', '%"' . $role . '"%');
-
-        return $qb->getQuery()->getResult();
-        */
     }
 }

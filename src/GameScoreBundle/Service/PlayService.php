@@ -9,6 +9,7 @@
 namespace GameScoreBundle\Service;
 
 use Doctrine\ORM\EntityManager;
+use GameScoreBundle\Entity\Game;
 use Symfony\Component\DependencyInjection\Container;
 
 class PlayService
@@ -90,8 +91,6 @@ class PlayService
         return $playedGameIds;
     }
 
-
-
     private function getPlayById($id)
     {
         return $this
@@ -129,6 +128,17 @@ class PlayService
     public function setPlaysIds(array $playsIds)
     {
         $this->playsIds = $playsIds;
+    }
+
+    public function getBestScoresByGame(Game $game)
+    {
+        $limit = $this->container->getParameter('number_of_item_to_show_on_top_scores');
+        // check the order of scores for this game
+        $invertedScore = $game->getHasInvertedScore();
+        return $this
+            ->em
+            ->getRepository('GameScoreBundle:Score')
+            ->getTopScoresByGame($game, $limit, $invertedScore);
     }
 
 

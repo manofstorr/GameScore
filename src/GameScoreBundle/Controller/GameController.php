@@ -53,10 +53,13 @@ class GameController extends Controller
     {
         // find last plays
         $limitOfPlayedGamesShown = $this->getParameter('limit_of_played_games_shown');
-        $plays = $this
+        $playService = $this
             ->container
-            ->get('play_service')
+            ->get('play_service');
+        $plays = $playService
             ->getPlayedGames('game_id', $game->getId(), $limitOfPlayedGamesShown, null);
+        $topScores = $playService
+            ->getBestScoresByGame($game);
 
         // count played games all times
         $totalPlayedGames = count(
@@ -74,6 +77,7 @@ class GameController extends Controller
             array(
                 'game' => $game,
                 'plays' => $plays,
+                'topScores' => $topScores,
                 'extended_mode' => true,
                 'totalPlayedGames' => $totalPlayedGames,
                 'mode' => 'view'
