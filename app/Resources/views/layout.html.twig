@@ -11,8 +11,7 @@
         'bundles/gamescore/css/overload.css'
         'bundles/gamescore/css/mediatransform.css'
         'bundles/gamescore/css/font-awesome.min.css'
-        'bundles/gamescore/css/user.css'
-        %}
+        'bundles/gamescore/css/user.css' %}
         <link rel="stylesheet" href="{{ asset_url }}" type="text/css"/>
         {% endstylesheets %}
     {% endblock %}
@@ -27,66 +26,62 @@
 {% endfor %}
 
 {% block navigation %}
-<nav class="navbar navbar-inverse">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#"><span class="navbar-brand-yellow">GameScore</span></a>
-        </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li class="active">
-                    <a href="{{ path('game_score_homepage') }}">
-                        {{ 'home'|trans|capitalize }}
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ path('game_score_play_create') }}">
-                        {{ 'new play'|trans|capitalize }}
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ path('game_score_game_collection', {page: 'a'}) }}">
-                        {{ 'games'|trans|capitalize }}
-                        <span class="badge">{{ game_service.getTotalNumberOfGames() }}</span>
-                    </a>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false">{{ 'more'|trans|capitalize }}<span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a href="{{ path('game_score_player_collection', {page: 'a'}) }}">
-                                <i class="fa fa-address-book" aria-hidden="true"></i>
-                                {{ 'players'|trans|capitalize }}
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ path('game_score_author_collection', {page: 'a'}) }}">
-                                <i class="fa fa-address-book" aria-hidden="true"></i>
-                                {{ 'authors'|trans|capitalize }}
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ path('game_score_editor_collection', {page: 1}) }}">
-                                <i class="fa fa-address-book" aria-hidden="true"></i>
-                                {{ 'editors'|trans|capitalize }}
-                            </a>
-                        </li>
-                        <li><a href="#">Something else here</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li class="dropdown-header">Users</li>
-                        <li><a href="{{ path('user_collection') }}">Les utilisateurs</a></li>
-                        <li><a href="#">One more separated link</a></li>
-                    </ul>
-                </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
+    <nav class="navbar navbar-inverse">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{{ path('game_score_homepage') }}"><span class="navbar-brand-yellow">GameScore</span></a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="{{ path('game_score_play_create') }}">
+                            {{ 'new play'|trans|capitalize }}
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="{{ path('game_score_game_collection', {page: 'a'}) }}">
+                            {{ 'games'|trans|capitalize }}
+                            <span class="badge">{{ game_service.getTotalNumberOfGames() }}</span>
+                        </a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">{{ 'more'|trans|capitalize }}<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="{{ path('game_score_player_collection', {page: 'a'}) }}">
+                                    <i class="fa fa-address-book" aria-hidden="true"></i>
+                                    {{ 'players'|trans|capitalize }}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ path('game_score_author_collection', {page: 'a'}) }}">
+                                    <i class="fa fa-address-book" aria-hidden="true"></i>
+                                    {{ 'authors'|trans|capitalize }}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ path('game_score_editor_collection', {page: 1}) }}">
+                                    <i class="fa fa-address-book" aria-hidden="true"></i>
+                                    {{ 'editors'|trans|capitalize }}
+                                </a>
+                            </li>
+                            <li><a href="#">Something else here</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li class="dropdown-header">Users</li>
+                            <li><a href="{{ path('user_collection') }}">Les utilisateurs</a></li>
+                            <li><a href="#">One more separated link</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
                     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                         <li class="navbar-text">
                             {{ 'hello'|trans|capitalize }} {{ app.user.username }}
@@ -103,28 +98,17 @@
                         </li>
                     {% endif %}
 
-            </ul>
-        </div><!--/.nav-collapse -->
-    </div>
-</nav>
+                </ul>
+            </div><!--/.nav-collapse -->
+        </div>
+    </nav>
 {% endblock %}
 
 {% block content %}
 {% endblock %}
-<hr/>
-<div class="clear" style="clear:both"></div>
-<footer>
-    <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-4 center-block">
-            <address>
-                <p>contact : david(dot)baudry(at)zoho(dot)com</p>
-            </address>
-        </div>
-        <div class="col-md-4 center-block">
-            <p>Copyright {{ 'now'|date('Y') }} / {{ app.environment|upper }}</p>
-        </div>
-        <div class="col-md-2"></div>
+<footer class="footer">
+    <div class="container">
+        <p class="text-muted">Place sticky footer content here. <address>Contact : davyyd76@gmail.com</address></p>
     </div>
 </footer>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

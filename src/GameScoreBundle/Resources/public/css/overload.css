@@ -12,9 +12,8 @@ body {
 }
 
 .jumbotron {
-    background-color: #058189;
-    color: white;
-    text-shadow: 2px 2px #000;
+    background-color: #73757B;
+    color: black;
 }
 
 section {
@@ -56,10 +55,11 @@ section {
     display: none;
 }
 
-footer {
+.footer {
+    position: absolute;
+    bottom: 0;
     width: 100%;
     /* Set the fixed height of the footer here */
-    height: 40px;
-    background-color: #0a0a0a;
-    color: #ffffff;
+    height: 60px;
+    background-color: #eee;
 }

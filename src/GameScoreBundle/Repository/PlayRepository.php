@@ -5,6 +5,7 @@ namespace GameScoreBundle\Repository;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\DoctrineParamConverter;
+use PDO;
 
 /**
  * PlayRepository
@@ -18,12 +19,6 @@ class PlayRepository extends EntityRepository
     // retun array of play id
     public function getPlaysByPlayer($player_id, $limit, $nbPerPage)
     {
-        // constructing Limit clause
-        if ($nbPerPage) {
-            $limitClause = "LIMIT ".$limit.", ".$nbPerPage." ";
-        } else {
-            $limitClause = "LIMIT ".$limit." ";
-        }
         $em = $this->getEntityManager();
         $connection = $em->getConnection();
         $statement = $connection->prepare("
@@ -33,10 +28,11 @@ class PlayRepository extends EntityRepository
               INNER JOIN player ON (player.id = scoreplayer.player_id)
             WHERE scoreplayer.player_id = :player_id
             GROUP BY play.id
-            ORDER BY play.date DESC "
-            . $limitClause
+            ORDER BY play.date DESC LIMIT :limit, :offset"
         );
         $statement->bindValue('player_id', $player_id);
+        $statement->bindValue('limit',  (int) trim($limit), PDO::PARAM_INT);
+        $statement->bindValue('offset',  (int) trim($nbPerPage), PDO::PARAM_INT);
         $statement->execute();
         $results = $statement->fetchAll();
         return $results;
@@ -44,22 +40,17 @@ class PlayRepository extends EntityRepository
 
     public function getPlaysByGame($game_id, $limit, $nbPerPage)
     {
-        // constructing Limit clause
-        if ($nbPerPage) {
-            $limitClause = "LIMIT ".$limit.", ".$nbPerPage." ";
-        } else {
-            $limitClause = "LIMIT ".$limit." ";
-        }
         $em = $this->getEntityManager();
         $connection = $em->getConnection();
         $statement = $connection->prepare("
             SELECT play.id
             FROM play
             WHERE game_id = :game_id
-            ORDER BY play.date DESC "
-            . $limitClause
+            ORDER BY play.date DESC LIMIT :limit, :offset"
         );
         $statement->bindValue('game_id', $game_id);
+        $statement->bindValue('limit',  (int) trim($limit), PDO::PARAM_INT);
+        $statement->bindValue('offset',  (int) trim($nbPerPage), PDO::PARAM_INT);
         $statement->execute();
         $results = $statement->fetchAll();
         return $results;

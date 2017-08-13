@@ -139,3 +139,10 @@ game_score_score_update:
         _controller: GameScoreBundle:Score:update
     requirements:
         id: \d+
+
+game_score_score_delete:
+    path: /score/delete/{id}
+    defaults:
+        _controller: GameScoreBundle:Score:delete
+    requirements:
+        id: \d+

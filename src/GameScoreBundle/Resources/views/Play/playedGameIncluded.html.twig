@@ -3,10 +3,10 @@
         <a href="{{ path('game_score_game_view', {'id':play.game.id}) }}">{{ play.game.name }}</a>
         {% if is_granted('ROLE_ADMIN') %}
             {% if mode == 'update' %}
-                <button class="btn btn-warning btn-xs pull-right"
-                        href="{{ path('game_score_play_update', {'id': play.playid}) }}">
+                <a class="btn btn-warning btn-xs pull-right"
+                   href="{{ path('game_score_play_update', {'id': play.playid}) }}">
                     {{ 'update'|trans|capitalize }}
-                </button>
+                </a>
             {% else %}
                 <a class="btn btn-primary btn-xs pull-right"
                    href="{{ path('game_score_play_view', {'id': play.playid}) }}">
@@ -37,10 +37,16 @@
             {% endif %}
             {% if is_granted('ROLE_ADMIN') %}
                 {% if mode == 'update' %}
-                    <a class="btn btn-warning btn-xs pull-right"
-                            href="{{ path('game_score_score_update', {'id': player.scoreid}) }}">
-                        {{ 'upd'|trans|capitalize }}
-                    </a>
+                    <div class="btn-group pull-right">
+                        <a class="btn btn-warning btn-xs"
+                           href="{{ path('game_score_score_update', {'id': player.scoreid}) }}">
+                            {{ 'update'|trans|capitalize }}
+                        </a>
+                        <a class="btn btn-danger btn-xs"
+                           href="{{ path('game_score_score_delete', {'id': player.scoreid}) }}">
+                            {{ 'delete'|trans|capitalize }}
+                        </a>
+                    </div>
                 {% else %}
                     <i class="fa fa-chevron-right pull-right" aria-hidden="true"></i>
                 {% endif %}

@@ -46,10 +46,9 @@
 
             <div class="form-group">
                 <div>
-                    {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary btn-block'}}) }}
+                    {{ form_widget(form.save, {'label': 'save'|trans|capitalize, 'attr': {'class': 'btn btn-primary'}}) }}
                 </div>
             </div>
-
             {{ form_rest(form) }}
             {{ form_end(form) }}
         </div>

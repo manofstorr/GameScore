@@ -9,6 +9,7 @@
 namespace GameScoreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use GameScoreBundle\Entity\Score;
 use GameScoreBundle\Entity\Play;
@@ -87,6 +88,9 @@ class ScoreController extends Controller
         );
     }
 
+    /**
+     * @Security("has_role('ROLE_ADMIN')")
+     */
     public function updateAction(Request $request, Score $score)
     {
         // declare form for check
@@ -126,12 +130,42 @@ class ScoreController extends Controller
                 );
             }
         }
-
         return $this->render('GameScoreBundle:Score:form.html.twig',
             array(
                 'form' => $form->createView(),
                 'play' => $score->getPlay(),
                 'plays' => $plays
+            )
+        );
+    }
+
+    /**
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function deleteAction($id)
+    {
+        $repository = $this->getDoctrine()->getRepository('GameScoreBundle:Score');
+        $score = $repository->find($id);
+
+        $play_id = $score->getPlay()->getId();
+
+        // delete here
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($score);
+        $em->flush();
+
+        $plays = $this
+            ->container
+            ->get('play_service')
+            ->getPlayedGames('single_play_id', $play_id, 1, null);
+
+        // back to play view
+        return $this->render(
+            'GameScoreBundle:play:view.html.twig',
+            array(
+                'plays' => $plays,
+                'extended_mode' => true,
+                'mode' => 'update'
             )
         );
     }
