@@ -10,6 +10,7 @@ author: auteur
 authors: les auteurs
 game: jeu
 games: les jeux
+main card url: fiche externe (url)
 play: partie
 editor: éditeur
 editors: les éditeurs
@@ -37,6 +38,7 @@ edition mode: mode édition
 #actions
 card: fiche
 see card: voir fiche
+no card: pas de fiche
 update: Mettre à jour
 upd: màj
 sign in: s'identifier

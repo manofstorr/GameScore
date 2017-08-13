@@ -47,6 +47,9 @@ class GameType extends AbstractType
                 },
                 'multiple' => true
             ))
+            ->add('main_card_url', TextType::class,
+                array('required' => false)
+            )
             ->add('save', SubmitType::class);
     }
 
