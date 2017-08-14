@@ -50,7 +50,6 @@ class PlayerController extends Controller
      */
     public function collectionAction($page)
     {
-        // Todo : make better condition
         if ($page === '') {
             throw $this->createNotFoundException("La page demandée (" . $page . ") n'existe pas.");
         }

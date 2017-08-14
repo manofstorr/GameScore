@@ -45,7 +45,6 @@ class EditorController extends Controller
         }
 
         $EditorCollection = $this->EditorRepository->getEditors($page, $nbPerPage);
-        // todo : put this in a service ?
         $nbOfPages = ceil($EditorCollection->count() / $nbPerPage);
 
         if ($page > $nbOfPages) {
