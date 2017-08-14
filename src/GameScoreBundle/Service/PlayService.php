@@ -155,3 +155,4 @@ class PlayService
             ->getTopScoresByGame($game, $limit, $invertedScore);
     }
 }
+

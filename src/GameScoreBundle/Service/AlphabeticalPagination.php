@@ -60,3 +60,4 @@ class AlphabeticalPagination
         return $alphapageArray;
     }
 }
+

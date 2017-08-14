@@ -42,3 +42,4 @@ class UserType extends AbstractType
             ->add('save', SubmitType::class);
     }
 }
+

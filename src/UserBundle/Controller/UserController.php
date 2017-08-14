@@ -65,3 +65,5 @@ class UserController extends Controller
             array('user' => $user));
     }
 }
+
+
