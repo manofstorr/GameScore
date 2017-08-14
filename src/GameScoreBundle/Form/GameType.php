@@ -3,6 +3,7 @@
 namespace GameScoreBundle\Form;
 
 use Doctrine\ORM\EntityRepository;
+use GameScoreBundle\Entity\Author;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -37,7 +38,7 @@ class GameType extends AbstractType
                 )
             )
             ->add('author', EntityType::class, array(
-                'choice_label' => function ($author) {
+                'choice_label' => function (Author $author) {
                     return $author->getFirstname() . ' ' . $author->getLastname();
                 },
                 'class' => 'GameScoreBundle:Author',
