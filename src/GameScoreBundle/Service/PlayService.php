@@ -110,6 +110,21 @@ class PlayService
             );
     }
 
+    public function getPlayersYetInthePlay($play)
+    {
+        // retrieve players yet in the plays > they wont't be proposed by the form
+        $PlayersYetInThePlay = array(0);
+        $getPlayersYetInthePlay = $this
+            ->em
+            ->getRepository('GameScoreBundle:Score')
+            ->findBy(array('play' => $play));
+        foreach ($getPlayersYetInthePlay as $line) {
+            array_push($PlayersYetInThePlay, $line->getPlayer()->getId());
+        }
+        return $PlayersYetInThePlay;
+    }
+
+
     /*
      * Getters and setters
      */
