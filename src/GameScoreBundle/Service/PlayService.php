@@ -154,6 +154,4 @@ class PlayService
             ->getRepository('GameScoreBundle:Score')
             ->getTopScoresByGame($game, $limit, $invertedScore);
     }
-
-
 }

@@ -168,3 +168,4 @@ class ScoreController extends Controller
         );
     }
 }
+
