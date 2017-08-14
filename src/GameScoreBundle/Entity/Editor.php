@@ -4,7 +4,6 @@ namespace GameScoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use GameScoreBundle\Repository\EditorRepository;
-//use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 
 
