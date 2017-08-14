@@ -1,15 +1,14 @@
 <?php
 
-namespace GameScoreBundle\Form;
+namespace GameScoreBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-class PlayerType extends AbstractType
+class AuthorType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -19,8 +18,6 @@ class PlayerType extends AbstractType
         $builder
             ->add('firstname', TextType::class)
             ->add('lastname', TextType::class)
-            ->add('star', CheckboxType::class, array('required' => false))
-            //->add('lastupdate', DateTimeType::class)
             ->add('save', SubmitType::class);
     }
     
@@ -30,7 +27,7 @@ class PlayerType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'GameScoreBundle\Entity\Player'
+            'data_class' => 'GameScoreBundle\Entity\Author'
         ));
     }
 
@@ -39,7 +36,7 @@ class PlayerType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'gamescorebundle_player';
+        return 'gamescorebundle_author';
     }
 
 

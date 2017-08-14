@@ -1,6 +1,6 @@
 <?php
 
-namespace GameScoreBundle\Form;
+namespace GameScoreBundle\Form\Type;
 
 use GameScoreBundle\Entity\Game;
 use Symfony\Component\Form\AbstractType;

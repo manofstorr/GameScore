@@ -1,6 +1,6 @@
 <?php
 
-namespace GameScoreBundle\Form;
+namespace GameScoreBundle\Form\Type;
 
 use Doctrine\ORM\EntityRepository;
 use GameScoreBundle\Entity\Author;
