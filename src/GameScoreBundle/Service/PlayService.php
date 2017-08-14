@@ -30,13 +30,13 @@ class PlayService
     {
         // 1. determine how to retrieve play ids
         switch ($ByWhat) {
-            case 'player_id' :
+            case 'player_id':
                 $this->setPlaysIds($this->getPlayedGamesByPlayer($ByValue, $limit, $offset));
                 break;
-            case 'game_id' :
+            case 'game_id':
                 $this->setPlaysIds($this->getPlayedGamesByGame($ByValue, $limit, $offset));
                 break;
-            case 'single_play_id' :
+            case 'single_play_id':
                 $this->setPlaysIds(array(0 => $ByValue));
                 break;
 
