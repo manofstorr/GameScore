@@ -9,12 +9,11 @@
 namespace UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use UserBundle\Form\UserType;
+use UserBundle\Form\Type\UserType;
 use UserBundle\Entity\User;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-
 
 class UserController extends Controller
 {
