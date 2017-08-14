@@ -26,3 +26,5 @@ class PlayerRepository extends EntityRepository
     }
 
 }
+
+

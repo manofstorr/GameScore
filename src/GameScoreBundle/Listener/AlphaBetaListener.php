@@ -42,3 +42,4 @@ class AlphaBetaListener
         $event->setResponse($response);
     }
 }
+
