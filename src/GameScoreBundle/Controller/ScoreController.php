@@ -25,10 +25,12 @@ class ScoreController extends Controller
     {
         $score = new Score();
 
-        if ($request->isMethod('POST')) {
+        // test presence of stop command
+        $posted = filter_input_array(INPUT_POST);
+        $stop = (isset($posted['gamescorebundle_score']['stop_and_exit']));
 
-            // exit if asked
-            if (isset($_POST['gamescorebundle_score']['stop_and_exit'])) {
+        if ($request->isMethod('POST')) {
+            if ($stop) {
                 return $this->redirectToRoute('game_score_play_view',
                     array(
                         'id' => $play->getId(),
