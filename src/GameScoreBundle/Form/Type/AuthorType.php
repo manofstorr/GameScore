@@ -39,5 +39,6 @@ class AuthorType extends AbstractType
         return 'gamescorebundle_author';
     }
 
-
 }
+
+

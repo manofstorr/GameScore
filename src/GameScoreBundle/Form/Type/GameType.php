@@ -72,5 +72,6 @@ class GameType extends AbstractType
         return 'gamescorebundle_game';
     }
 
-
 }
+
+

@@ -42,5 +42,6 @@ class PlayerType extends AbstractType
         return 'gamescorebundle_player';
     }
 
-
 }
+
+
