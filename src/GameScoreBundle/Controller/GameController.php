@@ -13,6 +13,7 @@ namespace GameScoreBundle\Controller;
 use GameScoreBundle\Entity\Game;
 use GameScoreBundle\Entity\Play;
 use GameScoreBundle\Form\Type\GameType;
+use GameScoreBundle\GameScoreBundle;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;

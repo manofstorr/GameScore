@@ -17,14 +17,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class EditorController extends Controller
 {
-    private $EditorRepository;
-
-    private function setEditorRepository()
-    {
-        $em = $this->getDoctrine()->getManager();
-        $this->EditorRepository = $em->getRepository('GameScoreBundle:Editor');
-    }
-
     public function viewAction(Editor $editor)
     {
         return $this->render(
@@ -70,7 +62,6 @@ class EditorController extends Controller
      */
     public function createAction(Request $request)
     {
-
         $editor = new Editor();
         $form = $this->createForm(EditorType::class, $editor);
 
