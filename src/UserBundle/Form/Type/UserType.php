@@ -6,7 +6,7 @@
  * Time: 15:09
  */
 
-namespace UserBundle\Form;
+namespace UserBundle\Form\Type;
 
 use FOS\UserBundle\Form\Type\UsernameFormType;
 use Symfony\Component\Form\AbstractType;
