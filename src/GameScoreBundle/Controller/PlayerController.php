@@ -35,7 +35,7 @@ class PlayerController extends Controller
             ->getPlayedGames('player_id', $player->getId(), 0, $limitOfPlayedGamesShown);
 
         return $this->render(
-            'GameScoreBundle:player:view.html.twig',
+            'GameScoreBundle:Player:view.html.twig',
             array(
                 'player' => $player,
                 'limitOfPlayedGamesShown' => $limitOfPlayedGamesShown,
