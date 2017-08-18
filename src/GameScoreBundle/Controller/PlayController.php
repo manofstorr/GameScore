@@ -31,7 +31,7 @@ class PlayController extends Controller
             ->getPlayedGames('single_play_id', $play->getId(), 1, null);
 
         return $this->render(
-            'GameScoreBundle:play:view.html.twig',
+            'GameScoreBundle:Play:view.html.twig',
             array(
                 'plays' => $plays,
                 'extended_mode' => true,
