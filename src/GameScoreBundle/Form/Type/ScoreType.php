@@ -37,7 +37,7 @@ class ScoreType extends AbstractType
             ->add('player', EntityType::class,
                 array(
                     'class' => 'GameScoreBundle:Player',
-                    'choice_label' => function (Player $player) {
+                    'choice_label' => function (\GameScoreBundle\Entity\Player $player) {
                         return $player->getFirstname() . ' ' . $player->getLastname();
                     },
                     'query_builder' => function (EntityRepository $er) {
