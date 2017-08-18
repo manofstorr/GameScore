@@ -38,4 +38,25 @@ class ScoreRepository extends EntityRepository
             ->getQuery();
         return $query->getResult();
     }
+
+    public function getTopScoresByGame($game, $limit, $invertedScore = false)
+    {
+        if ($invertedScore) {
+            $queryOrder = 'ASC';
+        } else {
+            $queryOrder = 'DESC';
+        }
+        $query = $this->createQueryBuilder('score')
+            ->innerJoin('score.play', 'play')
+            ->addSelect('play')
+            ->innerJoin('play.game','game')
+            ->andWhere('play.game = :game')
+            ->setParameter('game', $game)
+            ->orderBy('score.score', $queryOrder)
+            ->setMaxResults($limit)
+            ->getQuery();
+        return $query->getResult();
+    }
 }
+
+

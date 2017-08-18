@@ -1,8 +1,9 @@
 <?php
 
-namespace GameScoreBundle\Form;
+namespace GameScoreBundle\Form\Type;
 
 use Doctrine\ORM\EntityRepository;
+use GameScoreBundle\Entity\Author;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -37,7 +38,7 @@ class GameType extends AbstractType
                 )
             )
             ->add('author', EntityType::class, array(
-                'choice_label' => function ($author) {
+                'choice_label' => function (Author $author) {
                     return $author->getFirstname() . ' ' . $author->getLastname();
                 },
                 'class' => 'GameScoreBundle:Author',
@@ -47,6 +48,9 @@ class GameType extends AbstractType
                 },
                 'multiple' => true
             ))
+            ->add('main_card_url', TextType::class,
+                array('required' => false)
+            )
             ->add('save', SubmitType::class);
     }
 
@@ -68,5 +72,6 @@ class GameType extends AbstractType
         return 'gamescorebundle_game';
     }
 
-
 }
+
+

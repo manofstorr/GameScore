@@ -13,16 +13,11 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use GameScoreBundle\Entity\Score;
 use GameScoreBundle\Entity\Play;
-use GameScoreBundle\Form\ScoreType;
+use GameScoreBundle\Form\Type\ScoreType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class ScoreController extends Controller
 {
-
-    /*
-     * Action methods
-     */
-
     /**
      * @Security("has_role('ROLE_USER')")
      */
@@ -30,10 +25,12 @@ class ScoreController extends Controller
     {
         $score = new Score();
 
-        if ($request->isMethod('POST')) {
+        // test presence of stop command
+        $posted = filter_input_array(INPUT_POST);
+        $stop = (isset($posted['gamescorebundle_score']['stop_and_exit']));
 
-            // exit if asked
-            if (isset($_POST['gamescorebundle_score']['stop_and_exit'])) {
+        if ($request->isMethod('POST')) {
+            if ($stop) {
                 return $this->redirectToRoute('game_score_play_view',
                     array(
                         'id' => $play->getId(),
@@ -62,11 +59,12 @@ class ScoreController extends Controller
             }
         }
 
-        // after persist use service to catch play view
-        $plays = $this
+        // after persist use service to catch play view and players yed declared
+        $playService = $this
             ->container
-            ->get('play_service')
-            ->getPlayedGames('single_play_id', $play->getId(), 1, null);
+            ->get('play_service');
+        $plays = $playService->getPlayedGames('single_play_id', $play->getId(), 1, null);
+        $playersYetInThePlay = $playService->getPlayersYetInthePlay($play);
 
         // redeclare form without players yet scored (need to be done after persist)
         $form = $this->createForm(
@@ -74,7 +72,7 @@ class ScoreController extends Controller
             $score,
             array(
                 'play_id' => $play->getId(),
-                'players_out' => $this->getPlayersYetInthePlay($play),
+                'players_out' => $playersYetInThePlay,
             )
         );
 
@@ -169,34 +167,5 @@ class ScoreController extends Controller
             )
         );
     }
-
-    /*
-     * Other methods
-     */
-    public function getScoresByGame($play)
-    {
-        return $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository('GameScoreBundle:Score')
-            ->findBy(
-                array('play' => $play),
-                array('score' => 'desc')
-            );
-    }
-
-    public function getPlayersYetInthePlay($play)
-    {
-        // retrieve players yet in the plays > they wont't be proposed by the form
-        $PlayersYetInThePlay = array(0);
-        $getPlayersYetInthePlay = $this->getDoctrine()
-            ->getManager()
-            ->getRepository('GameScoreBundle:Score')
-            ->findBy(array('play' => $play));
-        foreach ($getPlayersYetInthePlay as $line) {
-            array_push($PlayersYetInThePlay, $line->getPlayer()->getId());
-        }
-        return $PlayersYetInThePlay;
-    }
-
 }
+

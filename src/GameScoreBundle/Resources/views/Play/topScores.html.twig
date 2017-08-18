@@ -1,0 +1,16 @@
+<div>
+    <h3>
+        {{ 'top scores' |trans|capitalize }}
+    </h3>
+</div>
+{% if topScores %}
+    <ul class="list-group">
+        {% for line in topScores %}
+            <li class="list-group-item">
+                {{ line.player.firstname ~ ' ' ~ line.player.lastname}}
+                 :
+                {{ line.score }}
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}

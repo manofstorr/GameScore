@@ -11,7 +11,7 @@ namespace GameScoreBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use GameScoreBundle\Entity\Play;
-use GameScoreBundle\Form\PlayType;
+use GameScoreBundle\Form\Type\PlayType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class PlayController extends Controller
@@ -101,3 +101,4 @@ class PlayController extends Controller
     }
 
 }
+

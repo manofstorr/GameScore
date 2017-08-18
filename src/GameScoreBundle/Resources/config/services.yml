@@ -4,7 +4,6 @@ services:
     class: GameScoreBundle\Service\GameService
     arguments:
       - "@doctrine.orm.entity_manager"
-      - "@service_container"
 
   play_service:
     class: GameScoreBundle\Service\PlayService
@@ -16,7 +15,6 @@ services:
     class: GameScoreBundle\Service\AlphabeticalPagination
     arguments:
       - "@doctrine.orm.entity_manager"
-      - "@service_container"
 
   alphabeta_html_adder:
     class: GameScoreBundle\Service\AlphaBetaHTMLAdder

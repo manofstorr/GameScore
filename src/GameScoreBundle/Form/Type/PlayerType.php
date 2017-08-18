@@ -1,6 +1,6 @@
 <?php
 
-namespace GameScoreBundle\Form;
+namespace GameScoreBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -42,5 +42,6 @@ class PlayerType extends AbstractType
         return 'gamescorebundle_player';
     }
 
-
 }
+
+

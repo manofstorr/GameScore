@@ -17,10 +17,9 @@ class AlphabeticalPagination
     private $container;
 
     // We need to inject this variables later.
-    public function __construct(EntityManager $entityManager, Container $container)
+    public function __construct(EntityManager $entityManager)
     {
         $this->em = $entityManager;
-        $this->container = $container;
     }
 
     public function getAlphabeticalPagination($entityname)
@@ -61,3 +60,4 @@ class AlphabeticalPagination
         return $alphapageArray;
     }
 }
+

@@ -1,6 +1,6 @@
 <?php
 
-namespace GameScoreBundle\Form;
+namespace GameScoreBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -8,7 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-class EditorType extends AbstractType
+class AuthorType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -16,7 +16,8 @@ class EditorType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class)
+            ->add('firstname', TextType::class)
+            ->add('lastname', TextType::class)
             ->add('save', SubmitType::class);
     }
     
@@ -26,7 +27,7 @@ class EditorType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'GameScoreBundle\Entity\Editor'
+            'data_class' => 'GameScoreBundle\Entity\Author'
         ));
     }
 
@@ -35,8 +36,9 @@ class EditorType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'gamescorebundle_editor';
+        return 'gamescorebundle_author';
     }
 
-
 }
+
+

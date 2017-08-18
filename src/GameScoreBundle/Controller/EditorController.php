@@ -11,7 +11,7 @@ namespace GameScoreBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use GameScoreBundle\Form\EditorType;
+use GameScoreBundle\Form\Type\EditorType;
 use GameScoreBundle\Entity\Editor;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
@@ -45,7 +45,6 @@ class EditorController extends Controller
         }
 
         $EditorCollection = $this->EditorRepository->getEditors($page, $nbPerPage);
-        // todo : put this in a service ?
         $nbOfPages = ceil($EditorCollection->count() / $nbPerPage);
 
         if ($page > $nbOfPages) {
@@ -129,3 +128,4 @@ class EditorController extends Controller
     }
 
 }
+

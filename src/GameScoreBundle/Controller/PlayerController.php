@@ -11,7 +11,7 @@ namespace GameScoreBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use GameScoreBundle\Entity\Player;
-use GameScoreBundle\Form\PlayerType;
+use GameScoreBundle\Form\Type\PlayerType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class PlayerController extends Controller
@@ -50,7 +50,6 @@ class PlayerController extends Controller
      */
     public function collectionAction($page)
     {
-        // Todo : make better condition
         if ($page === '') {
             throw $this->createNotFoundException("La page demandée (" . $page . ") n'existe pas.");
         }
@@ -143,3 +142,4 @@ class PlayerController extends Controller
     }
 
 }
+

@@ -73,11 +73,12 @@ class Game
     private $isExtension = false;
 
     /**
+     * usually the url of trictrac card of this game
      * @var string
      *
-     * @ORM\Column(name="img_url", type="string", length=255, nullable=true)
+     * @ORM\Column(name="main_card_url", type="string", length=255, nullable=true)
      */
-    private $imgUrl;
+    private $mainCardUrl;
 
     /**
      * @var string
@@ -220,13 +221,13 @@ class Game
     /**
      * Set imgUrl
      *
-     * @param string $imgUrl
+     * @param string $mainCardUrl
      *
      * @return Game
      */
-    public function setImgUrl($imgUrl)
+    public function setMainCardUrl($mainCardUrl)
     {
-        $this->imgUrl = $imgUrl;
+        $this->mainCardUrl = $mainCardUrl;
 
         return $this;
     }
@@ -236,9 +237,9 @@ class Game
      *
      * @return string
      */
-    public function getImgUrl()
+    public function getMainCardUrl()
     {
-        return $this->imgUrl;
+        return $this->mainCardUrl;
     }
 
     /**
@@ -327,3 +328,5 @@ class Game
     }
 
 }
+
+

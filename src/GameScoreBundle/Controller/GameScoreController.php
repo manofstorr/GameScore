@@ -31,3 +31,4 @@ class GameScoreController extends Controller
     }
 
 }
+

@@ -1,6 +1,6 @@
 <?php
 
-namespace GameScoreBundle\Form;
+namespace GameScoreBundle\Form\Type;
 
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -37,7 +37,7 @@ class ScoreType extends AbstractType
             ->add('player', EntityType::class,
                 array(
                     'class' => 'GameScoreBundle:Player',
-                    'choice_label' => function ($player) {
+                    'choice_label' => function (Player $player) {
                         return $player->getFirstname() . ' ' . $player->getLastname();
                     },
                     'query_builder' => function (EntityRepository $er) {
@@ -72,5 +72,6 @@ class ScoreType extends AbstractType
         return 'gamescorebundle_score';
     }
 
-
 }
+
+

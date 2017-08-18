@@ -9,6 +9,7 @@
 namespace GameScoreBundle\Service;
 
 use Doctrine\ORM\EntityManager;
+use GameScoreBundle\Entity\Game;
 use Symfony\Component\DependencyInjection\Container;
 
 class PlayService
@@ -29,13 +30,13 @@ class PlayService
     {
         // 1. determine how to retrieve play ids
         switch ($ByWhat) {
-            case 'player_id' :
+            case 'player_id':
                 $this->setPlaysIds($this->getPlayedGamesByPlayer($ByValue, $limit, $offset));
                 break;
-            case 'game_id' :
+            case 'game_id':
                 $this->setPlaysIds($this->getPlayedGamesByGame($ByValue, $limit, $offset));
                 break;
-            case 'single_play_id' :
+            case 'single_play_id':
                 $this->setPlaysIds(array(0 => $ByValue));
                 break;
 
@@ -57,7 +58,6 @@ class PlayService
             // loop retrieve scores
             $scores = $this->getScoresByPlayId($playedGameId);
             foreach ($scores as $playerKey => $score) {
-                //var_dump($score);
                 $plays[$playKey]['player'][$playerKey]['scoreid'] = $score->getId();
                 $plays[$playKey]['player'][$playerKey]['id'] = $score->getPlayer()->getId();
                 $plays[$playKey]['player'][$playerKey]['firstname'] = $score->getPlayer()->getFirstname();
@@ -109,6 +109,21 @@ class PlayService
             );
     }
 
+    public function getPlayersYetInthePlay($play)
+    {
+        // retrieve players yet in the plays > they wont't be proposed by the form
+        $PlayersYetInThePlay = array(0);
+        $getPlayersYetInthePlay = $this
+            ->em
+            ->getRepository('GameScoreBundle:Score')
+            ->findBy(array('play' => $play));
+        foreach ($getPlayersYetInthePlay as $line) {
+            array_push($PlayersYetInThePlay, $line->getPlayer()->getId());
+        }
+        return $PlayersYetInThePlay;
+    }
+
+
     /*
      * Getters and setters
      */
@@ -129,5 +144,15 @@ class PlayService
         $this->playsIds = $playsIds;
     }
 
-
+    public function getBestScoresByGame(Game $game)
+    {
+        $limit = $this->container->getParameter('number_of_item_to_show_on_top_scores');
+        // check the order of scores for this game
+        $invertedScore = $game->getHasInvertedScore();
+        return $this
+            ->em
+            ->getRepository('GameScoreBundle:Score')
+            ->getTopScoresByGame($game, $limit, $invertedScore);
+    }
 }
+

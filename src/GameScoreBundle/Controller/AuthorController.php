@@ -9,7 +9,7 @@
 namespace GameScoreBundle\Controller;
 
 use GameScoreBundle\Entity\Author;
-use GameScoreBundle\Form\AuthorType;
+use GameScoreBundle\Form\Type\AuthorType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
