@@ -57,7 +57,7 @@ class GameController extends Controller
             ->container
             ->get('play_service');
         $plays = $playService
-            ->getPlayedGames('game_id', $game->getId(), $limitOfPlayedGamesShown, null);
+            ->getPlayedGames('game_id', $game->getId(), $page=0, $limitOfPlayedGamesShown);
         $topScores = $playService
             ->getBestScoresByGame($game);
 
