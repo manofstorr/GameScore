@@ -119,7 +119,7 @@ class ScoreController extends Controller
                     ->add('info', 'Score mis à jour.');
 
                 return $this->render(
-                    'GameScoreBundle:play:view.html.twig',
+                    'GameScoreBundle:Play:view.html.twig',
                     array(
                         'plays' => $plays,
                         'extended_mode' => true,
@@ -159,7 +159,7 @@ class ScoreController extends Controller
 
         // back to play view
         return $this->render(
-            'GameScoreBundle:play:view.html.twig',
+            'GameScoreBundle:Play:view.html.twig',
             array(
                 'plays' => $plays,
                 'extended_mode' => true,
