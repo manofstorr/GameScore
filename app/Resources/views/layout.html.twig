@@ -4,17 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %} GameScore {% endblock %}</title>
-    {% block stylesheets %}
-        {% stylesheets
-        filter='cssrewrite'
-        'bundles/gamescore/css/bootstrap.css'
-        'bundles/gamescore/css/overload.css'
-        'bundles/gamescore/css/mediatransform.css'
-        'bundles/gamescore/css/font-awesome.min.css'
-        'bundles/gamescore/css/user.css' %}
-        <link rel="stylesheet" href="{{ asset_url }}" type="text/css"/>
-        {% endstylesheets %}
-    {% endblock %}
+    <link rel="stylesheet" href="{{ asset('static/css/bootstrap.css') }}" type="text/css"/>
+    <link rel="stylesheet" href="{{ asset('static/css/overload.css') }}" type="text/css"/>
+    <link rel="stylesheet" href="{{ asset('static/css/user.css') }}" type="text/css"/>
 </head>
 
 <body>
