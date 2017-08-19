@@ -29,14 +29,18 @@ class EditorController extends Controller
 
     public function collectionAction($page = 1)
     {
-        $this->setEditorRepository();
         $nbPerPage = $this->container->getParameter('standard_number_of_elements_per_page');
 
         if ($page < 1) {
             throw $this->createNotFoundException("La page demandée (" . $page . ") n'existe pas.");
         }
 
-        $EditorCollection = $this->EditorRepository->getEditors($page, $nbPerPage);
+        $em = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('GameScoreBundle:Editor');
+
+        $EditorCollection = $em->getEditors($page, $nbPerPage);
         $nbOfPages = ceil($EditorCollection->count() / $nbPerPage);
 
         if ($page > $nbOfPages) {
