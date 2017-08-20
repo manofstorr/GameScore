@@ -10,13 +10,6 @@
 </head>
 
 <body>
-{% for message in app.session.flashbag.get('info') %}
-    <div class="alert alert-info fade in alert-animation ">
-        <a href="#" class="close" data-dismiss="alert">×</a>
-        {{ message }}
-    </div>
-{% endfor %}
-
 {% block navigation %}
     <nav class="navbar navbar-inverse">
         <div class="container">
@@ -79,11 +72,14 @@
                             {{ 'hello'|trans|capitalize }} {{ app.user.username }}
                         </li>
                         <li>
-                            <a href="{{ path('fos_user_security_logout') }}" title="{{ 'sign out'|trans|capitalize }}"><span class="glyphicon glyphicon-log-out"></span></a>
+                            <a href="{{ path('fos_user_security_logout') }}"
+                               title="{{ 'sign out'|trans|capitalize }}"><span
+                                        class="glyphicon glyphicon-log-out"></span></a>
                         </li>
                     {% else %}
                         <li>
-                            <a href="{{ path('fos_user_security_login') }}" title="{{ 'sign in'|trans|capitalize }}">{{ 'sign in'|trans|capitalize }}</a>
+                            <a href="{{ path('fos_user_security_login') }}"
+                               title="{{ 'sign in'|trans|capitalize }}">{{ 'sign in'|trans|capitalize }}</a>
                         </li>
                         <li>
                             <a href={{ path ('fos_user_registration_register') }}>{{ 'sign up'|trans|capitalize }}</a>
@@ -95,12 +91,22 @@
         </div>
     </nav>
 {% endblock %}
-
+{% for message in app.session.flashbag.get('info') %}
+    <div class="container">
+        <div class="alert alert-info fade in alert-animation col-md-6 col-md-offset-3">
+            <a href="#" class="close" data-dismiss="alert">×</a>
+            {{ message }}
+        </div>
+    </div>
+{% endfor %}
 {% block content %}
+
 {% endblock %}
 <footer class="footer">
     <div class="container">
-        <p class="text-muted">Place sticky footer content here. <address>Contact : davyyd76@gmail.com</address></p>
+        <p class="text-muted">Place sticky footer content here.
+        <address>Contact : davyyd76@gmail.com</address>
+        </p>
     </div>
 </footer>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
