@@ -1,5 +1,6 @@
 <ul class="list-group">
     <li class="list-group-item list-group-item-info">
+        <h4>
         <a href="{{ path('game_score_game_view', {'id':play.game.id}) }}">{{ play.game.name }}</a>
         {% if is_granted('ROLE_ADMIN') %}
             {% if mode == 'update' %}
@@ -10,10 +11,11 @@
             {% else %}
                 <a class="btn btn-primary btn-xs pull-right"
                    href="{{ path('game_score_play_view', {'id': play.playid}) }}">
-                    {{ 'edition mode'|trans|capitalize }}
+                    {{ 'edition'|trans|capitalize }}
                 </a>
             {% endif %}
         {% endif %}
+        </h4>
     </li>
     <li class="list-group-item inactive">
         {{ play.description }} @ {{ play.location }}
