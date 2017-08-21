@@ -67,6 +67,9 @@ class Document
         // the entity from being persisted to the database on error
         $this->getFile()->move($this->getUploadRootDir(), $this->path);
 
+        var_dump($this->getUploadRootDir());
+        //die();
+
         // check if we have an old image
         if (isset($this->temp)) {
             // delete the old image
@@ -139,7 +142,7 @@ class Document
     {
         // the absolute directory path where uploaded
         // documents should be saved
-        return __DIR__ . '/../../../../web/' . $this->getUploadDir();
+        return __DIR__ . '/../../../web/' . $this->getUploadDir();
     }
 
     protected function getUploadDir()
