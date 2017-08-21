@@ -5,9 +5,15 @@
 {% endblock %}
 
 {% block mainsection %}
-<section class="col-md-offset-2 col-md-8">
-    <h2>{{ 'play'|trans|capitalize }} {{ 'of'|trans }} {{ play.game.name }}</h2>
-    {% include 'GameScoreBundle:Play:playedGamesIncluded.html.twig' with {'plays' : plays } %}
+<section class="col-md-10 col-md-offset-1 ">
+
+    <label class="label label-xs label-gamescore-default"><span
+                class="glyphicon glyphicon-leaf"></span> {{ 'play'|trans|upper }}</label>
+    <div class="well">
+        <h4>{{ 'play'|trans|capitalize }} {{ 'of'|trans }} {{ play.game.name }}</h4>
+        {% include 'GameScoreBundle:Play:playedGamesIncluded.html.twig' with {'plays' : plays } %}
+    </div>
+
     <div class="well">
         <legend>{{ 'form'|trans|capitalize }} {{ 'score'|trans }} :</legend>
         {{ form_start(form) }}

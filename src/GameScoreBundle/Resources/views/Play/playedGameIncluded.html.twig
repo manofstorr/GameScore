@@ -6,7 +6,7 @@
             {% if mode == 'update' %}
                 <a class="btn btn-warning btn-xs pull-right"
                    href="{{ path('game_score_play_update', {'id': play.playid}) }}">
-                    {{ 'update'|trans|capitalize }}
+                    {{ 'upd'|trans|capitalize }}
                 </a>
             {% else %}
                 <a class="btn btn-primary btn-xs pull-right"
@@ -42,11 +42,11 @@
                     <div class="btn-group pull-right">
                         <a class="btn btn-warning btn-xs"
                            href="{{ path('game_score_score_update', {'id': player.scoreid}) }}">
-                            {{ 'update'|trans|capitalize }}
+                            {{ 'upd'|trans|capitalize }}
                         </a>
                         <a class="btn btn-danger btn-xs"
                            href="{{ path('game_score_score_delete', {'id': player.scoreid}) }}">
-                            {{ 'delete'|trans|capitalize }}
+                            {{ 'del'|trans|capitalize }}
                         </a>
                     </div>
                 {% else %}
