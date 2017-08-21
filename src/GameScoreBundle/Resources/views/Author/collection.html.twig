@@ -5,12 +5,17 @@
 {% endblock %}
 
 {% block mainsection %}
-    <section class="col-md-12">
-        <h2><i class="fa fa-address-book" aria-hidden="true"></i>&nbsp;{{ 'authors'|trans|capitalize }}</h2>
-        {% if is_granted('ROLE_ADMIN') %}
-            <a class="btn btn-primary" href="{{ path('game_score_author_create') }}">{{ 'new'|trans|capitalize }}</a>
-        {% endif %}
-        <hr/>
+    <section class="col-md-10 col-md-offset-1">
+        <label class="label label-xs label-gamescore-default"><span
+                    class="glyphicon glyphicon-education"></span> {{ 'author'|trans|upper }}</label>
+        <div class="well">
+            <h2>{{ 'authors'|trans|capitalize }}</h2>
+            <hr/>
+            {% if is_granted('ROLE_ADMIN') %}
+                <a class="btn btn-default"
+                   href="{{ path('game_score_author_create') }}">{{ 'new'|trans|capitalize }}</a>
+            {% endif %}
+        </div>
         <ul class="pagination">
             {% for p in alphapageArray %}
                 {% if p != "" %}
