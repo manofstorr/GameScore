@@ -17,13 +17,17 @@ body {
     text-shadow: 2px 2px #000000;
 }
 
-section {
-    background-color: #f7f7f7;
-}
-
 /* alert / animation */
 .alert {
     z-index: 1000;
+}
+
+.label-gamescore-default {
+    background-color: whitesmoke;
+    color: dimgrey;
+    border: 1px solid lightgrey;
+    border-bottom: 0px;
+
 }
 
 .alert-animation {
