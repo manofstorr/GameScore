@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block mainsection %}
-    <section class="col-md-12">
+    <section class="col-md-10 col-md-offset-1">
         {% include 'GameScoreBundle:Game:gameIncluded.html.twig' with {'game' : game } %}
         {% include 'GameScoreBundle:Play:totalPlayedGamesIncluded.html.twig' with {'totalPlayedGames' : totalPlayedGames } %}
         {% include 'GameScoreBundle:Play:topScores.html.twig' with {'topScores' : topScores } %}

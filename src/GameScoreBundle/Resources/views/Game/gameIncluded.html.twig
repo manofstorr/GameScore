@@ -1,12 +1,14 @@
+{% if extended_mode is defined %}
+<label class="label label-xs label-gamescore-default"><span class="glyphicon glyphicon-knight"></span> {{ 'game'|trans|upper }}</label>
+{% endif %}
 <ul class="list-group">
     <li class="list-group-item list-group-item-info">
         {% if extended_mode is defined %}
-            <h3>
-                {{ game.name }}
-                <a class="btn btn-warning pull-right" href="{{ path('game_score_game_update', {'id':game.id}) }}">
+            <h3>{{ game.name }}</h3>
+                <br />
+                <a class="btn btn-default" href="{{ path('game_score_game_update', {'id':game.id}) }}">
                     {{ 'update'|trans|capitalize }}
                 </a>
-            </h3>
         {% else %}
             <h4><a href="{{ path('game_score_game_view', { 'id':game.id }) }}">{{ game.name }}</a></h4>
         {% endif %}
