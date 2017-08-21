@@ -22,6 +22,7 @@ add player: ajouter un joueur
 #plays
 Last played games: dernières parties jouées
 played games count: nombre de parties jouées
+played games: parties jouées
 new play: nouvelle partie
 location: lieu
 let's start by play, players will come soon: commencez par les infos de partie (les joueurs seront déclarés après)

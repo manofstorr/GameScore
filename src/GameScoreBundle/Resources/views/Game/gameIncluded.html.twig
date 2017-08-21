@@ -20,6 +20,12 @@
         </li>
     {% endif %}
 
+    {% if extended_mode is defined %}
+        <li class="list-group-item">
+            {% include 'GameScoreBundle:Play:totalPlayedGamesIncluded.html.twig' with {'totalPlayedGames' : totalPlayedGames } %}
+        </li>
+    {% endif %}
+
     {% if game.editor %}
         <a class="list-group-item" href="{{ path('game_score_editor_view', { 'id':game.editor.id }) }}">
             {{ 'editor'|trans|capitalize }} : {{ game.editor.name }}
