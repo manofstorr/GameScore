@@ -8,7 +8,7 @@ body {
 .navbar-brand-cxtext {
     padding-bottom: 15px;
     padding-top: 15px;
-    color: #F2F2F2;
+    color: #f2f2f2;
 }
 
 .jumbotron {
@@ -27,7 +27,6 @@ body {
     color: dimgrey;
     border: 1px solid lightgrey;
     border-bottom: 0px;
-
 }
 
 .alert-animation {
