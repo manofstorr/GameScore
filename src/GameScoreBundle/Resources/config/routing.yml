@@ -146,3 +146,10 @@ game_score_score_delete:
         _controller: GameScoreBundle:Score:delete
     requirements:
         id: \d+
+
+
+# Routes for documents
+game_score_document_upload:
+    path: /document/upload
+    defaults:
+        _controller: GameScoreBundle:Document:upload
