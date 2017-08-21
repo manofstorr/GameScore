@@ -21,6 +21,8 @@ class DocumentController extends Controller
         $document = new Document();
         $form = $this->createFormBuilder($document)
             ->add('name')
+            ->add('entitytype')
+            ->add('entityid')
             ->add('file')
             ->getForm()
         ;

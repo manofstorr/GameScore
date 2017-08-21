@@ -22,6 +22,70 @@ class Document
     private $temp;
 
     /**
+     * @Assert\File(maxSize="6000000")
+     */
+    private $file;
+
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    public $id;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    public $name;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    public $entitytype;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    public $entityid;
+
+    /**
+     * @return mixed
+     */
+    public function getEntitytype()
+    {
+        return $this->entitytype;
+    }
+
+    /**
+     * @param mixed $entitytype
+     */
+    public function setEntitytype($entitytype)
+    {
+        $this->entitytype = $entitytype;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEntityid()
+    {
+        return $this->entityid;
+    }
+
+    /**
+     * @param mixed $entitytid
+     */
+    public function setEntityid($entityid)
+    {
+        $this->entityid = $entityid;
+    }
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    public $path;
+
+    /**
      * Sets file.
      *
      * @param UploadedFile $file
@@ -67,9 +131,6 @@ class Document
         // the entity from being persisted to the database on error
         $this->getFile()->move($this->getUploadRootDir(), $this->path);
 
-        var_dump($this->getUploadRootDir());
-        //die();
-
         // check if we have an old image
         if (isset($this->temp)) {
             // delete the old image
@@ -91,12 +152,6 @@ class Document
     }
 
     /**
-     * @Assert\File(maxSize="6000000")
-     */
-    private $file;
-
-
-    /**
      * Get file.
      *
      * @return UploadedFile
@@ -105,24 +160,6 @@ class Document
     {
         return $this->file;
     }
-
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    public $id;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank
-     */
-    public $name;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    public $path;
 
     public function getAbsolutePath()
     {
@@ -149,7 +186,14 @@ class Document
     {
         // get rid of the __DIR__ so it doesn't screw up
         // when displaying uploaded doc/image in the view.
-        return 'uploads/documents';
+        $dir = 'uploads/documents';
+        if ($this->getEntitytype()) {
+            $dir .= '/' . $this->getEntitytype() . '/' . $this->getEntityid();
+        } else {
+            $dir .= '/common';
+        }
+
+        return $dir;
     }
 
 }
