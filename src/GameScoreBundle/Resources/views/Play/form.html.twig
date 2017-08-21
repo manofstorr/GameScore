@@ -5,11 +5,15 @@
 {% endblock %}
 
 {% block mainsection %}
-    <section class="col-md-offset-2 col-md-8">
-        <h2>{{ 'form' |trans|capitalize }} : {{ 'play' |trans|capitalize }}</h2>
+    <section class="col-md-8 col-md-offset-2 ">
+
+        <label class="label label-xs label-gamescore-default"><span
+                    class="glyphicon glyphicon-leaf"></span> {{ 'play'|trans|upper }}</label>
+        <div class="well">
+            <h2>{{ 'form' |trans|capitalize }} : {{ 'play' |trans|capitalize }}</h2>
+        </div>
 
         <div class="well">
-            <legend>{{ 'let\'s start by play, players will come soon'|trans|capitalize }}</legend>
             {{ form_start(form) }}
 
             <div class="form-group">
