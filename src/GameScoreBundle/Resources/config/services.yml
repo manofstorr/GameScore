@@ -5,6 +5,11 @@ services:
     arguments:
       - "@doctrine.orm.entity_manager"
 
+  document_service:
+    class: GameScoreBundle\Service\DocumentService
+    arguments:
+      - "@doctrine.orm.entity_manager"
+
   play_service:
     class: GameScoreBundle\Service\PlayService
     arguments:

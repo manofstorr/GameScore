@@ -54,6 +54,8 @@ class GameController extends Controller
     {
         // find last plays
         $limitOfPlayedGamesShown = $this->getParameter('limit_of_played_games_shown');
+
+        // use services for extra data
         $playService = $this
             ->container
             ->get('play_service');
@@ -61,6 +63,11 @@ class GameController extends Controller
             ->getPlayedGames('game_id', $game->getId(), $page=0, $limitOfPlayedGamesShown);
         $topScores = $playService
             ->getBestScoresByGame($game);
+        $documentService = $this
+            ->container
+            ->get('document_service');
+        $documents = $documentService
+            ->getDocuments();
 
         // count played games all times
         $totalPlayedGames = count(
@@ -76,12 +83,13 @@ class GameController extends Controller
         return $this->render(
             'GameScoreBundle:Game:view.html.twig',
             array(
-                'game' => $game,
-                'plays' => $plays,
-                'topScores' => $topScores,
-                'extended_mode' => true,
-                'totalPlayedGames' => $totalPlayedGames,
-                'mode' => 'view'
+                'game'              => $game,
+                'plays'             => $plays,
+                'topScores'         => $topScores,
+                'extended_mode'     => true,
+                'totalPlayedGames'  => $totalPlayedGames,
+                'mode'              => 'view',
+                'documents'         => $documents
 
             )
         );
