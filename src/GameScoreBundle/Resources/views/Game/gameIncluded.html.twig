@@ -90,7 +90,7 @@
         </li>
         <li class="list-group-item">
             {% for document in documents %}
-                <img src="../../{{ document.filepath }}/{{  document.filename }}" alt="{{ document.name }}" />
+                <img src="{{ backroottoweb }}{{ document.filepath }}/{{  document.filename }}" alt="{{ document.name }}" />
             {%  endfor %}
         </li>
     {% endif %}
