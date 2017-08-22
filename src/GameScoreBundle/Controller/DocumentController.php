@@ -16,19 +16,25 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class DocumentController extends Controller
 {
-    public function uploadAction(Request $request)
+    public function uploadAction(Request $request, $entitytype, $entityid)
     {
+        if (!$this->isValidEntityForUpload($entitytype, $entityid)) {
+            return false;
+        }
+
         $document = new Document();
+        // hydratting from route parameters
+        $document->setEntitytype($entitytype);
+        $document->setEntityid($entityid);
+        $document->setName($this->setUploadName($entitytype, $entityid));
         $form = $this->createFormBuilder($document)
             ->add('name')
             ->add('entitytype')
             ->add('entityid')
             ->add('file')
-            ->getForm()
-        ;
+            ->getForm();
 
         if ($request->isMethod('POST')) {
-            var_dump($_POST);
             $form->handleRequest($request);
             if ($form->isValid()) {
                 $em = $this->getDoctrine()->getManager();
@@ -42,5 +48,23 @@ class DocumentController extends Controller
 
         return $this->render('GameScoreBundle:Document:form.html.twig',
             array('form' => $form->createView()));
+    }
+
+    private function isValidEntityForUpload(string $entitytype, int $entityid)
+    {
+        $acceptedEntitiesNames = array('game', 'play', 'player', 'editor', 'author', 'common');
+        if (in_array($entitytype, $acceptedEntitiesNames) and ($entityid)) {
+            return true;
+        }
+        return false;
+    }
+
+    private function setUploadName($entitytype, $entityid)
+    {
+        $acceptedEntitiesNames = array('game', 'play', 'player', 'editor', 'author');
+        if (in_array($entitytype, $acceptedEntitiesNames) and ($entityid)) {
+            return $entitytype . '-' . $entityid;
+        }
+        return '';
     }
 }
