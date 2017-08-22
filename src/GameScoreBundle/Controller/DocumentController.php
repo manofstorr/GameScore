@@ -42,6 +42,8 @@ class DocumentController extends Controller
                 $em->persist($document);
                 $em->flush();
 
+                // route out depends on entity
+                //$returnPath = $this->getReturnPath($entitytype, $entityid);
                 return $this->redirect($this->generateUrl('game_score_homepage'));
             }
         }
@@ -55,6 +57,15 @@ class DocumentController extends Controller
         $acceptedEntitiesNames = array('game', 'play', 'player', 'editor', 'author', 'common');
         if (in_array($entitytype, $acceptedEntitiesNames) and ($entityid)) {
             return true;
+        }
+        return false;
+    }
+
+    private function getReturnPath(string $entitytype, int $entityid)
+    {
+        $acceptedEntitiesNames = array('game', 'play', 'player', 'editor', 'author');
+        if (in_array($entitytype, $acceptedEntitiesNames) and ($entityid)) {
+            return "'gamescore_bundle_' . $entitytype . '_view' { 'id':game.editor.id }";
         }
         return false;
     }
