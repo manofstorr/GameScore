@@ -89,7 +89,10 @@
             {% endif %}
         </li>
         <li class="list-group-item">
-            {{ documents }}
+            {% for document in documents %}
+                {{ document.name }}
+            {%  endfor %}
+
         </li>
     {% endif %}
 </ul>

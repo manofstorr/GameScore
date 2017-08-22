@@ -67,7 +67,7 @@ class GameController extends Controller
             ->container
             ->get('document_service');
         $documents = $documentService
-            ->getDocuments();
+            ->getDocuments('game', $game->getId());
 
         // count played games all times
         $totalPlayedGames = count(

@@ -13,7 +13,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
- * @ORM\Entity
+ * @ORM\Table(name="document")
+ * @ORM\Entity(repositoryClass="GameScoreBundle\Repository\DocumentRepository")
  * @ORM\HasLifecycleCallbacks
  */
 class Document

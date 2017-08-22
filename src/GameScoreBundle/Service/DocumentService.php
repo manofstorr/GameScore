@@ -9,6 +9,7 @@
 namespace GameScoreBundle\Service;
 
 use Doctrine\ORM\EntityManager;
+use GameScoreBundle\Entity\Document;
 
 class DocumentService
 {
@@ -20,16 +21,14 @@ class DocumentService
         $this->em = $entityManager;
     }
 
-    public function getDocuments()
+    public function getDocuments($entitytype, $entityid)
     {
-        /*
-        return count(
+        echo 'plop';
+        return (
             $this
                 ->em
-                ->getRepository('GameScoreBundle:Game')
-                ->findAll()
+                ->getRepository('GameScoreBundle:Document')
+                ->getDocumentsX($entitytype, $entityid)
         );
-        */
-        return 'ok';
     }
 }
