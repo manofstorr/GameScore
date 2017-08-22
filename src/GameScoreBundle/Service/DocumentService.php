@@ -23,7 +23,6 @@ class DocumentService
 
     public function getDocuments($entitytype, $entityid)
     {
-        echo 'plop';
         return (
             $this
                 ->em

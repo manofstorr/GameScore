@@ -50,6 +50,16 @@ class Document
     public $entityid;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    public $filename;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    public $filepath;
+
+    /**
      * @return mixed
      */
     public function getName()
@@ -64,8 +74,6 @@ class Document
     {
         $this->name = $name;
     }
-
-
 
 
     /**
@@ -101,11 +109,6 @@ class Document
     }
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    public $path;
-
-    /**
      * Sets file.
      *
      * @param UploadedFile $file
@@ -114,12 +117,12 @@ class Document
     {
         $this->file = $file;
         // check if we have an old image path
-        if (isset($this->path)) {
+        if (isset($this->filename)) {
             // store the old name to delete after the update
-            $this->temp = $this->path;
-            $this->path = null;
+            $this->temp = $this->filename;
+            $this->filename = null;
         } else {
-            $this->path = 'initial';
+            $this->filename = 'initial';
         }
     }
 
@@ -132,7 +135,8 @@ class Document
         if (null !== $this->getFile()) {
             // do whatever you want to generate a unique name
             $filename = sha1(uniqid(mt_rand(), true));
-            $this->path = $filename . '.' . $this->getFile()->guessExtension();
+            $this->filepath = $this->getUploadDir();
+            $this->filename = $filename . '.' . $this->getFile()->guessExtension();
         }
     }
 
@@ -149,7 +153,7 @@ class Document
         // if there is an error when moving the file, an exception will
         // be automatically thrown by move(). This will properly prevent
         // the entity from being persisted to the database on error
-        $this->getFile()->move($this->getUploadRootDir(), $this->path);
+        $this->getFile()->move($this->getUploadRootDir(), $this->filename);
 
         // check if we have an old image
         if (isset($this->temp)) {
@@ -183,16 +187,16 @@ class Document
 
     public function getAbsolutePath()
     {
-        return null === $this->path
+        return null === $this->filename
             ? null
-            : $this->getUploadRootDir() . '/' . $this->path;
+            : $this->getUploadRootDir() . '/' . $this->filename;
     }
 
     public function getWebPath()
     {
-        return null === $this->path
+        return null === $this->filename
             ? null
-            : $this->getUploadDir() . '/' . $this->path;
+            : $this->getUploadDir() . '/' . $this->filename;
     }
 
     protected function getUploadRootDir()

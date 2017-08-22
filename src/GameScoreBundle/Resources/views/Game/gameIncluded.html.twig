@@ -90,7 +90,7 @@
         </li>
         <li class="list-group-item">
             {% for document in documents %}
-                {{ document.name }}
+                <img src="../../{{ document.filepath }}/{{  document.filename }}" alt="{{ document.name }}" />
             {%  endfor %}
 
         </li>
