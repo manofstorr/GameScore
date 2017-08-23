@@ -43,6 +43,8 @@ class ScoreType extends AbstractType
                     'query_builder' => function (EntityRepository $er) {
                         return $er->createQueryBuilder('p')
                             ->andWhere('p.id NOT IN (' . implode("," , $this->players_out) . ')')
+                            ->addOrderBy('p.star', 'DESC')
+                            ->addOrderBy('p.firstname', 'ASC');
                         ;
                     },
                     'multiple' => false)
