@@ -2,7 +2,9 @@
 
 namespace GameScoreBundle\Form\Type;
 
+use Doctrine\ORM\EntityRepository;
 use GameScoreBundle\Entity\Game;
+use GameScoreBundle\GameScoreBundle;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -24,13 +26,17 @@ class PlayType extends AbstractType
             ->add('date', DateType::class)
             ->add('description', TextareaType::class)
             ->add('location', TextType::class)
-            ->add('game', EntityType::class,
-                array(
-                    'class' => 'GameScoreBundle:Game',
-                    'choice_label' => 'name',
-                    'multiple' => false
-                )
-            )
+            ->add('game', EntityType::class, array(
+                'choice_label' => function (Game $game) {
+                    return $game->getName();
+                },
+                'class' => 'GameScoreBundle:Game',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('g')
+                        ->orderBy('g.name', 'ASC');
+                },
+                'multiple' => false
+            ))
             ->add('save', SubmitType::class)
             ;
     }
