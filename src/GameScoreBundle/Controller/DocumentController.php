@@ -43,11 +43,16 @@ class DocumentController extends Controller
                 $em->flush();
 
                 // route out depends on entity
-                //$returnPath = $this->getReturnPath($entitytype, $entityid);
+                $available_entities_names = $this->getParameter('available_entities_names');
+                if (in_array($entitytype, $available_entities_names)) {
+                    return $this->redirect($this->generateUrl(
+                        'game_score_' . $entitytype . '_view',
+                        array('id' => $entityid))
+                    );
+                }
                 return $this->redirect($this->generateUrl('game_score_homepage'));
             }
         }
-
         return $this->render('GameScoreBundle:Document:form.html.twig',
             array('form' => $form->createView()));
     }
