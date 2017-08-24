@@ -5,10 +5,15 @@
 {% endblock %}
 
 {% block mainsection %}
-    <section class="col-md-offset-2 col-md-8">
-        <h2>{{ 'form'|trans|capitalize }} : {{ 'author'|trans }}</h2>
+    <section class="col-md-8 col-md-offset-2 ">
+
+        <label class="label label-xs label-gamescore-default"><span
+                    class="glyphicon glyphicon-education"></span> {{ 'author'|trans|upper }}</label>
         <div class="well">
-            <legend>Remplissez tous les champs</legend>
+            <h2>{{ 'form' |trans|capitalize }} : {{ 'author' |trans|capitalize }}</h2>
+        </div>
+
+        <div class="well">
             {{ form_start(form) }}
 
             <div class="form-group">
@@ -29,7 +34,7 @@
 
             <div class="form-group">
                 <div>
-                    {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary btn-block'}}) }}
+                    {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
                 </div>
             </div>
 

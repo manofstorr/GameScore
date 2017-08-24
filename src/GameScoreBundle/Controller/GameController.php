@@ -13,6 +13,7 @@ namespace GameScoreBundle\Controller;
 use GameScoreBundle\Entity\Game;
 use GameScoreBundle\Entity\Play;
 use GameScoreBundle\Form\Type\GameType;
+use GameScoreBundle\GameScoreBundle;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -53,13 +54,20 @@ class GameController extends Controller
     {
         // find last plays
         $limitOfPlayedGamesShown = $this->getParameter('limit_of_played_games_shown');
+
+        // use services for extra data
         $playService = $this
             ->container
             ->get('play_service');
         $plays = $playService
-            ->getPlayedGames('game_id', $game->getId(), $limitOfPlayedGamesShown, null);
+            ->getPlayedGames('game_id', $game->getId(), $page=0, $limitOfPlayedGamesShown);
         $topScores = $playService
             ->getBestScoresByGame($game);
+        $documentService = $this
+            ->container
+            ->get('document_service');
+        $documents = $documentService
+            ->getDocuments('game', $game->getId());
 
         // count played games all times
         $totalPlayedGames = count(
@@ -75,12 +83,13 @@ class GameController extends Controller
         return $this->render(
             'GameScoreBundle:Game:view.html.twig',
             array(
-                'game' => $game,
-                'plays' => $plays,
-                'topScores' => $topScores,
-                'extended_mode' => true,
-                'totalPlayedGames' => $totalPlayedGames,
-                'mode' => 'view'
+                'game'              => $game,
+                'plays'             => $plays,
+                'topScores'         => $topScores,
+                'extended_mode'     => true,
+                'totalPlayedGames'  => $totalPlayedGames,
+                'mode'              => 'view',
+                'documents'         => $documents
 
             )
         );

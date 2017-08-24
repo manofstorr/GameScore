@@ -101,11 +101,6 @@ class ScoreController extends Controller
             )
         );
 
-        $plays = $this
-            ->container
-            ->get('play_service')
-            ->getPlayedGames('single_play_id', $score->getPlay()->getId(), 1, null);
-
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
             if ($form->isValid()) {
@@ -118,8 +113,13 @@ class ScoreController extends Controller
                     ->getFlashBag()
                     ->add('info', 'Score mis à jour.');
 
+                $plays = $this
+                    ->container
+                    ->get('play_service')
+                    ->getPlayedGames('single_play_id', $score->getPlay()->getId(), 1, null);
+
                 return $this->render(
-                    'GameScoreBundle:play:view.html.twig',
+                    'GameScoreBundle:Play:view.html.twig',
                     array(
                         'plays' => $plays,
                         'extended_mode' => true,
@@ -128,6 +128,12 @@ class ScoreController extends Controller
                 );
             }
         }
+
+        $plays = $this
+            ->container
+            ->get('play_service')
+            ->getPlayedGames('single_play_id', $score->getPlay()->getId(), 1, null);
+
         return $this->render('GameScoreBundle:Score:form.html.twig',
             array(
                 'form' => $form->createView(),
@@ -159,7 +165,7 @@ class ScoreController extends Controller
 
         // back to play view
         return $this->render(
-            'GameScoreBundle:play:view.html.twig',
+            'GameScoreBundle:Play:view.html.twig',
             array(
                 'plays' => $plays,
                 'extended_mode' => true,

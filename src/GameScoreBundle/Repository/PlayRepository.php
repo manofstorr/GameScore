@@ -17,7 +17,7 @@ class PlayRepository extends EntityRepository
 {
 
     // retun array of play id
-    public function getPlaysByPlayer($player_id, $limit, $nbPerPage)
+    public function getPlaysByPlayer($player_id, $limit, $nbPerPage = 0)
     {
         $em = $this->getEntityManager();
         $connection = $em->getConnection();

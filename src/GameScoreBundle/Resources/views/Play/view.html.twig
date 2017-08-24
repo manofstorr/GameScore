@@ -6,15 +6,16 @@
 
 {% block mainsection %}
 
-    <section class="col-md-offset-2 col-md-8">
+    <section class="col-md-10 col-md-offset-1">
+        <label class="label label-xs label-gamescore-default"><span class="glyphicon glyphicon-tree-deciduous"></span> {{ 'play'|trans|upper }}</label>
+        <div class="well">
         {% for play in plays %}
-            <h2>{{ 'edition mode'|trans|capitalize }} : {{ 'play'|trans }} {{ play.playid }}</h2>
-
+            <h5>{{ 'edition mode'|trans|capitalize }} : {{ 'play'|trans }} {{ play.playid }}</h5>
             {% include 'GameScoreBundle:Play:playedGameIncluded.html.twig' with {'plays' : plays, 'mode' : mode } %}
-
             <hr />
             <a class="btn btn-primary" href="{{ path('game_score_score_create', {'id': play.playid}) }}">{{ 'add score'|trans|capitalize }}</a>
         {% endfor %}
+        </div>
     </section>
 
 {% endblock %}

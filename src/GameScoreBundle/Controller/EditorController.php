@@ -17,18 +17,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class EditorController extends Controller
 {
-    private $EditorRepository;
-
-    private function setEditorRepository()
-    {
-        $em = $this->getDoctrine()->getManager();
-        $this->EditorRepository = $em->getRepository('GameScoreBundle:Editor');
-    }
-
     public function viewAction(Editor $editor)
     {
         return $this->render(
-            'GameScoreBundle:editor:view.html.twig',
+            'GameScoreBundle:Editor:view.html.twig',
             array(
                 'editor' => $editor
             )
@@ -37,14 +29,18 @@ class EditorController extends Controller
 
     public function collectionAction($page = 1)
     {
-        $this->setEditorRepository();
         $nbPerPage = $this->container->getParameter('standard_number_of_elements_per_page');
 
         if ($page < 1) {
             throw $this->createNotFoundException("La page demandée (" . $page . ") n'existe pas.");
         }
 
-        $EditorCollection = $this->EditorRepository->getEditors($page, $nbPerPage);
+        $em = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('GameScoreBundle:Editor');
+
+        $EditorCollection = $em->getEditors($page, $nbPerPage);
         $nbOfPages = ceil($EditorCollection->count() / $nbPerPage);
 
         if ($page > $nbOfPages) {
@@ -70,7 +66,6 @@ class EditorController extends Controller
      */
     public function createAction(Request $request)
     {
-
         $editor = new Editor();
         $form = $this->createForm(EditorType::class, $editor);
 

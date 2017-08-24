@@ -5,18 +5,21 @@
 {% endblock %}
 
 {% block mainsection %}
-    <section class="col-md-12">
-        <h2>
-            <i class="fa fa-address-card" aria-hidden="true"></i>
-            {{ 'author'|trans|capitalize }} : {{ author.firstname ~ ' ' ~ author.lastname }}
-        </h2>
-        {% if is_granted('ROLE_ADMIN') %}
-            <a class="btn btn-warning"
-               href="{{ path('game_score_author_update', {'id':author.id}) }}">{{ 'update'|trans|capitalize }}
-            </a>
-        {% endif %}
-        <hr/>
-        <p>...</p>
+    <section class="col-md-10 col-md-offset-1">
+        <label class="label label-xs label-gamescore-default"><span
+                    class="glyphicon glyphicon-education"></span> {{ 'author'|trans|upper }}</label>
+        <div class="well">
+            <h2>
+                {{ 'author'|trans|capitalize }} : {{ author.firstname ~ ' ' ~ author.lastname }}
+            </h2>
+            <hr/>
+            <h4>x jeux de cet auteur</h4>
+            {% if is_granted('ROLE_ADMIN') %}
+                <a class="btn btn-default"
+                   href="{{ path('game_score_author_update', {'id':author.id}) }}">{{ 'update'|trans|capitalize }}
+                </a>
+            {% endif %}
+        </div>
     </section>
 {% endblock %}
 

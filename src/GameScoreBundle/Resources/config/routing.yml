@@ -25,8 +25,8 @@ game_score_game_update:
     path:     /game/update/{id}
     defaults:
         _controller: GameScoreBundle:Game:update
-        requirements:
-          id: \d+
+    requirements:
+        id: \d+
 
 # Routes for Editors
 game_score_editor_view:
@@ -146,3 +146,8 @@ game_score_score_delete:
         _controller: GameScoreBundle:Score:delete
     requirements:
         id: \d+
+
+# Routes for documents
+game_score_document_upload:
+    path: /document/upload/{entitytype}/{entityid}
+    defaults: {_controller: GameScoreBundle:Document:upload, entitytype: 'common', entityid: 1}

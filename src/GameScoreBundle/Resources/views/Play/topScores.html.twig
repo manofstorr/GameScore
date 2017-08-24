@@ -1,10 +1,8 @@
-<div>
-    <h3>
-        {{ 'top scores' |trans|capitalize }}
-    </h3>
-</div>
+<ul class="list-group">
+    <li class="list-group-item list-group-item-info">
+        <h4>{{ 'top scores' |trans|capitalize }}</h4>
+    </li>
 {% if topScores %}
-    <ul class="list-group">
         {% for line in topScores %}
             <li class="list-group-item">
                 {{ line.player.firstname ~ ' ' ~ line.player.lastname}}
@@ -12,5 +10,5 @@
                 {{ line.score }}
             </li>
         {% endfor %}
-    </ul>
 {% endif %}
+</ul>
