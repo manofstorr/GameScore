@@ -62,7 +62,7 @@ class DocumentController extends Controller
         $available_entities_names = $this->getParameter('available_entities_names');
         $document_casual_name = $this->getParameter('document_casual_name');
         array_push($available_entities_names, $document_casual_name);
-        if (in_array($entitytype, $available_entities_names) and ($entityid)) {
+        if (in_array($entitytype, $available_entities_names) && ($entityid)) {
             return true;
         }
         return false;
@@ -71,7 +71,7 @@ class DocumentController extends Controller
     private function getReturnPath(string $entitytype, int $entityid)
     {
         $available_entities_names = $this->getParameter('available_entities_names');
-        if (in_array($entitytype, $available_entities_names) and ($entityid)) {
+        if (in_array($entitytype, $available_entities_names) && ($entityid)) {
             return "'gamescore_bundle_' . $entitytype . '_view' { 'id':game.editor.id }";
         }
         return false;
@@ -80,7 +80,7 @@ class DocumentController extends Controller
     private function setUploadName($entitytype, $entityid)
     {
         $available_entities_names = $this->getParameter('available_entities_names');
-        if (in_array($entitytype, $available_entities_names) and ($entityid)) {
+        if (in_array($entitytype, $available_entities_names) && ($entityid)) {
             return $entitytype . '-' . $entityid;
         }
         return '';
