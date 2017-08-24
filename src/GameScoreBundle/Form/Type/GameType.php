@@ -37,17 +37,18 @@ class GameType extends AbstractType
                     'multiple' => false
                 )
             )
-            ->add('author', EntityType::class, array(
-                'choice_label' => function (Author $author) {
-                    return $author->getFirstname() . ' ' . $author->getLastname();
-                },
-                'class' => 'GameScoreBundle:Author',
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('a')
-                        ->orderBy('a.lastname', 'ASC');
-                },
-                'multiple' => true
-            ))
+            ->add('author', EntityType::class,
+                array(
+                    'choice_label' => function (Author $author) {
+                        return $author->getFirstname() . ' ' . $author->getLastname();
+                    },
+                    'class' => 'GameScoreBundle:Author',
+                    'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('a')
+                            ->orderBy('a.lastname', 'ASC');
+                    },
+                    'multiple' => true
+                ))
             ->add('main_card_url', TextType::class,
                 array('required' => false)
             )
