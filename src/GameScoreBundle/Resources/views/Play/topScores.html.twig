@@ -1,14 +1,18 @@
-<ul class="list-group">
-    <li class="list-group-item list-group-item-info">
-        <h4>{{ 'top scores' |trans|capitalize }}</h4>
-    </li>
-{% if topScores %}
+<h4 id="nav-breadcrumbs">{{ 'top scores' |trans|capitalize }}</h4>
+<div class="bs-component">
+    {% if topScores %}
         {% for line in topScores %}
-            <li class="list-group-item">
-                {{ line.player.firstname ~ ' ' ~ line.player.lastname}}
-                 :
+            {% if loop.first %}
+                <span class="label label-success">
+            {% else %}
+                <span class="label label-default">
+            {% endif %}
+            {{ line.player.firstname ~ ' ' ~ line.player.lastname }}
+            <strong>
                 {{ line.score }}
-            </li>
+            </strong>
+            </span>
+            &nbsp;
         {% endfor %}
-{% endif %}
-</ul>
+    {% endif %}
+</div>

@@ -1,27 +1,32 @@
-{% extends "GameScoreBundle::layout.html.twig" %}
+{% extends "GameScoreBundle::view.layout.html.twig" %}
 
 {% block title %}
     {{ 'player'|trans|capitalize }} : {{ player.firstname }} - {{ parent() }}
 {% endblock %}
 
 {% block mainsection %}
-    <section class="col-md-10 col-md-offset-1">
-        <label class="label label-xs label-gamescore-default"><span class="glyphicon glyphicon-record"></span> {{ 'player'|trans|upper }}</label>
-        <div class="well">
-            <h2>
-                {{ player.firstname ~ ' ' ~ player.lastname }}
-                {% if player.star %}
-                    &nbsp;&nbsp;&#9733;
-                {% endif %}
-            </h2>
-            <hr/>
-            {% include 'GameScoreBundle:Play:totalPlayedGamesIncluded.html.twig' with {'totalPlayedGames' : totalPlayedGames } %}
-            {% if is_granted('ROLE_ADMIN') %}
-                <a class="btn btn-default"
-                   href="{{ path('game_score_player_update', { 'id':player.id }) }}">{{ 'update'|trans|capitalize }}
-                </a>
-            {% endif %}
-        </div>
+
+    {% block minilabel %}
+        <span class="glyphicon glyphicon-record"></span> {{ 'player'|trans|upper }}
+    {% endblock %}
+
+    {% block blocktitle %}
+        {{ player.firstname ~ ' ' ~ player.lastname }}
+        {% if player.star %}
+            &nbsp;&nbsp;&#9733;
+        {% endif %}
+    {% endblock %}</h3>
+
+    {% block blockcontent %}
+        {% include 'GameScoreBundle:Play:totalPlayedGamesIncluded.html.twig' with {'totalPlayedGames' : totalPlayedGames } %}
+    {% endblock %}
+
+    {% if is_granted('ROLE_ADMIN') %}
+        {% block updateroute %}{{ path('game_score_player_update', {'id':player.id}) }}{% endblock %}
+    {% endif %}
+
+    {% block extrainfo %}
         {% include 'GameScoreBundle:Play:playedGamesIncluded.html.twig' with {'plays' : plays } %}
-    </section>
+    {% endblock %}
+
 {% endblock %}

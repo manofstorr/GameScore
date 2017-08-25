@@ -1,14 +1,86 @@
-{% extends "GameScoreBundle::layout.html.twig" %}
+{% extends "GameScoreBundle::view.layout.html.twig" %}
 
 {% block title %}
     {{ 'game'|trans|capitalize }} : {{ game.name }} - {{ parent() }}
 {% endblock %}
 
 {% block mainsection %}
-    <section class="col-md-10 col-md-offset-1">
-        {% include 'GameScoreBundle:Game:gameIncluded.html.twig' with {'game' : game, 'totalPlayedGames' : totalPlayedGames } %}
+
+    {% block minilabel %}
+        <span class="glyphicon glyphicon-knight"></span> {{ 'game'|trans|capitalize }}
+    {% endblock %}
+
+    {% block blocktitle %}
+        {{ game.name|capitalize }}
+    {% endblock %}
+
+    {% block blockcontent %}
+        {{ game.description }}
+        <hr/>
+
+        {% include 'GameScoreBundle:Play:totalPlayedGamesIncluded.html.twig' with {'totalPlayedGames' : totalPlayedGames } %}
+        <hr/>
+
+        {% if game.editor %}
+            {{ 'editor'|trans|capitalize }} :
+            <a href="{{ path('game_score_editor_view', { 'id':game.editor.id }) }}">
+                {{ game.editor.name }}
+            </a>
+            <hr/>
+        {% endif %}
+
+        {{ 'author'|trans|capitalize }}(s) :
+
+        {% if game.author %}
+            {% for author in game.author %}
+                <a href="{{ path('game_score_author_view', { 'id':author.id }) }}">
+                    {{ author.firstname ~ ' ' ~ author.lastname }}
+                </a>
+            {% endfor %}
+        {% endif %}
+        <hr/>
+
+        {% if game.getIsCollaborative or game.getIsExtension or game.getHasInvertedScore %}
+            {% if game.getIsCollaborative %}
+                Jeu collaboratif
+            {% endif %}
+            {% if game.getIsExtension %}
+                Extension
+            {% endif %}
+            {% if game.getHasInvertedScore %}
+                Le plus petit score gagne
+            {% endif %}
+            <hr/>
+        {% endif %}
+
+        {% if game.mainCardUrl %}
+            <a href="{{ game.mainCardUrl }}">{{ 'see card'|trans|capitalize }}</a>
+            <hr/>
+        {% endif %}
+
+        {% for document in documents %}
+            <img src="{{ backroottoweb }}{{ document.filepath }}/{{ document.filename }}"
+                 alt="{{ document.name }}"/>
+        {% endfor %}
+        <a class="btn btn-default"
+           href="{{ path('game_score_document_upload', {'entitytype':'game', 'entityid':game.id}) }}">
+            <span class="glyphicon glyphicon-eye-open"></span>
+        </a>
+        <hr/>
         {% include 'GameScoreBundle:Play:topScores.html.twig' with {'topScores' : topScores } %}
+
+    {% endblock %}
+
+    {% if is_granted('ROLE_ADMIN') %}
+        {% block updateroute %}
+            {{ path('game_score_game_update', {'id':game.id}) }}
+            {% endblock %}
+    {% endif %}
+
+    {% block extrainfo %}
+
         {% include 'GameScoreBundle:Play:playedGamesIncluded.html.twig' with {'plays' : plays } %}
-    </section>
+    {% endblock %}
+
 {% endblock %}
 
