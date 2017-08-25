@@ -1,98 +1,27 @@
-{% if extended_mode is defined %}
-<label class="label label-xs label-gamescore-default"><span class="glyphicon glyphicon-knight"></span> {{ 'game'|trans|upper }}</label>
-{% endif %}
 <ul class="list-group">
-    <li class="list-group-item list-group-item-info">
-        {% if extended_mode is defined %}
-            <h3>{{ game.name }}</h3>
-                <br />
-                <div class="btn-group">
-                    <a class="btn btn-primary" href="{{ path('game_score_game_update', {'id':game.id}) }}">
-                        {{ 'update'|trans|capitalize }}
-                    </a>
-                    <a class="btn btn-default" href="{{ path('game_score_document_upload', {'entitytype':'game', 'entityid':game.id}) }}">
-                        <span class="glyphicon glyphicon-eye-open"></span>
-                    </a>
-                </div>
-        {% else %}
-            <h4><a href="{{ path('game_score_game_view', { 'id':game.id }) }}">{{ game.name }}</a></h4>
-        {% endif %}
+    <li class="list-group-item">
+        <h4><a href="{{ path('game_score_game_view', { 'id':game.id }) }}">{{ game.name }}</a></h4>
     </li>
-
-    {% if extended_mode is defined %}
-        <li class="list-group-item">
-            {{ game.description }}
-        </li>
-    {% endif %}
-
-    {% if extended_mode is defined %}
-        <li class="list-group-item list-group-item-info">
-            {% include 'GameScoreBundle:Play:totalPlayedGamesIncluded.html.twig' with {'totalPlayedGames' : totalPlayedGames } %}
-        </li>
-    {% endif %}
 
     {% if game.editor %}
-        <a class="list-group-item" href="{{ path('game_score_editor_view', { 'id':game.editor.id }) }}">
-            {{ 'editor'|trans|capitalize }} : {{ game.editor.name }}
-            <span class="glyphicon glyphicon-chevron-right pull-right" aria-hidden="true"></span>
+    <li class="list-group-item">
+        {{ 'editor'|trans|capitalize }} :
+        <a href="{{ path('game_score_editor_view', { 'id':game.editor.id }) }}">
+            {{ game.editor.name }}
         </a>
-    {% else %}
-        <li class="list-group-item disabled">
-            {{ 'editor'|trans|capitalize }} : {{ 'none'|trans|capitalize }} :
-        </li>
-    {% endif %}
-
-    <li class="list-group-item disabled">
-        {{ 'author'|trans|capitalize }}(s) :
     </li>
+    {% endif %}
+
     {% if game.author %}
-        {% for author in game.author %}
-            <a class="list-group-item" href="{{ path('game_score_author_view', { 'id':author.id }) }}">
-                {{ author.firstname ~ ' ' ~ author.lastname }}
-                <span class="glyphicon glyphicon-chevron-right pull-right" aria-hidden="true"></span>
-            </a>
-        {% endfor %}
-    {% else %}
-        <li class="list-group-item disabled">
-            {{ 'none'|trans|capitalize }} :
+        <li class="list-group-item">
+            {{ 'author'|trans|capitalize }}(s) :
+            {% for author in game.author %}
+                <a href="{{ path('game_score_author_view', { 'id':author.id }) }}">
+                    {{ author.firstname ~ ' ' ~ author.lastname }}
+                </a>
+            {% endfor %}
         </li>
     {% endif %}
 
-    {% if extended_mode is defined %}
-        <li class="list-group-item">
-            Collaboratif :
-            {% if game.getIsCollaborative %}
-                Oui
-            {% else %}
-                Non
-            {% endif %}
-            <br/>
-            Extension :
-            {% if game.getIsExtension %}
-                Oui
-            {% else %}
-                Non
-            {% endif %}
-            <br/>
-            Le plus petit score gagne :
-            {% if game.getHasInvertedScore %}
-                Oui
-            {% else %}
-                Non
-            {% endif %}
-        </li>
-        <li class="list-group-item">
-            {% if game.mainCardUrl %}
-                <a href="{{ game.mainCardUrl }}">{{ 'see card'|trans|capitalize }}</a>
-                {%  else %}
-                    {{ 'no card'|trans|capitalize }}
-            {% endif %}
-        </li>
-        <li class="list-group-item">
-            {% for document in documents %}
-                <img src="{{ backroottoweb }}{{ document.filepath }}/{{  document.filename }}" alt="{{ document.name }}" />
-            {%  endfor %}
-        </li>
-    {% endif %}
 </ul>
 

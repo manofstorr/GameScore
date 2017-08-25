@@ -4,10 +4,11 @@
 
 {% if plays %}
 
-        {%  if plays|length > 1 %}
-            <label class="label label-gamescore-default"><span class="glyphicon glyphicon-tree-deciduous"></span> {{ 'Last played games'|trans|capitalize }}</label>
-                   {% endif %}
-
+    {% if plays|length > 1 %}
+        <label class="label label-gamescore-default"><span
+                    class="glyphicon glyphicon-tree-deciduous"></span> {{ 'Last played games'|trans|capitalize }}
+        </label>
+    {% endif %}
 
     {% for play in plays %}
         {% include 'GameScoreBundle:Play:playedGameIncluded.html.twig' with {'play' : play, 'mode' : mode} %}

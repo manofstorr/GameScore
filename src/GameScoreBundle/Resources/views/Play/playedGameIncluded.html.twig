@@ -1,5 +1,5 @@
 <ul class="list-group">
-    <li class="list-group-item list-group-item-info">
+    <li class="list-group-item">
         <h4>
         <a href="{{ path('game_score_game_view', {'id':play.game.id}) }}">{{ play.game.name }}</a>
         {% if is_granted('ROLE_ADMIN') %}
@@ -35,7 +35,7 @@
             {% if loop.first %}
                 <span class="label label-success">{{ player.score }}</span>
             {% else %}
-                <span class="label label-info">{{ player.score }}</span>
+                <span class="label label-default">{{ player.score }}</span>
             {% endif %}
             {% if is_granted('ROLE_ADMIN') %}
                 {% if mode == 'update' %}
