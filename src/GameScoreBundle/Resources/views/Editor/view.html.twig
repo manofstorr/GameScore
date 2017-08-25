@@ -1,26 +1,27 @@
-{% extends "GameScoreBundle::layout.html.twig" %}
+{% extends "GameScoreBundle::view.layout.html.twig" %}
 
 {% block title %}
     {{ 'editor'|trans|capitalize }} : {{ editor.name }} - {{ parent() }}
 {% endblock %}
 
 {% block mainsection %}
-    <section class="col-md-10 col-md-offset-1">
-        <label class="label label-xs label-gamescore-default"><span
-                    class="glyphicon glyphicon-gift"></span> {{ 'editor'|trans|upper }}</label>
-        <div class="well">
-            <h2>
-                {{ editor.name }}
-            </h2>
-            <hr/>
-            <h4>x jeux chez cet éditeur</h4>
-            {% if is_granted('ROLE_ADMIN') %}
-                <a class="btn btn-default"
-                   href="{{ path('game_score_editor_update', {'id':editor.id}) }}">{{ 'update'|trans|capitalize }}
-                </a>
-            {% endif %}
 
-        </div>
-    </section>
+    {% block minilabel %}
+        <span class="glyphicon glyphicon-gift"></span> {{ 'editor'|trans|upper }}
+    {% endblock %}
+
+    {% block blocktitle %}
+        {{ editor.name }}
+    {% endblock %}</h3>
+
+    {% block blockcontent %}
+        <h4>x jeux chez cet éditeur</h4>
+    {% endblock %}
+
+    {% if is_granted('ROLE_ADMIN') %}
+        {% block updateroute %}{{ path('game_score_editor_update', {'id':editor.id}) }}{% endblock %}
+    {% endif %}
+
 {% endblock %}
+
 

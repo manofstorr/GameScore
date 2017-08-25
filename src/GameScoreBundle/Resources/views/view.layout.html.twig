@@ -1,0 +1,39 @@
+{% extends "::layout.html.twig" %}
+
+{% block title %}
+    {{ 'card'|trans|capitalize }} {{ parent() }}
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <section class="col-md-10 col-md-offset-1">
+
+            <label class="label label-xs label-gamescore-default">
+                {% block minilabel %}{% endblock %}
+            </label>
+
+            <div class="panel panel-info">
+
+                <div class="panel-heading">
+                    <h3 class="panel-title">{% block blocktitle %}{% endblock %}</h3>
+                </div>
+
+                <div class="panel-body">
+                    {% block blockcontent %}{% endblock %}
+                </div>
+
+                <div class="panel-body">
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <hr />
+                        <a class="btn btn-default"
+                           href="{% block updateroute %}{% endblock %}">{{ 'update'|trans|capitalize }}
+                        </a>
+                    {% endif %}
+                </div>
+
+            </div>
+
+        </section>
+    </div>
+{% endblock %}
+
