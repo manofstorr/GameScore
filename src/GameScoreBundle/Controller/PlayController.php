@@ -33,7 +33,7 @@ class PlayController extends Controller
         return $this->render(
             'GameScoreBundle:Play:view.html.twig',
             array(
-                'plays' => $plays,
+                'play' => $plays[0],
                 'extended_mode' => true,
                 'mode' => 'update'
             )

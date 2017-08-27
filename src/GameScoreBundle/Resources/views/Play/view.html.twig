@@ -1,21 +1,77 @@
-{% extends "GameScoreBundle::layout.html.twig" %}
+{% extends "GameScoreBundle::view.layout.html.twig" %}
 
 {% block title %}
-    Partie : {{ parent() }}
+    {{ 'play'|trans|capitalize }} - {{ parent() }}
 {% endblock %}
 
-{% block mainsection %}
+{% block maincontent %}
 
-    <section class="col-md-10 col-md-offset-1">
-        <label class="label label-xs label-gamescore-default"><span class="glyphicon glyphicon-tree-deciduous"></span> {{ 'play'|trans|upper }}</label>
-        <div class="well">
-        {% for play in plays %}
-            <h5>{{ 'edition mode'|trans|capitalize }} : {{ 'play'|trans }} {{ play.playid }}</h5>
-            {% include 'GameScoreBundle:Play:playedGameIncluded.html.twig' with {'plays' : plays, 'mode' : mode } %}
-            <hr />
-            <a class="btn btn-primary" href="{{ path('game_score_score_create', {'id': play.playid}) }}">{{ 'add score'|trans|capitalize }}</a>
-        {% endfor %}
-        </div>
-    </section>
+    {% block minilabel %}
+        <span class="glyphicon glyphicon-default"></span> {{ 'play'|trans|upper }}
+    {% endblock %}
+
+    {% block blocktitle %}
+        {{ 'play'|trans|capitalize }} {{ play.playid }}
+        <br/>
+        {{ play.game.name }}
+    {% endblock %}
+
+    {% block blockcontent %}
+
+        {{ play.description }} @ {{ play.location }}
+        , {{ play.date|date("d M Y") }},
+        {{ play.nbPlayers }} joueurs :
+
+        {% if play.nbPlayers > 0 %}
+            {% for player in play.player %}
+
+                {% if mode == 'view' %}
+                    <a class="list-group-item" href="{{ path('game_score_player_view', {'id': player.id}) }}">
+                {% else %}
+                    <li class="list-group-item">
+                {% endif %}
+
+                {{ player.firstname }} {{ player.lastname }}
+                {% if loop.first %}
+                    <span class="label label-success">{{ player.score }}</span>
+                {% else %}
+                    <span class="label label-default">{{ player.score }}</span>
+                {% endif %}
+                {% if is_granted('ROLE_ADMIN') %}
+                    {% if mode == 'update' %}
+                        <div class="btn-group pull-right">
+                            <a class="btn btn-warning btn-xs"
+                               href="{{ path('game_score_score_update', {'id': player.scoreid}) }}">
+                                {{ 'upd'|trans|capitalize }}
+                            </a>
+                            <a class="btn btn-danger btn-xs"
+                               href="{{ path('game_score_score_delete', {'id': player.scoreid}) }}">
+                                {{ 'del'|trans|capitalize }}
+                            </a>
+                        </div>
+                    {% else %}
+                        <span class="glyphicon glyphicon-chevron-right pull-right" aria-hidden="true"></span>
+                    {% endif %}
+                {% endif %}
+
+                {% if mode == 'view' %}
+                    </a>
+                {% else %}
+                    </li>
+                {% endif %}
+
+            {% endfor %}
+
+            <hr/>
+            <a class="btn btn-primary"
+               href="{{ path('game_score_score_create', {'id': play.playid}) }}">{{ 'add score'|trans|capitalize }}</a>
+
+        {% endif %}
+    {% endblock %}
+    {% if is_granted('ROLE_ADMIN') %}
+        {% block updateroute %}
+            {{ path('game_score_play_update', {'id': play.playid}) }}
+        {% endblock %}
+    {% endif %}
 
 {% endblock %}
