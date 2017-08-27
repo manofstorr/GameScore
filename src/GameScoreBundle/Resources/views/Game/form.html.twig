@@ -1,91 +1,88 @@
-{% extends "GameScoreBundle::layout.html.twig" %}
+{% extends "GameScoreBundle::form.layout.html.twig" %}
 
 {% block title %}
-    Jeu : Formulaire - {{ parent() }}
+    {{ 'game'|trans|capitalize }} {{ parent() }}
 {% endblock %}
 
-{% block rightside %}
-    Editeurs populaires :
-{% endblock %}
+{% block maincontent %}
 
-{% block mainsection %}
-    <section class="col-md-8 col-md-offset-2 ">
-        <label class="label label-xs label-gamescore-default"><span
-                    class="glyphicon glyphicon-knight"></span> {{ 'game'|trans|upper }}</label>
-        <div class="well">
-            <h2>{{ 'form' |trans|capitalize }} : {{ 'game' |trans|capitalize }}</h2>
+    {% block minilabel %}
+        <span class="glyphicon glyphicon-knight"></span> {{ 'game'|trans|upper }}</label>
+    {% endblock %}
+
+    {% block blocktitle %}
+        {{ 'game' |trans|capitalize }}
+    {% endblock %}
+
+    {% block blockcontent %}
+
+        {{ form_start(form) }}
+
+        <div>
+            <label for="name" class="control-label">
+                {{ form_label(form.name, 'name'|trans|capitalize) }}
+            </label>
+            {{ form_errors(form.name) }}
+            {{ form_widget(form.name) }}
         </div>
 
-        <div class="well">
-            {{ form_start(form) }}
-
-            <div class="form-group">
-                <label for="name" class="control-label">
-                    {{ form_label(form.name, 'name'|trans|capitalize) }}
-                </label>
-                {{ form_errors(form.name) }}
-                {{ form_widget(form.name) }}
-            </div>
-
-            <div class="form-group">
-                <label for="description" class="control-label">
-                    {{ form_label(form.description, 'description'|trans|capitalize) }}
-                </label>
-                {{ form_errors(form.description) }}
-                {{ form_widget(form.description) }}
-            </div>
-
-            <div class="form-group">
-                <label for="author" class="control-label">
-                    {{ form_label(form.author, 'authors'|trans|capitalize) }}
-                </label>
-                {{ form_errors(form.author) }}
-                {{ form_widget(form.author) }}
-            </div>
-
-            <div class="form-group">
-                <label for="editor" class="control-label">
-                    {{ form_label(form.editor, 'editor'|trans|capitalize) }}
-                </label>
-                {{ form_errors(form.editor) }}
-                {{ form_widget(form.editor) }}
-            </div>
-
-            <div class="form-group">
-                <label for="year" class="control-label">
-                    {{ form_label(form.year, 'year'|trans|capitalize) }}
-                </label>
-                {{ form_errors(form.year) }}
-                {{ form_widget(form.year) }}
-            </div>
-
-            <div class="form-group">
-                <label for="main_card_url" class="control-label">
-                    {{ form_label(form.main_card_url, 'main card url'|trans|capitalize) }}
-                </label>
-                {{ form_errors(form.main_card_url) }}
-                {{ form_widget(form.main_card_url) }}
-            </div>
-
-
-            <div class="form-group">
-                <label for="foo" class="control-label">
-                    {{ 'infos'|trans|capitalize }}
-                </label>
-                {{ form_row(form.has_inverted_score) }}
-                {{ form_row(form.is_collaborative) }}
-                {{ form_row(form.is_extension) }}
-            </div>
+        <div>
+            <label for="description" class="control-label">
+                {{ form_label(form.description, 'description'|trans|capitalize) }}
+            </label>
+            {{ form_errors(form.description) }}
+            {{ form_widget(form.description) }}
         </div>
 
-        <div class="form-group">
+        <div>
+            <label for="author" class="control-label">
+                {{ form_label(form.author, 'authors'|trans|capitalize) }}
+            </label>
+            {{ form_errors(form.author) }}
+            {{ form_widget(form.author) }}
+        </div>
+
+        <div>
+            <label for="editor" class="control-label">
+                {{ form_label(form.editor, 'editor'|trans|capitalize) }}
+            </label>
+            {{ form_errors(form.editor) }}
+            {{ form_widget(form.editor) }}
+        </div>
+
+        <div>
+            <label for="year" class="control-label">
+                {{ form_label(form.year, 'year'|trans|capitalize) }}
+            </label>
+            {{ form_errors(form.year) }}
+            {{ form_widget(form.year) }}
+        </div>
+
+        <div>
+            <label for="main_card_url" class="control-label">
+                {{ form_label(form.main_card_url, 'main card url'|trans|capitalize) }}
+            </label>
+            {{ form_errors(form.main_card_url) }}
+            {{ form_widget(form.main_card_url) }}
+        </div>
+
+        <div>
+            <label for="foo" class="control-label">
+                {{ 'infos'|trans|capitalize }}
+            </label>
+            {{ form_row(form.has_inverted_score) }}
+            {{ form_row(form.is_collaborative) }}
+            {{ form_row(form.is_extension) }}
+        </div>
+        <hr/>
+        <div>
             <div>
                 {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
             </div>
         </div>
         {{ form_rest(form) }}
         {{ form_end(form) }}
-        </div>
-    </section>
+
+    {% endblock %}
 {% endblock %}
 

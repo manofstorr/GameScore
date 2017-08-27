@@ -1,50 +1,51 @@
-{% extends "GameScoreBundle::layout.html.twig" %}
+{% extends "GameScoreBundle::form.layout.html.twig" %}
 
 {% block title %}
-    {{ 'player' |trans|capitalize }} : {{ 'form' |trans|capitalize }} - {{ parent() }}
+    {{ 'player'|trans|capitalize }} {{ parent() }}
 {% endblock %}
 
-{% block mainsection %}
-    <section class="col-md-8 col-md-offset-2 ">
+{% block maincontent %}
 
-        <label class="label label-xs label-gamescore-default"><span
-                    class="glyphicon glyphicon-record"></span> {{ 'player'|trans|upper }}</label>
-        <div class="well">
-            <h2>{{ 'form' |trans|capitalize }} : {{ 'player' |trans|capitalize }}</h2>
+    {% block minilabel %}
+        <span class="glyphicon glyphicon-record"></span> {{ 'player'|trans|upper }}</label>
+    {% endblock %}
+
+    {% block blocktitle %}
+        {{ 'player' |trans|capitalize }}
+    {% endblock %}
+
+    {% block blockcontent %}
+        {{ form_start(form) }}
+
+        <div>
+            <label for="firstname" class="control-label">
+                {{ form_label(form.firstname, 'firstname'|trans|capitalize) }}
+            </label>
+            {{ form_errors(form.firstname) }}
+            {{ form_widget(form.firstname) }}
         </div>
 
-        <div class="well">
-            {{ form_start(form) }}
-
-            <div class="form-group">
-                <label for="firstname" class="control-label">
-                    {{ form_label(form.firstname, 'firstname'|trans|capitalize) }}
-                </label>
-                {{ form_errors(form.firstname) }}
-                {{ form_widget(form.firstname) }}
-            </div>
-
-            <div class="form-group">
-                <label for="lastname" class="control-label">
-                    {{ form_label(form.lastname, 'lastname'|trans|capitalize) }}
-                </label>
-                {{ form_errors(form.lastname) }}
-                {{ form_widget(form.lastname) }}
-            </div>
-
-            <div class="form-group">
-                {{ form_errors(form.star) }}
-                {{ form_widget(form.star) }}
-            </div>
-
-            <div class="form-group">
-                <div>
-                    {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
-                </div>
-            </div>
-            {{ form_rest(form) }}
-            {{ form_end(form) }}
+        <div>
+            <label for="lastname" class="control-label">
+                {{ form_label(form.lastname, 'lastname'|trans|capitalize) }}
+            </label>
+            {{ form_errors(form.lastname) }}
+            {{ form_widget(form.lastname) }}
         </div>
-    </section>
+
+        <div>
+            {{ form_errors(form.star) }}
+            {{ form_widget(form.star) }}
+        </div>
+        <hr />
+        <div>
+            <div>
+                {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
+            </div>
+        </div>
+        {{ form_rest(form) }}
+        {{ form_end(form) }}
+
+    {% endblock %}
 {% endblock %}
 
