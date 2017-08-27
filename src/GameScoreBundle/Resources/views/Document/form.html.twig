@@ -1,27 +1,31 @@
-{% extends "GameScoreBundle::layout.html.twig" %}
+{% extends "GameScoreBundle::form.layout.html.twig" %}
 
 {% block title %}
-    Document - {{ parent() }}
+    {{ 'author'|trans|capitalize }} {{ parent() }}
 {% endblock %}
 
-{% block mainsection %}
-    <section class="col-md-8 col-md-offset-2 ">
-        <label class="label label-xs label-gamescore-default"><span
-                    class="glyphicon glyphicon-eye"></span> {{ 'upload'|trans|upper }}</label>
-        <div class="well">
-            <h2>{{ 'form' |trans|capitalize }} : {{ 'upload' |trans|capitalize }}</h2>
-        </div>
+{% block maincontent %}
 
-        <div class="well">
+    {% block minilabel %}
+        <span class="glyphicon glyphicon-eye"></span> {{ 'upload'|trans|upper }}
+    {% endblock %}
+
+    {% block blocktitle %}
+        {{ 'document' |trans|capitalize }}
+    {% endblock %}
+
+    {% block blockcontent %}
+        <div>
+            {{ form_start(form) }}
             {{ form_start(form) }}
             {{ form_widget(form) }}
             {{ form_rest(form) }}
             <input type="submit" value="Upload Document"/>
             {{ form_end(form) }}
         </div>
-    </section>
-{% endblock %}
 
+    {% endblock %}
+{% endblock %}
 
 
 
