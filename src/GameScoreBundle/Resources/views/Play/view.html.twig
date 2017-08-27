@@ -7,7 +7,7 @@
 {% block maincontent %}
 
     {% block minilabel %}
-        <span class="glyphicon glyphicon-default"></span> {{ 'play'|trans|upper }}
+        <span class="glyphicon glyphicon-tree"></span> {{ 'play'|trans|upper }}
     {% endblock %}
 
     {% block blocktitle %}
@@ -20,7 +20,9 @@
 
         {{ play.description }} @ {{ play.location }}
         , {{ play.date|date("d M Y") }},
-        {{ play.nbPlayers }} joueurs :
+        {{ play.nbPlayers }}
+        <br />
+        Joueurs :
 
         {% if play.nbPlayers > 0 %}
             {% for player in play.player %}

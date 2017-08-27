@@ -7,12 +7,8 @@
             {% else %}
                 <span class="label label-default">
             {% endif %}
-            {{ line.player.firstname ~ ' ' ~ line.player.lastname }}
-            <strong>
-                {{ line.score }}
-            </strong>
-            </span>
-            &nbsp;
+            {{ line.player.firstname ~ ' ' ~ line.player.lastname }}&nbsp;<strong>{{ line.score }}</strong></span>
+            <br/>
         {% endfor %}
     {% endif %}
 </div>

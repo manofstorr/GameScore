@@ -59,15 +59,15 @@
 
         {% for document in documents %}
             <img src="{{ backroottoweb }}{{ document.filepath }}/{{ document.filename }}"
-                 alt="{{ document.name }}"/>
+                 alt="{{ document.name }}" height="150"/>
         {% endfor %}
+        <br />
         <a class="btn btn-default"
            href="{{ path('game_score_document_upload', {'entitytype':'game', 'entityid':game.id}) }}">
             <span class="glyphicon glyphicon-eye-open"></span>
         </a>
         <hr/>
         {% include 'GameScoreBundle:Play:topScores.html.twig' with {'topScores' : topScores } %}
-
     {% endblock %}
 
     {% if is_granted('ROLE_ADMIN') %}
@@ -77,7 +77,6 @@
     {% endif %}
 
     {% block extrainfo %}
-
         {% include 'GameScoreBundle:Play:playedGamesIncluded.html.twig' with {'plays' : plays } %}
     {% endblock %}
 

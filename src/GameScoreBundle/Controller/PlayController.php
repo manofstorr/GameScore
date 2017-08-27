@@ -51,6 +51,7 @@ class PlayController extends Controller
         $form = $this->createForm(PlayType::class, $play);
 
         if ($request->isMethod('POST')) {
+
             $form->handleRequest($request);
             if ($form->isValid()) {
                 $em = $this->getDoctrine()->getManager();
