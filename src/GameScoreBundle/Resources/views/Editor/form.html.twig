@@ -1,34 +1,32 @@
-{% extends "GameScoreBundle::layout.html.twig" %}
+{% extends "GameScoreBundle::form.layout.html.twig" %}
 
 {% block title %}
-    Editeurs : Formulaire - {{ parent() }}
+    {{ 'editor'|trans|capitalize }} {{ parent() }}
 {% endblock %}
 
-{% block rightside %}
-    Editeurs populaires :
-{% endblock %}
+{% block maincontent %}
 
-{% block mainsection %}
-    <section class="col-md-8 col-md-offset-2 ">
+    {% block minilabel %}
+        <span class="glyphicon glyphicon-gift"></span> {{ 'editor'|trans|upper }}</label>
+    {% endblock %}
 
-        <label class="label label-xs label-gamescore-default"><span
-                    class="glyphicon glyphicon-gift"></span> {{ 'editor'|trans|upper }}</label>
-        <div class="well">
-            <h2>{{ 'form' |trans|capitalize }} : {{ 'editor' |trans|capitalize }}</h2>
-        </div>
+    {% block blocktitle %}
+        {{ 'author' |trans|capitalize }}
+    {% endblock %}
 
-        <div class="well">
+    {% block blockcontent %}
+
         {{ form_start(form) }}
 
-        <div class="form-group">
+        <div>
             <label for="name" class="control-label">
                 {{ form_label(form.name, 'name'|trans|capitalize) }}
             </label>
             {{ form_errors(form.name) }}
             {{ form_widget(form.name) }}
         </div>
-
-        <div class="form-group">
+        <hr />
+        <div>
             <div>
                 {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
             </div>
@@ -36,7 +34,6 @@
 
         {{ form_rest(form) }}
         {{ form_end(form) }}
-    </div>
-</section>
+    {% endblock %}
 {% endblock %}
 
