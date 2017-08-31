@@ -81,8 +81,8 @@ fos_user:
   firewall_name: main
   user_class: UserBundle\Entity\User
   from_email:
-      address: '%mailer_user%'
-      sender_name: '%mailer_user%'
+      address: 'davyyd76@gmail.com'
+      sender_name: 'davyyd76@gmail.com'
 
 #assetic
 assetic:
