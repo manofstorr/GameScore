@@ -60,8 +60,7 @@
   },
   "config": {
     "platform": {
-      "php": "5.5.9",
-      "bin-dir": "bin"
+      "php": "5.5.9"
     },
     "sort-packages": true
   },
