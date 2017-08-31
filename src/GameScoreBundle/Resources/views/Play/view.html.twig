@@ -64,11 +64,10 @@
 
             {% endfor %}
 
-            <hr/>
-            <a class="btn btn-primary"
-               href="{{ path('game_score_score_create', {'id': play.playid}) }}">{{ 'add score'|trans|capitalize }}</a>
-
         {% endif %}
+        <hr/>
+        <a class="btn btn-primary"
+           href="{{ path('game_score_score_create', {'id': play.playid}) }}">{{ 'add score'|trans|capitalize }}</a>
     {% endblock %}
     {% if is_granted('ROLE_ADMIN') %}
         {% block updateroute %}
