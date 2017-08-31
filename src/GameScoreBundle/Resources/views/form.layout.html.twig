@@ -11,12 +11,8 @@
                 {% block minilabel %}{% endblock %}
             </label>
             <div class="well bs-component">
-                <form class="form-horizontal">
-                    <fieldset>
-                        <legend>{{ 'form'|trans|capitalize }} : {% block blocktitle %}{% endblock %}</legend>
-                        {% block blockcontent %}{% endblock %}
-                    </fieldset>
-                </form>
+                <legend>{{ 'form'|trans|capitalize }} : {% block blocktitle %}{% endblock %}</legend>
+                {% block blockcontent %}{% endblock %}
             </div>
             {% block extrainfo %}{% endblock %}
         </section>
