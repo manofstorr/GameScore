@@ -52,6 +52,31 @@ class PlayerController extends Controller
         );
     }
 
+    /**
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function mostPlayedGamesViewAction(Player $player)
+    {
+        // call play service
+        $playService = $this
+            ->container
+            ->get('play_service');
+
+        $numberOfItemsMostPlayedGames = $this->getParameter('number_of_item_to_show_for_most_played_games_dedicated_view');
+        $mostPlayedGames = $playService
+            ->getMostPlayedGamesByPlayer($player->getId(), $numberOfItemsMostPlayedGames);
+
+        $totalPlayedGames = $this->getTotalOfPlayedGamesByPlayer($player);
+
+        return $this->render(
+            'GameScoreBundle:Player:mostplayedgames.view.html.twig',
+            [
+                'player'                  => $player,
+                'mostPlayedGames'         => $mostPlayedGames,
+            ]
+        );
+    }
+
     private function getTotalOfPlayedGamesByPlayer(Player $player)
     {
         $playedGames = $this

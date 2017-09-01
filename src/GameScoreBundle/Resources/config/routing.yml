@@ -88,6 +88,13 @@ game_score_player_view:
         requirements:
             id: \d+
 
+game_score_player_mostplayedgamesview:
+    path:     /player/{id}/mostplayedgames/
+    defaults:
+        _controller: GameScoreBundle:Player:mostPlayedGamesView
+        requirements:
+            id: \d+
+
 game_score_player_collection:
     path:     /players/{page}
     defaults:

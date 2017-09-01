@@ -18,7 +18,6 @@
     {% endblock %}</h3>
 
     {% block blockcontent %}
-        {% include 'GameScoreBundle:Play:totalPlayedGamesIncluded.html.twig' with {'totalPlayedGames' : totalPlayedGames } %}
         <h3>Jeux les plus joués :</h3>
         {% if mostPlayedGames|length > 0 %}
             <table class="table table-striped">
@@ -35,18 +34,9 @@
                 {% endfor %}
                 </tbody>
             </table>
-            <a href="{{ path('game_score_player_mostplayedgamesview', {'id':player.id}) }}">more...</a>
+            <a href="#">more...</a>
         {% else %}
             <p>Aucune partie à ce jour</p>
         {% endif %}
     {% endblock %}
-
-    {% if is_granted('ROLE_ADMIN') %}
-        {% block updateroute %}{{ path('game_score_player_update', {'id':player.id}) }}{% endblock %}
-    {% endif %}
-
-    {% block extrainfo %}
-        {% include 'GameScoreBundle:Play:playedGamesIncluded.html.twig' with {'plays' : plays } %}
-    {% endblock %}
-
 {% endblock %}
