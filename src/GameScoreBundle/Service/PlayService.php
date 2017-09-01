@@ -26,6 +26,10 @@ class PlayService
         $this->playsIds = array();
     }
 
+    /*
+     * Get Played game methods
+     */
+
     public function getPlayedGames($ByWhat, $ByValue, $limit, $offset)
     {
         // 1. determine how to retrieve play ids
@@ -96,6 +100,17 @@ class PlayService
             ->em
             ->getRepository('GameScoreBundle:Play')
             ->findById($id);
+    }
+
+    /*
+    * Get Played game methods END
+    */
+    public function getMostPlayedGamesByPlayer($player_id, $limit)
+    {
+        return $this
+            ->em
+            ->getRepository('GameScoreBundle:Play')
+            ->getMostPlayedGamesByPlayer($player_id, $limit);
     }
 
     private function getScoresByPlayId($id)

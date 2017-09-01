@@ -19,6 +19,26 @@
 
     {% block blockcontent %}
         {% include 'GameScoreBundle:Play:totalPlayedGamesIncluded.html.twig' with {'totalPlayedGames' : totalPlayedGames } %}
+        <h3>Jeux les plus joués :</h3>
+        {% if mostPlayedGames|length > 0 %}
+            <table class="table table-striped">
+                <thead>
+                <th>Jeu</th>
+                <th>Nb de parties</th>
+                </thead>
+                <tbody>
+                {% for mostPlayedGame in mostPlayedGames %}
+                    <tr>
+                        <td>{{ mostPlayedGame.gamename }}</td>
+                        <td>{{ mostPlayedGame.nbplays }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <a href="#">more...</a>
+        {% else %}
+            <p>Aucune partie à ce jour</p>
+        {% endif %}
     {% endblock %}
 
     {% if is_granted('ROLE_ADMIN') %}

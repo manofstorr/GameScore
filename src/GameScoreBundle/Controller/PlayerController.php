@@ -25,24 +25,43 @@ class PlayerController extends Controller
      */
     public function viewAction(Player $player)
     {
-        $limitOfPlayedGamesShown = $this->getParameter('limit_of_played_games_shown');
-        $totalPlayedGames = $this->getTotalOfPlayedGamesByPlayer($player);
-
         // call play service
-        $plays = $this
+        $playService = $this
             ->container
-            ->get('play_service')
+            ->get('play_service');
+
+        $limitOfPlayedGamesShown = $this->getParameter('limit_of_played_games_shown');
+        $plays = $playService
             ->getPlayedGames('player_id', $player->getId(), 0, $limitOfPlayedGamesShown);
+
+        $numberOfItemsMostPlayedGames = $this->getParameter('number_of_item_to_show_for_most_played_games_player_view');
+        $mostPlayedGames = $playService
+            ->getMostPlayedGamesByPlayer($player->getId(), $numberOfItemsMostPlayedGames);
+
+        $totalPlayedGames = $this->getTotalOfPlayedGamesByPlayer($player);
 
         return $this->render(
             'GameScoreBundle:Player:view.html.twig',
-            array(
-                'player' => $player,
+            [
+                'player'                  => $player,
                 'limitOfPlayedGamesShown' => $limitOfPlayedGamesShown,
-                'totalPlayedGames' => $totalPlayedGames,
-                'plays' => $plays
-            )
+                'totalPlayedGames'        => $totalPlayedGames,
+                'plays'                   => $plays,
+                'mostPlayedGames'         => $mostPlayedGames,
+            ]
         );
+    }
+
+    private function getTotalOfPlayedGamesByPlayer(Player $player)
+    {
+        $playedGames = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('GameScoreBundle:Score')
+            ->findBy(['player' => $player]);
+        $numberOfPlayedGames = count($playedGames);
+
+        return $numberOfPlayedGames;
     }
 
     /**
@@ -65,11 +84,11 @@ class PlayerController extends Controller
 
         return $this->render(
             'GameScoreBundle:Player:collection.html.twig',
-            array(
+            [
                 'playerCollection' => $PlayerCollection,
-                'page' => $page,
-                'alphapageArray' => $alphabeticalIndex
-            )
+                'page'             => $page,
+                'alphapageArray'   => $alphabeticalIndex,
+            ]
         );
     }
 
@@ -91,13 +110,19 @@ class PlayerController extends Controller
                     ->getSession()
                     ->getFlashBag()
                     ->add('info', 'Joueur ajouté !');
+
                 return $this->redirectToRoute('game_score_player_view',
-                    array('id' => $player->getId()));
+                    ['id' => $player->getId()]);
             }
         }
+
         return $this->render('GameScoreBundle:Player:form.html.twig',
-            array('form' => $form->createView()));
+            ['form' => $form->createView()]);
     }
+
+    /*
+     * Other methods
+     */
 
     /**
      * @Security("has_role('ROLE_USER')")
@@ -115,27 +140,14 @@ class PlayerController extends Controller
                     ->getSession()
                     ->getFlashBag()
                     ->add('info', 'Joueur mis à jour.');
+
                 return $this->redirectToRoute('game_score_player_view',
-                    array('id' => $player->getId()));
+                    ['id' => $player->getId()]);
             }
         }
+
         return $this->render('GameScoreBundle:Player:form.html.twig',
-            array('form' => $form->createView()));
-    }
-
-    /*
-     * Other methods
-     */
-
-    private function getTotalOfPlayedGamesByPlayer(Player $player)
-    {
-        $playedGames = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository('GameScoreBundle:Score')
-            ->findBy(array('player' => $player));
-        $numberOfPlayedGames = count($playedGames);
-        return $numberOfPlayedGames;
+            ['form' => $form->createView()]);
     }
 
 }

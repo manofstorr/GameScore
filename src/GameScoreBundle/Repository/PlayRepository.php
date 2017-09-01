@@ -16,6 +16,28 @@ use PDO;
 class PlayRepository extends EntityRepository
 {
 
+    public function getMostPlayedGamesByPlayer($player_id, $limit)
+    {
+        $em = $this->getEntityManager();
+        $connection = $em->getConnection();
+        $statement = $connection->prepare("
+            SELECT COUNT(p.id) AS nbplays, g.name AS gamename
+            FROM play p 
+                INNER JOIN game g ON (g.id = p.game_id)
+                INNER JOIN score s ON (s.play_id = p.id)
+            WHERE s.player_id = :player_id
+            GROUP BY p.game_id
+            ORDER BY nbplays DESC
+            LIMIT :limit"
+        );
+        $statement->bindValue('player_id', $player_id);
+        $statement->bindValue('limit', (int)trim($limit), PDO::PARAM_INT);
+        $statement->execute();
+        $results = $statement->fetchAll();
+
+        return $results;
+    }
+
     // retun array of play id
     public function getPlaysByPlayer($player_id, $limit, $nbPerPage = 0)
     {
@@ -31,10 +53,11 @@ class PlayRepository extends EntityRepository
             ORDER BY play.date DESC LIMIT :limit, :offset"
         );
         $statement->bindValue('player_id', $player_id);
-        $statement->bindValue('limit',  (int) trim($limit), PDO::PARAM_INT);
-        $statement->bindValue('offset',  (int) trim($nbPerPage), PDO::PARAM_INT);
+        $statement->bindValue('limit', (int)trim($limit), PDO::PARAM_INT);
+        $statement->bindValue('offset', (int)trim($nbPerPage), PDO::PARAM_INT);
         $statement->execute();
         $results = $statement->fetchAll();
+
         return $results;
     }
 
@@ -49,10 +72,11 @@ class PlayRepository extends EntityRepository
             ORDER BY play.date DESC LIMIT :limit, :offset"
         );
         $statement->bindValue('game_id', $game_id);
-        $statement->bindValue('limit',  (int) trim($limit), PDO::PARAM_INT);
-        $statement->bindValue('offset',  (int) trim($nbPerPage), PDO::PARAM_INT);
+        $statement->bindValue('limit', (int)trim($limit), PDO::PARAM_INT);
+        $statement->bindValue('offset', (int)trim($nbPerPage), PDO::PARAM_INT);
         $statement->execute();
         $results = $statement->fetchAll();
+
         return $results;
     }
 
