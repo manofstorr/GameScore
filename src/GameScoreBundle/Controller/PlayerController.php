@@ -58,9 +58,6 @@ class PlayerController extends Controller
             ->getManager()
             ->getRepository('GameScoreBundle:Player')
             ->getPlayers($page);
-        if ($PlayerCollection === null) {
-            throw new NotFoundHttpException('Impossible de charger la collection de joueurs.');
-        }
 
         $alphabeticalIndex = $this
             ->container->get('alphabetical_pagination')
