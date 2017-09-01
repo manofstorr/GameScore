@@ -68,15 +68,6 @@ class DocumentController extends Controller
         return false;
     }
 
-    private function getReturnPath(string $entitytype, int $entityid)
-    {
-        $available_entities_names = $this->getParameter('available_entities_names');
-        if (in_array($entitytype, $available_entities_names) && ($entityid)) {
-            return "'gamescore_bundle_' . $entitytype . '_view' { 'id':game.editor.id }";
-        }
-        return false;
-    }
-
     private function setUploadName($entitytype, $entityid)
     {
         $available_entities_names = $this->getParameter('available_entities_names');
