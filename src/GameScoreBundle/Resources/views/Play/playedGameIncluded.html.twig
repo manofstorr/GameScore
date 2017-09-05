@@ -1,21 +1,13 @@
 <li class="list-group-item  list-group-item-info">
     <h5>
         <a href="{{ path('game_score_game_view', {'id':play.game.id}) }}">{{ play.game.name }}</a>
-        {% if is_granted('ROLE_ADMIN') %}
-            {% if mode == 'update' %}
-                <a class="btn btn-warning btn-xs pull-right"
-                   href="{{ path('game_score_play_update', {'id': play.playid}) }}">
-                    {{ 'upd'|trans|capitalize }}
-                </a>
-            {% else %}
-                <a class="btn btn-primary btn-xs pull-right"
-                   href="{{ path('game_score_play_view', {'id': play.playid}) }}">
-                    {{ 'edition'|trans|capitalize }}
-                </a>
-            {% endif %}
-        {% endif %}
+        <a class="btn btn-primary btn-xs pull-right"
+           href="{{ path('game_score_play_view', {'id': play.playid}) }}">
+            {{ 'edition'|trans|capitalize }}
+        </a>
     </h5>
 </li>
+
 <li class="list-group-item inactive">
     {{ play.description }} @ {{ play.location }}
     , {{ play.date|date("d M Y") }},
@@ -23,42 +15,28 @@
 </li>
 {% if play.nbPlayers > 0 %}
     {% for player in play.player %}
-
-        {% if mode == 'view' %}
-            <a class="list-group-item" href="{{ path('game_score_player_view', {'id': player.id}) }}">
-        {% else %}
-            <li class="list-group-item">
-        {% endif %}
-
-        {{ player.firstname }} {{ player.lastname }}
-        {% if loop.first %}
-            <span class="label label-success">{{ player.score }}</span>
-        {% else %}
-            <span class="label label-default">{{ player.score }}</span>
-        {% endif %}
-        {% if is_granted('ROLE_ADMIN') %}
-            {% if mode == 'update' %}
-                <div class="btn-group pull-right">
-                    <a class="btn btn-warning btn-xs"
-                       href="{{ path('game_score_score_update', {'id': player.scoreid}) }}">
-                        {{ 'upd'|trans|capitalize }}
-                    </a>
-                    <a class="btn btn-danger btn-xs"
-                       href="{{ path('game_score_score_delete', {'id': player.scoreid}) }}">
-                        {{ 'del'|trans|capitalize }}
-                    </a>
-                </div>
+        <li class="list-group-item">
+            {{ player.firstname }} {{ player.lastname }}
+            {% if loop.first %}
+                <span class="label label-success">{{ player.score }}</span>
             {% else %}
-                <span class="glyphicon glyphicon-chevron-right pull-right" aria-hidden="true"></span>
+                <span class="label label-default">{{ player.score }}</span>
             {% endif %}
-        {% endif %}
-
-        {% if mode == 'view' %}
-            </a>
-        {% else %}
-            </li>
-        {% endif %}
-
+            {% if is_granted('ROLE_ADMIN') %}
+                {% if mode != 'view' %}
+                    <div class="btn-group pull-right">
+                        <a class="btn btn-warning btn-xs"
+                           href="{{ path('game_score_score_update', {'id': player.scoreid}) }}">
+                            {{ 'upd'|trans|capitalize }}
+                        </a>
+                        <a class="btn btn-danger btn-xs"
+                           href="{{ path('game_score_score_delete', {'id': player.scoreid}) }}">
+                            {{ 'del'|trans|capitalize }}
+                        </a>
+                    </div>
+                {% endif %}
+            {% endif %}
+        </li>
     {% endfor %}
 {% endif %}
 

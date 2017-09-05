@@ -15,37 +15,53 @@
         {% if player.star %}
             &nbsp;&nbsp;&#9733;
         {% endif %}
-    {% endblock %}</h3>
-
-    {% block blockcontent %}
-        {% include 'GameScoreBundle:Play:totalPlayedGamesIncluded.html.twig' with {'totalPlayedGames' : totalPlayedGames } %}
-        <h3>Jeux les plus joués :</h3>
-        {% if mostPlayedGames|length > 0 %}
-            <table class="table table-striped">
-                <thead>
-                <th>Jeu</th>
-                <th>Nb de parties</th>
-                </thead>
-                <tbody>
-                {% for mostPlayedGame in mostPlayedGames %}
-                    <tr>
-                        <td>{{ mostPlayedGame.gamename }}</td>
-                        <td>{{ mostPlayedGame.nbplays }}</td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-            <a href="{{ path('game_score_player_mostplayedgamesview', {'id':player.id}) }}">more...</a>
-        {% else %}
-            <p>Aucune partie à ce jour</p>
-        {% endif %}
     {% endblock %}
 
-    {% if is_granted('ROLE_ADMIN') %}
-        {% block updateroute %}{{ path('game_score_player_update', {'id':player.id}) }}{% endblock %}
-    {% endif %}
+    {% block blocktitletext %}
+        Fiche complète de ce joueur
+    {% endblock %}
 
-    {% block extrainfo %}
+    {% block blockcontent %}
+        <a href="#" class="list-group-item">
+            <h4 class="list-group-item-heading">Parties jouées :</h4>
+            {% include 'GameScoreBundle:Play:totalPlayedGamesIncluded.html.twig' with {'totalPlayedGames' : totalPlayedGames } %}
+        </a>
+        <div href="#" class="list-group-item">
+            <h4 class="list-group-item-heading">Jeux les plus joués :</h4>
+            {% if mostPlayedGames|length > 0 %}
+                <table class="table table-striped">
+                    <thead>
+                    <th>Jeu</th>
+                    <th>Nb de parties</th>
+                    </thead>
+                    <tbody>
+                    {% for mostPlayedGame in mostPlayedGames %}
+                        <tr>
+                            <td>{{ mostPlayedGame.gamename }}</td>
+                            <td>{{ mostPlayedGame.nbplays }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <a href="{{ path('game_score_player_mostplayedgamesview', {'id':player.id}) }}">Voir plus ...</a>
+            {% else %}
+                <p>Aucune partie à ce jour</p>
+            {% endif %}
+        </div>
+
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('game_score_player_update', {'id':player.id}) }}" class="list-group-item">
+                <h4 class="list-group-item-heading">Modifier la fiche</h4>
+                <button class="btn btn-primary">
+                    {{ 'update'|trans|capitalize }}
+                </button>
+            </a>
+        {% endif %}
+
+    {% endblock %}
+
+    {% block blockcomplementarycontent %}
+        <p>Parties récentes :</p>
         {% include 'GameScoreBundle:Play:playedGamesIncluded.html.twig' with {'plays' : plays } %}
     {% endblock %}
 
