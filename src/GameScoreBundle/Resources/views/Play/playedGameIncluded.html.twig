@@ -1,5 +1,7 @@
-<li class="list-group-item  list-group-item-info">
-    <h5>
+<ul class="list-group">
+
+    <li class="list-group-item  list-group-item-info">
+    <h5>Partie de
         <a href="{{ path('game_score_game_view', {'id':play.game.id}) }}">{{ play.game.name }}</a>
         <a class="btn btn-primary btn-xs pull-right"
            href="{{ path('game_score_play_view', {'id': play.playid}) }}">
@@ -17,7 +19,9 @@
 {% if play.nbPlayers > 0 %}
     {% for player in play.player %}
         <li class="list-group-item">
+            <a href="{{ path('game_score_player_view', {'id': player.id}) }}">
             {{ player.firstname }} {{ player.lastname }}
+            </a>
             {% if loop.first %}
                 <span class="label label-success">{{ player.score }}</span>
             {% else %}
@@ -41,3 +45,4 @@
     {% endfor %}
 {% endif %}
 
+</ul>

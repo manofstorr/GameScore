@@ -1,8 +1,8 @@
-<ul class="list-group">
+
     {% for play in plays %}
         {% include 'GameScoreBundle:Play:playedGameIncluded.html.twig' with {'play' : play, 'mode' : 'view'} %}
     {% endfor %}
-</ul>
+
 
 {% if nbOfPage is defined %}
     <ul class="pagination">
