@@ -13,6 +13,7 @@
     , {{ play.date|date("d M Y") }},
     {{ play.nbPlayers }} joueurs :
 </li>
+
 {% if play.nbPlayers > 0 %}
     {% for player in play.player %}
         <li class="list-group-item">

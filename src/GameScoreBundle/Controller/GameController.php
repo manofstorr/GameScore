@@ -117,7 +117,7 @@ class GameController extends Controller
                     ->getFlashBag()
                     ->add('info', 'Le jeu a bien été créé.');
                 return $this->redirectToRoute('game_score_game_view',
-                    array('game_id' => $game->getId()));
+                    array('id' => $game->getId()));
             }
         }
 
