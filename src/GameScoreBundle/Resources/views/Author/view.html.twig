@@ -12,15 +12,30 @@
 
     {% block blocktitle %}
         {{ 'author'|trans|capitalize }} : {{ author.firstname ~ ' ' ~ author.lastname }}
-    {% endblock %}</h3>
-
-    {% block blockcontent %}
-        <h4>x jeux de cet auteur</h4>
     {% endblock %}
 
-    {% if is_granted('ROLE_ADMIN') %}
-        {% block updateroute %}{{ path('game_score_author_update', {'id':author.id}) }}{% endblock %}
-    {% endif %}
+    {% block blocktitletext %}
+        Fiche complète de cet auteur
+    {% endblock %}
+
+    {% block blockcontent %}
+        <a href="#" class="list-group-item">
+            <h4 class="list-group-item-heading">Jeux de cet auteur :</h4>
+            <p class="list-group-item-text">
+                ...
+            </p>
+        </a>
+
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('game_score_author_update', {'id':author.id}) }}" class="list-group-item">
+                <h4 class="list-group-item-heading">Modifier la fiche</h4>
+                <button class="btn btn-primary" href="{{ path('game_score_author_update', {'id':author.id}) }}">
+                    {{ 'update'|trans|capitalize }}
+                </button>
+            </a>
+        {% endif %}
+
+    {% endblock %}
 
 {% endblock %}
 
