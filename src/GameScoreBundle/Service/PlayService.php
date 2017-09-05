@@ -59,8 +59,11 @@ class PlayService
             $plays[$playKey]['location'] = $play[0]->getLocation();
             $plays[$playKey]['game']['id'] = $play[0]->getGame()->getId();
             $plays[$playKey]['game']['name'] = $play[0]->getGame()->getName();
+
             // loop retrieve scores
-            $scores = $this->getScoresByPlayId($playedGameId);
+            $invertedScore = $play[0]->getGame()->getHasInvertedScore();
+
+            $scores = $this->getScoresByPlayId($playedGameId, $invertedScore);
             foreach ($scores as $playerKey => $score) {
                 $plays[$playKey]['player'][$playerKey]['scoreid'] = $score->getId();
                 $plays[$playKey]['player'][$playerKey]['id'] = $score->getPlayer()->getId();
@@ -113,15 +116,23 @@ class PlayService
             ->getMostPlayedGamesByPlayer($player_id, $limit);
     }
 
-    private function getScoresByPlayId($id)
+    private function getScoresByPlayId($id, $invertedScore)
     {
-        return $this
+        $repo = $this
             ->em
-            ->getRepository('GameScoreBundle:Score')
-            ->findBy(
+            ->getRepository('GameScoreBundle:Score');
+        if ($invertedScore) {
+            return $repo->findBy(
+                array('play' => $id),
+                array('score' => 'ASC')
+            );
+        } else {
+            return $repo->findBy(
                 array('play' => $id),
                 array('score' => 'DESC')
             );
+        }
+
     }
 
     public function getPlayersYetInthePlay($play)
