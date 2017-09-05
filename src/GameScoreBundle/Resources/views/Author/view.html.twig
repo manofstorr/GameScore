@@ -29,7 +29,7 @@
         {% if is_granted('ROLE_ADMIN') %}
             <a href="{{ path('game_score_author_update', {'id':author.id}) }}" class="list-group-item">
                 <h4 class="list-group-item-heading">Modifier la fiche</h4>
-                <button class="btn btn-primary" href="{{ path('game_score_author_update', {'id':author.id}) }}">
+                <button class="btn btn-primary">
                     {{ 'update'|trans|capitalize }}
                 </button>
             </a>
@@ -38,4 +38,3 @@
     {% endblock %}
 
 {% endblock %}
-

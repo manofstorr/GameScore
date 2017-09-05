@@ -14,71 +14,112 @@
         {{ game.name|capitalize }}
     {% endblock %}
 
+    {% block blocktitletext %}
+        Fiche complète de ce jeu
+    {% endblock %}
+
+
     {% block blockcontent %}
-        {{ game.description }}
-        <hr/>
-        {% include 'GameScoreBundle:Play:totalPlayedGamesIncluded.html.twig' with {'totalPlayedGames' : totalPlayedGames } %}
-        <hr/>
+        <a href="#" class="list-group-item">
+            <h4 class="list-group-item-heading">Description :</h4>
+            <p class="list-group-item-text">
+                {{ game.description }}
+            </p>
+        </a>
+
+        <a href="#" class="list-group-item">
+            <h4 class="list-group-item-heading">Nombre de parties jouées :</h4>
+            <p class="list-group-item-text">
+                {% include 'GameScoreBundle:Play:totalPlayedGamesIncluded.html.twig' with {'totalPlayedGames' : totalPlayedGames } %}
+            </p>
+        </a>
 
         {% if game.editor %}
-            {{ 'editor'|trans|capitalize }} :
-            <a href="{{ path('game_score_editor_view', { 'id':game.editor.id }) }}">
-                {{ game.editor.name }}
+            <a href="{{ path('game_score_editor_view', { 'id':game.editor.id }) }}" class="list-group-item">
+                <h4 class="list-group-item-heading">{{ 'editor'|trans|capitalize }} :</h4>
+                <p class="list-group-item-text">
+                    {{ game.editor.name }}
+                </p>
             </a>
-            <hr/>
         {% endif %}
-
-        {{ 'author'|trans|capitalize }}(s) :
 
         {% if game.author %}
-            {% for author in game.author %}
-                <a href="{{ path('game_score_author_view', { 'id':author.id }) }}">
-                    {{ author.firstname ~ ' ' ~ author.lastname }}
-                </a>
-            {% endfor %}
+            <a href="#" class="list-group-item">
+                <h4 class="list-group-item-heading">{{ 'author'|trans|capitalize }}(s) :</h4>
+                {% for author in game.author %}
+                    <p>
+                        {{ author.firstname ~ ' ' ~ author.lastname }}
+                    </p>
+                {% endfor %}
+            </a>
         {% endif %}
-        <hr/>
 
         {% if game.getIsCollaborative or game.getIsExtension or game.getHasInvertedScore %}
-            {% if game.getIsCollaborative %}
-                Jeu collaboratif
-            {% endif %}
-            {% if game.getIsExtension %}
-                Extension
-            {% endif %}
-            {% if game.getHasInvertedScore %}
-                Le plus petit score gagne
-            {% endif %}
-            <hr/>
+            <a href="#" class="list-group-item">
+                <h4 class="list-group-item-heading">Caractéristiques :</h4>
+                <p class="list-group-item-text">
+                    {% if game.getIsCollaborative %}
+                        Jeu collaboratif
+                    {% endif %}
+                    {% if game.getIsExtension %}
+                        Extension
+                    {% endif %}
+                    {% if game.getHasInvertedScore %}
+                        Le plus petit score gagne
+                    {% endif %}
+                </p>
+            </a>
         {% endif %}
 
         {% if game.mainCardUrl %}
-            <a href="{{ game.mainCardUrl }}">{{ 'see card'|trans|capitalize }}</a>
-            <hr/>
+            <a href="{{ game.mainCardUrl }}" class="list-group-item">
+                <h4 class="list-group-item-heading">Lien vers ressource externe :</h4>
+                <p class="list-group-item-text">
+                    {{ 'see card'|trans|capitalize }}
+                </p>
+            </a>
         {% endif %}
 
-        {% for document in documents %}
-            <img src="{{ backroottoweb }}{{ document.filepath }}/{{ document.filename }}"
-                 alt="{{ document.name }}" height="150"/>
-        {% endfor %}
-        <br />
-        <a class="btn btn-default"
-           href="{{ path('game_score_document_upload', {'entitytype':'game', 'entityid':game.id}) }}">
-            <span class="glyphicon glyphicon-eye-open"></span>
+        <a href="#" class="list-group-item">
+            <h4 class="list-group-item-heading">Visuels :</h4>
+            <p class="list-group-item-text">
+                {% for document in documents %}
+                    <img src="{{ backroottoweb }}{{ document.filepath }}/{{ document.filename }}"
+                         alt="{{ document.name }}" height="150"/>
+                {% endfor %}
+            </p>
         </a>
-        <hr/>
-        {% include 'GameScoreBundle:Play:topScores.html.twig' with {'topScores' : topScores } %}
+
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('game_score_document_upload', {'entitytype':'game', 'entityid':game.id}) }}" class="list-group-item">
+                <h4 class="list-group-item-heading">Visuels :</h4>
+                <p class="list-group-item-text">
+                    Gérer les images
+                </p>
+            </a>
+        {% endif %}
+
+        <a href="#" class="list-group-item">
+            <h4 class="list-group-item-heading">Top scores :</h4>
+            <p class="list-group-item-text">
+                {% include 'GameScoreBundle:Play:topScores.html.twig' with {'topScores' : topScores } %}
+            </p>
+        </a>
+
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('game_score_game_update', {'id':game.id}) }}" class="list-group-item">
+                <h4 class="list-group-item-heading">Mettre à jour :</h4>
+                <button class="btn btn-primary">
+                    {{ 'update'|trans|capitalize }}
+                </button>
+            </a>
+        {% endif %}
+
     {% endblock %}
 
-    {% if is_granted('ROLE_ADMIN') %}
-        {% block updateroute %}
-            {{ path('game_score_game_update', {'id':game.id}) }}
-            {% endblock %}
-    {% endif %}
-
-    {% block extrainfo %}
+    {% block blockcomplementarycontent %}
+        <p>Parties récentes :</p>
         {% include 'GameScoreBundle:Play:playedGamesIncluded.html.twig' with {'plays' : plays } %}
     {% endblock %}
 
 {% endblock %}
-

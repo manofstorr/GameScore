@@ -12,14 +12,29 @@
 
     {% block blocktitle %}
         {{ editor.name }}
-    {% endblock %}</h3>
-
-    {% block blockcontent %}
-        <h4>x jeux chez cet éditeur</h4>
     {% endblock %}
 
-    {% if is_granted('ROLE_ADMIN') %}
-        {% block updateroute %}{{ path('game_score_editor_update', {'id':editor.id}) }}{% endblock %}
-    {% endif %}
+    {% block blocktitletext %}
+        Fiche complète de cet éditeur
+    {% endblock %}
+
+    {% block blockcontent %}
+        <a href="#" class="list-group-item">
+            <h4 class="list-group-item-heading">Jeux de cet éditeur :</h4>
+            <p class="list-group-item-text">
+                ...
+            </p>
+        </a>
+
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('game_score_editor_update', {'id':editor.id}) }}" class="list-group-item">
+                <h4 class="list-group-item-heading">Modifier la fiche</h4>
+                <button class="btn btn-primary">
+                    {{ 'update'|trans|capitalize }}
+                </button>
+            </a>
+        {% endif %}
+
+    {% endblock %}
 
 {% endblock %}
