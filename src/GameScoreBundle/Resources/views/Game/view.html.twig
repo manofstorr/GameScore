@@ -15,9 +15,8 @@
     {% endblock %}
 
     {% block blocktitletext %}
-        Fiche complète de ce jeu
+        Fiche complète
     {% endblock %}
-
 
     {% block blockcontent %}
         <a href="#" class="list-group-item">
@@ -39,19 +38,21 @@
                 <h4 class="list-group-item-heading">{{ 'editor'|trans|capitalize }} :</h4>
                 <p class="list-group-item-text">
                     {{ game.editor.name }}
+                    <span class="glyphicon glyphicon-chevron-right pull-right" aria-hidden="true"></span>
                 </p>
             </a>
         {% endif %}
 
         {% if game.author %}
-            <a href="#" class="list-group-item">
+            <div class="list-group-item">
                 <h4 class="list-group-item-heading">{{ 'author'|trans|capitalize }}(s) :</h4>
                 {% for author in game.author %}
                     <p>
-                        {{ author.firstname ~ ' ' ~ author.lastname }}
+                        <a href="{{ path('game_score_author_update', { 'id':author.id }) }}">{{ author.firstname ~ ' ' ~ author.lastname }}</a>
+                        <span class="glyphicon glyphicon-chevron-right pull-right" aria-hidden="true"></span>
                     </p>
                 {% endfor %}
-            </a>
+            </div>
         {% endif %}
 
         {% if game.getIsCollaborative or game.getIsExtension or game.getHasInvertedScore %}
@@ -92,10 +93,7 @@
 
         {% if is_granted('ROLE_ADMIN') %}
             <a href="{{ path('game_score_document_upload', {'entitytype':'game', 'entityid':game.id}) }}" class="list-group-item">
-                <h4 class="list-group-item-heading">Visuels :</h4>
-                <p class="list-group-item-text">
-                    Gérer les images
-                </p>
+                <h4 class="list-group-item-heading">Gérer les images</h4>
             </a>
         {% endif %}
 
@@ -108,7 +106,6 @@
 
         {% if is_granted('ROLE_ADMIN') %}
             <a href="{{ path('game_score_game_update', {'id':game.id}) }}" class="list-group-item">
-                <h4 class="list-group-item-heading">Mettre à jour :</h4>
                 <button class="btn btn-primary">
                     {{ 'update'|trans|capitalize }}
                 </button>

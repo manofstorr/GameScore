@@ -12,17 +12,32 @@
 
     {% block blocktitle %}
         {{ 'play'|trans|capitalize }} {{ play.playid }}
-        <br/>
+    {% endblock %}
+
+    {% block blocktitletext %}
         {{ play.game.name }}
     {% endblock %}
 
     {% block blockcontent %}
 
-        {{ play.description }} @ {{ play.location }}
-        , {{ play.date|date("d M Y") }},
-        {{ play.nbPlayers }}
-        <br />
-        Joueurs :
+        <a href="#" class="list-group-item">
+            <h4 class="list-group-item-heading">Détails :</h4>
+            <p class="list-group-item-text">
+                {{ play.description }} @ {{ play.location }}
+                , {{ play.date|date("d M Y") }},
+                {{ play.nbPlayers }}
+            </p>
+        </a>
+
+        {% if is_granted('ROLE_ADMIN') %}
+            <div href="#" class="list-group-item">
+                <p class="list-group-item-text">
+                    <a class="btn btn-default" href="{{ path('game_score_play_update', {'id': play.id}) }}">
+                        {{ 'update'|trans|capitalize }}
+                    </a>
+                </p>
+            </div>
+        {% endif %}
 
         {% if play.nbPlayers > 0 %}
             {% for player in play.player %}
@@ -30,17 +45,18 @@
                 {% if mode == 'view' %}
                     <a class="list-group-item" href="{{ path('game_score_player_view', {'id': player.id}) }}">
                 {% else %}
-                    <li class="list-group-item">
+                    <div class="list-group-item">
                 {% endif %}
 
-                {{ player.firstname }} {{ player.lastname }}
-                {% if loop.first %}
-                    <span class="label label-success">{{ player.score }}</span>
-                {% else %}
-                    <span class="label label-default">{{ player.score }}</span>
-                {% endif %}
-                {% if is_granted('ROLE_ADMIN') %}
-                    {% if mode == 'update' %}
+                <h4 class="list-group-item-heading">{{ player.firstname }} {{ player.lastname }}</h4>
+                <div class="list-group-item-text">
+                    {% if loop.first %}
+                        <span class="label label-success">{{ player.score }}</span>
+                    {% else %}
+                        <span class="label label-default">{{ player.score }}</span>
+                    {% endif %}
+
+                    {% if is_granted('ROLE_ADMIN') %}
                         <div class="btn-group pull-right">
                             <a class="btn btn-warning btn-xs"
                                href="{{ path('game_score_score_update', {'id': player.scoreid}) }}">
@@ -51,28 +67,25 @@
                                 {{ 'del'|trans|capitalize }}
                             </a>
                         </div>
-                    {% else %}
-                        <span class="glyphicon glyphicon-chevron-right pull-right" aria-hidden="true"></span>
                     {% endif %}
-                {% endif %}
+                </div>
 
                 {% if mode == 'view' %}
                     </a>
                 {% else %}
-                    </li>
+                    </div>
                 {% endif %}
 
             {% endfor %}
-
         {% endif %}
-        <hr/>
-        <a class="btn btn-primary"
-           href="{{ path('game_score_score_create', {'id': play.playid}) }}">{{ 'add score'|trans|capitalize }}</a>
+
+        <div class="list-group-item">
+            <p class="list-group-item-text">
+                <a class="btn btn-primary"
+                   href="{{ path('game_score_score_create', {'id': play.playid}) }}">{{ 'add score'|trans|capitalize }}</a>
+            </p>
+        </div>
+
     {% endblock %}
-    {% if is_granted('ROLE_ADMIN') %}
-        {% block updateroute %}
-            {{ path('game_score_play_update', {'id': play.playid}) }}
-        {% endblock %}
-    {% endif %}
 
 {% endblock %}
