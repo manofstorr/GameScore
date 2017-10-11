@@ -6,14 +6,12 @@
 
 {% block mainsection %}
 <section class="col-md-10 col-md-offset-1 ">
-
-    <label class="label label-xs label-gamescore-default"><span
-                class="glyphicon glyphicon-leaf"></span> {{ 'score'|trans|upper }}</label>
-    <div class="well">
-        <h4>{{ 'play'|trans|capitalize }} {{ 'of'|trans }} {{ play.game.name }}</h4>
-        {% include 'GameScoreBundle:Play:playedGamesIncluded.html.twig' with {'plays' : plays } %}
-    </div>
-
+    <label class="label label-xs label-gamescore-default">
+        <spanclass="glyphicon glyphicon-leaf"></span>
+        {{ 'score'|trans|upper }}
+    </label>
+    {% include 'GameScoreBundle:Play:playedGamesIncluded.html.twig' with {'plays' : plays } %}
+    
     <div class="well">
         <legend>{{ 'form'|trans|capitalize }} {{ 'score'|trans }} :</legend>
         {{ form_start(form) }}
