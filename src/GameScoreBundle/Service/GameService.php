@@ -25,8 +25,14 @@ class GameService
         $this->em = $entityManager;
     }
 
-    public function getTotalNumberOfGames() {
 
+    /**
+     * getTotalNumberOfGames : Simply returns the number of games in DB
+     *
+     * @return int
+     */
+    public function getTotalNumberOfGames()
+    {
         return count(
             $this
                 ->em
@@ -34,5 +40,6 @@ class GameService
                 ->findAll()
         );
     }
+
 }
 

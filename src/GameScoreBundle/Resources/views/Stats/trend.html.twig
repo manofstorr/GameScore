@@ -1,0 +1,8 @@
+<ul>
+    {% for period in trend %}
+    <li class="list-group-item">
+        {{ period.periodname }} : {{ period.periodcount }}
+        <div id="square" style="height: 10px; width: {{ period.periodcount * 5 }}px; background: cornflowerblue; "></div>
+    </li>
+    {% endfor %}
+</ul>

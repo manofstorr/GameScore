@@ -11,7 +11,7 @@
         {{ 'score'|trans|upper }}
     </label>
     {% include 'GameScoreBundle:Play:playedGamesIncluded.html.twig' with {'plays' : plays } %}
-    
+
     <div class="well">
         <legend>{{ 'form'|trans|capitalize }} {{ 'score'|trans }} :</legend>
         {{ form_start(form) }}

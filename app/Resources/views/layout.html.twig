@@ -59,10 +59,18 @@
                                 </a>
                             </li>
                             <li role="separator" class="divider"></li>
+                            <li>
+                                <a href="{{ path('game_score_stats_homepage') }}">
+                                    <span class="glyphicon glyphicon-stats"></span>
+                                    {{ 'stats'|trans|capitalize }}
+                                </a>
+                            </li>
+                            <li role="separator" class="divider"></li>
                             <li class="dropdown-header">Users</li>
                             <li><a href="{{ path('user_collection') }}">
                                     <span class="glyphicon glyphicon-eye-open"></span>
-                                    Les utilisateurs</a></li>
+                                    Les utilisateurs</a>
+                            </li>
                         </ul>
                     </li>
                 </ul>

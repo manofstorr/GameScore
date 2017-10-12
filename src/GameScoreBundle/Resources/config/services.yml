@@ -1,5 +1,10 @@
 services:
 
+  helper_service:
+      class: GameScoreBundle\Service\HelperService
+      arguments:
+
+
   game_service:
     class: GameScoreBundle\Service\GameService
     arguments:

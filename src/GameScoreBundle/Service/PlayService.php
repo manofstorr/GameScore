@@ -11,6 +11,7 @@ namespace GameScoreBundle\Service;
 use Doctrine\ORM\EntityManager;
 use GameScoreBundle\Entity\Game;
 use Symfony\Component\DependencyInjection\Container;
+use Symfony\Component\HttpFoundation\Exception;
 
 class PlayService
 {
@@ -132,7 +133,6 @@ class PlayService
                 array('score' => 'DESC')
             );
         }
-
     }
 
     public function getPlayersYetInthePlay($play)
@@ -179,6 +179,27 @@ class PlayService
             ->em
             ->getRepository('GameScoreBundle:Score')
             ->getTopScoresByGame($game, $limit, $invertedScore);
+    }
+
+
+    /**
+     * @param string $dateFrom
+     * @param string $dateTo
+     * @return array
+     * @throws \Exception
+     */
+    public function getPlayingTrend(string $dateFrom, string $dateTo) :array
+    {
+        $helperService = $this->container->get('helper_service');
+        $validDate = ($helperService->datetimeStringValidator($dateFrom) && $helperService->datetimeStringValidator($dateFrom));
+        if (!$validDate) {
+            throw new \Exception("Les dates indiquées sont mal formées.");
+        }
+
+        return $this
+            ->em
+            ->getRepository('GameScoreBundle:Play')
+            ->getTrend($dateFrom, $dateTo);
     }
 }
 

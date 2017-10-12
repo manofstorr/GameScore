@@ -80,4 +80,26 @@ class PlayRepository extends EntityRepository
         return $results;
     }
 
+
+    public function getTrend(string $dateFrom, string $dateTo): array
+    {
+        $em = $this->getEntityManager();
+        $connection = $em->getConnection();
+        $statement = $connection->prepare("
+            SELECT 
+                count(`id`) AS periodcount, 
+                CONCAT(YEAR(`date`), ' ', LPAD(MONTH(`date`), 2, '0')) AS periodname 
+            FROM `play`
+            WHERE `date` BETWEEN :dateFrom AND :dateTo 
+            GROUP BY periodname"
+        );
+        $statement->bindValue('dateFrom', $dateFrom, PDO::PARAM_STR);
+        $statement->bindValue('dateTo', $dateTo, PDO::PARAM_STR);
+        $statement->execute();
+        $results = $statement->fetchAll();
+
+        return $results;
+
+    }
+
 }

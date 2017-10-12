@@ -1,0 +1,15 @@
+{% extends "GameScoreBundle::general.layout.html.twig" %}
+
+{% block title %}
+    Welcome - {{ parent() }}
+{% endblock %}
+
+{% block mainsection %}
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Stats GameScore</h1>
+            <p>Stat dispo pour le moment : Trend</p>
+            {% include 'GameScoreBundle:Stats:trend.html.twig' with {'trend' : trend } %}
+        </div>
+    </div>
+{% endblock %}

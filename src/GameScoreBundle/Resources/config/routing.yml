@@ -1,7 +1,14 @@
 # Route for home
 game_score_homepage:
     path:     /
-    defaults: { _controller: GameScoreBundle:GameScore:index }
+    defaults:
+        _controller: GameScoreBundle:GameScore:index
+
+# Route for stats
+game_score_stats_homepage:
+    path:     /stats
+    defaults:
+        _controller: GameScoreBundle:Stats:index
 
 # Routes for Games
 game_score_game_view:

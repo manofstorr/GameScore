@@ -17,9 +17,9 @@ class GameRepository extends EntityRepository
     {
         $query = $this->createQueryBuilder('g')
             ->where('g.name LIKE :word')
-            ->setParameter('word', $page.'%')
-            ->orderBy('g.name', 'ASC')
-        ;
+            ->setParameter('word', $page . '%')
+            ->orderBy('g.name', 'ASC');
+
         return new Paginator($query, true);
     }
 
@@ -28,9 +28,8 @@ class GameRepository extends EntityRepository
         $query = $this->createQueryBuilder('g')
             ->orderBy('g.name', 'ASC')
             ->getQuery();
+
         return $query->getResult();
     }
 
 }
-
-

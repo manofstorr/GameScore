@@ -42,11 +42,11 @@ class GameController extends Controller
 
         return $this->render(
             'GameScoreBundle:Game:collection.html.twig',
-            array(
+            [
                 'gameCollection' => $gameCollection,
-                'page' => $page,
-                'alphapageArray' => $alphabeticalIndex
-            )
+                'page'           => $page,
+                'alphapageArray' => $alphabeticalIndex,
+            ]
         );
     }
 
@@ -60,7 +60,7 @@ class GameController extends Controller
             ->container
             ->get('play_service');
         $plays = $playService
-            ->getPlayedGames('game_id', $game->getId(), $page=0, $limitOfPlayedGamesShown);
+            ->getPlayedGames('game_id', $game->getId(), $page = 0, $limitOfPlayedGamesShown);
         $topScores = $playService
             ->getBestScoresByGame($game);
         $documentService = $this
@@ -76,22 +76,22 @@ class GameController extends Controller
                 ->getManager()
                 ->getRepository('GameScoreBundle:Play')
                 ->findBy(
-                    array('game' => $game)
-            )
+                    ['game' => $game]
+                )
         );
 
         return $this->render(
             'GameScoreBundle:Game:view.html.twig',
-            array(
-                'game'              => $game,
-                'plays'             => $plays,
-                'topScores'         => $topScores,
-                'extended_mode'     => true,
-                'totalPlayedGames'  => $totalPlayedGames,
-                'mode'              => 'view',
-                'documents'         => $documents
+            [
+                'game'             => $game,
+                'plays'            => $plays,
+                'topScores'        => $topScores,
+                'extended_mode'    => true,
+                'totalPlayedGames' => $totalPlayedGames,
+                'mode'             => 'view',
+                'documents'        => $documents,
 
-            )
+            ]
         );
     }
 
@@ -116,13 +116,14 @@ class GameController extends Controller
                     ->getSession()
                     ->getFlashBag()
                     ->add('info', 'Le jeu a bien été créé.');
+
                 return $this->redirectToRoute('game_score_game_view',
-                    array('id' => $game->getId()));
+                    ['id' => $game->getId()]);
             }
         }
 
         return $this->render('GameScoreBundle:Game:form.html.twig',
-            array('form' => $form->createView()));
+            ['form' => $form->createView()]);
     }
 
     /**
@@ -142,12 +143,14 @@ class GameController extends Controller
                     ->getSession()
                     ->getFlashBag()
                     ->add('info', 'Le jeu a bien été mis à jour.');
+
                 return $this->redirectToRoute('game_score_game_view',
-                    array('id' => $game->getId()));
+                    ['id' => $game->getId()]);
             }
         }
+
         return $this->render('GameScoreBundle:Game:form.html.twig',
-            array('form' => $form->createView()));
+            ['form' => $form->createView()]);
     }
 
     /**
