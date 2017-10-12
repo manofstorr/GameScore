@@ -11,6 +11,8 @@
 
 namespace GameScoreBundle\Controller;
 
+use GameScoreBundle\Event\GameScoreEventName;
+use GameScoreBundle\Event\HomePageLoadEvent;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\DependencyInjection\Container;
@@ -21,6 +23,11 @@ class GameScoreController extends Controller
     public function indexAction()
     {
         $user = $this->getUser();
+
+        // declare event
+        $event = new HomePageLoadEvent($user);
+        // On déclenche l'évènement
+        $this->get('event_dispatcher')->dispatch(GameScoreEventName::LOG_VISIT_HOME, $event);
 
         return $this->render(
             'GameScoreBundle:GameScore:index.html.twig',

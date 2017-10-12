@@ -4,7 +4,6 @@ services:
       class: GameScoreBundle\Service\HelperService
       arguments:
 
-
   game_service:
     class: GameScoreBundle\Service\GameService
     arguments:
@@ -31,6 +30,13 @@ services:
     arguments:
       - "@service_container"
 
+  load_page_log_writer:
+      class: GameScoreBundle\Service\LoadPageLogWriter
+      arguments:
+        - "@service_container"
+
+  # Listeners
+
   alphabeta_listener:
     class: GameScoreBundle\Listener\AlphaBetaListener
     arguments:
@@ -39,7 +45,12 @@ services:
     tags:
       - {name: kernel.event_listener, event: kernel.response, method: processBeta}
 
-
+  loadpage_listener:
+      class: GameScoreBundle\Listener\LoadPageListener
+      arguments:
+        - "@load_page_log_writer"
+      tags:
+        - {name: kernel.event_listener, event: GameScore.home_page_load, method: onLoadProcess}
 
 #    game_score.example:
 #        class: GameScoreBundle\Example
