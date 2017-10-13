@@ -39,7 +39,7 @@ class LoadPageListener
 
     public function onLoadProcess(HomePageLoadEvent $event)
     {
-        $this->loadPageLogWriter->test();
+        $this->loadPageLogWriter->test($event->getDate(), $event->getUser());
     }
 
 }

@@ -22,11 +22,11 @@ class HomePageLoadEvent extends Event
     }
 
     /**
-     * @return string
+     * @return \DateTime
      */
-    public function getDate(): string
+    public function getDate(): \DateTime
     {
-        return (string) $this->date;
+        return $this->date;
     }
 
     /**
