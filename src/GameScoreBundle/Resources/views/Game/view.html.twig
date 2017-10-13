@@ -55,14 +55,14 @@
             </div>
         {% endif %}
 
-        {% if game.getIsCollaborative or game.getIsExtension or game.getHasInvertedScore %}
+        {% if game.getCollaborative or game.getExtension or game.getHasInvertedScore %}
             <a href="#" class="list-group-item">
                 <h4 class="list-group-item-heading">Caractéristiques :</h4>
                 <p class="list-group-item-text">
-                    {% if game.getIsCollaborative %}
+                    {% if game.getCollaborative %}
                         Jeu collaboratif
                     {% endif %}
-                    {% if game.getIsExtension %}
+                    {% if game.getExtension %}
                         Extension
                     {% endif %}
                     {% if game.getHasInvertedScore %}

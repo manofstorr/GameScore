@@ -63,14 +63,14 @@ class Game
      *
      * @ORM\Column(name="is_collaborative", type="boolean")
      */
-    private $isCollaborative = false;
+    private $collaborative = false;
 
     /**
      * @var bool
      *
      * @ORM\Column(name="is_extension", type="boolean")
      */
-    private $isExtension = false;
+    private $extension = false;
 
     /**
      * usually the url of trictrac card of this game
@@ -177,9 +177,9 @@ class Game
      *
      * @return Game
      */
-    public function setIsCollaborative($isCollaborative)
+    public function setCollaborative($isCollaborative)
     {
-        $this->isCollaborative = $isCollaborative;
+        $this->collaborative = $isCollaborative;
 
         return $this;
     }
@@ -189,9 +189,9 @@ class Game
      *
      * @return bool
      */
-    public function getIsCollaborative()
+    public function getCollaborative()
     {
-        return $this->isCollaborative;
+        return $this->collaborative;
     }
 
     /**
@@ -201,9 +201,9 @@ class Game
      *
      * @return Game
      */
-    public function setIsExtension($isExtension)
+    public function setExtension($isExtension)
     {
-        $this->isExtension = $isExtension;
+        $this->extension = $isExtension;
 
         return $this;
     }
@@ -213,9 +213,9 @@ class Game
      *
      * @return bool
      */
-    public function getIsExtension()
+    public function getExtension()
     {
-        return $this->isExtension;
+        return $this->extension;
     }
 
     /**

@@ -25,9 +25,9 @@ class GameType extends AbstractType
             ->add('description', TextareaType::class)
             ->add('has_inverted_score', CheckboxType::class,
                 array('required' => false))
-            ->add('is_collaborative', CheckboxType::class,
+            ->add('collaborative', CheckboxType::class,
                 array('required' => false))
-            ->add('is_extension', CheckboxType::class,
+            ->add('extension', CheckboxType::class,
                 array('required' => false))
             ->add('year', TextType::class)
             ->add('editor', EntityType::class,

@@ -11,7 +11,7 @@ namespace GameScoreBundle\Service;
 
 class LoadPageLogWriter
 {
-    public function test($date, $user)
+    public function test(\DateTime $date, $user)
     {
         $logFilePath = '..\web\files\homepage_loads.txt';
         $logData = 'Home visited @' . $date->format('Y-m-d H:i:s') . PHP_EOL;
