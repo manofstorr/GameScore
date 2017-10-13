@@ -16,7 +16,7 @@ parameters:
     mailer_password: ~
 
     # A secret key that's used to generate certain security-related tokens
-    secret: ThisTokenIsNotSoSecretChangeIt
+    secret: ThisTokenIsNotSoSecretChangeItQueDiable
 
     alphabetamode: alpha
     standard_number_of_elements_per_page: 10
@@ -25,6 +25,13 @@ parameters:
     number_of_item_to_show_for_most_played_games_player_view: 5
     number_of_item_to_show_for_most_played_games_dedicated_view: 50
 
-    backroottoweb: '../'
-    available_entities_names: ['game', 'play', 'player', 'author', 'editor']
-    document_casual_name: 'common'
+    backroottoweb: ../../
+    available_entities_names:
+        - game
+        - play
+        - player
+        - author
+        - editor
+    document_casual_name: common
+    number_of_item_to_show_for_most_played_games_player_view: 5
+    number_of_item_to_show_for_most_played_games_dedicated_view: 50
