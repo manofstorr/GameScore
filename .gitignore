@@ -7,4 +7,5 @@
 /tests
 /vendor
 /web/bundles/
+/web/files/
 .idea
