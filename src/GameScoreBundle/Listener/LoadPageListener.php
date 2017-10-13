@@ -8,9 +8,6 @@
 
 namespace GameScoreBundle\Listener;
 
-// use GameScoreBundle\Service\TheServiceToUse;
-// use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
-
 /*
  * The goal of this class is to be a sample for personal listener implementation.
  * In use :
