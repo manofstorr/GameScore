@@ -28,10 +28,10 @@ security:
         main_resetting_request:
             pattern: ^/resetting/request$
             anonymous: true
-         # this firewall only to give access to everyone to the home page
-        main_home:
-            pattern: ^/$
-            anonymous: true
+        # this firewall only to give access to everyone to the home page
+        # main_home:
+        #   pattern: ^/$
+        #  anonymous: true
         main:
             pattern: ^/
             anonymous: false
