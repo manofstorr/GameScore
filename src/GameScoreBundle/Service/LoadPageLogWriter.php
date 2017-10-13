@@ -15,7 +15,6 @@ class LoadPageLogWriter
     public function test(\DateTime $date, User $user)
     {
         $logFilePath = '..\web\files\homepage_loads.txt';
-        //var_dump($user);
         $logData = $date->format('Y-m-d H:i:s')
             . ' : '
             .'Home visited'
