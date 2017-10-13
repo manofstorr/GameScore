@@ -55,22 +55,20 @@
             </div>
         {% endif %}
 
-        {% if game.getCollaborative or game.getExtension or game.getHasInvertedScore %}
-            <a href="#" class="list-group-item">
-                <h4 class="list-group-item-heading">Caractéristiques :</h4>
-                <p class="list-group-item-text">
-                    {% if game.getCollaborative %}
-                        Jeu collaboratif
-                    {% endif %}
-                    {% if game.getExtension %}
-                        Extension
-                    {% endif %}
-                    {% if game.getHasInvertedScore %}
-                        Le plus petit score gagne
-                    {% endif %}
-                </p>
-            </a>
-        {% endif %}
+        <a href="#" class="list-group-item">
+            <h4 class="list-group-item-heading">Caractéristiques :</h4>
+            <p class="list-group-item-text">
+                {% if game.getCollaborative %}
+                    Jeu collaboratif
+                {% endif %}
+                {% if game.getExtension %}
+                    Extension
+                {% endif %}
+                {% if game.getHasInvertedScore %}
+                    Le plus petit score gagne
+                {% endif %}
+            </p>
+        </a>
 
         {% if game.mainCardUrl %}
             <a href="{{ game.mainCardUrl }}" class="list-group-item">
@@ -92,7 +90,8 @@
         </a>
 
         {% if is_granted('ROLE_ADMIN') %}
-            <a href="{{ path('game_score_document_upload', {'entitytype':'game', 'entityid':game.id}) }}" class="list-group-item">
+            <a href="{{ path('game_score_document_upload', {'entitytype':'game', 'entityid':game.id}) }}"
+               class="list-group-item">
                 <h4 class="list-group-item-heading">Gérer les images</h4>
             </a>
         {% endif %}

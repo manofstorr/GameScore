@@ -43,7 +43,7 @@ security:
                 path: fos_user_security_logout
                 target: /
             remember_me:
-                secret: %secret%
+                secret: %freya776%
 
     access_control:
         #- { path: ^/login, roles: IS_AUTHENTICATED_ANNYMOUSLY, requires_channel: https }
