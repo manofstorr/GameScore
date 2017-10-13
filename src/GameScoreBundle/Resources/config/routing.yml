@@ -1,6 +1,7 @@
 # Route for home
 game_score_homepage:
     path:     /
+    methods: GET
     defaults:
         _controller: GameScoreBundle:GameScore:index
 
