@@ -203,7 +203,7 @@ class Document
     {
         // the absolute directory path where uploaded
         // documents should be saved
-        return __DIR__ . '/../../../web/' . $this->getUploadDir();
+        return '../web/' . $this->getUploadDir();
     }
 
     protected function getUploadDir()
