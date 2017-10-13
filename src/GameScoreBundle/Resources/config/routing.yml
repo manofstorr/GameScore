@@ -29,13 +29,13 @@ game_score_game_collection:
 
 game_score_game_create:
     path:     /game/create/
-    methods: GET
+    methods: POST
     defaults:
         _controller: GameScoreBundle:Game:create
 
 game_score_game_update:
     path:     /game/update/{id}
-    methods: GET
+    methods: POST
     defaults:
         _controller: GameScoreBundle:Game:update
     requirements:
