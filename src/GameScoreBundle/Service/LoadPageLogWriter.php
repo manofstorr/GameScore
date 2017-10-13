@@ -8,13 +8,20 @@
 
 namespace GameScoreBundle\Service;
 
+use UserBundle\Entity\User;
 
 class LoadPageLogWriter
 {
-    public function test(\DateTime $date, $user)
+    public function test(\DateTime $date, User $user)
     {
         $logFilePath = '..\web\files\homepage_loads.txt';
-        $logData = 'Home visited @' . $date->format('Y-m-d H:i:s') . PHP_EOL;
+        //var_dump($user);
+        $logData = $date->format('Y-m-d H:i:s')
+            . ' : '
+            .'Home visited'
+            . ' : '
+            . $user->getUsername() . ' (id:' . $user->getId() .')'
+            . PHP_EOL;
         file_put_contents($logFilePath, $logData, FILE_APPEND | LOCK_EX);
     }
 }

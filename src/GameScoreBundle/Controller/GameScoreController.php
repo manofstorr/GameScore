@@ -23,7 +23,7 @@ class GameScoreController extends Controller
     public function indexAction()
     {
         // declare event
-        $event = new HomePageLoadEvent($user = 'todo find app.user');
+        $event = new HomePageLoadEvent($user = $this->getUser());
         // On déclenche l'évènement
         $this->get('event_dispatcher')->dispatch(GameScoreEventName::LOG_VISIT_HOME, $event);
 
