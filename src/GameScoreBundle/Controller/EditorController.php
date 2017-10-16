@@ -19,10 +19,21 @@ class EditorController extends Controller
 {
     public function viewAction(Editor $editor)
     {
+
+        // Author's games
+        $games = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('GameScoreBundle:Game')
+            ->findByEditor($editor->getId());
+        $nbGames = count($games);
+
         return $this->render(
             'GameScoreBundle:Editor:view.html.twig',
             array(
-                'editor' => $editor
+                'editor'    => $editor,
+                'nbGames'   => $nbGames,
+                'games'     => $games
             )
         );
     }
