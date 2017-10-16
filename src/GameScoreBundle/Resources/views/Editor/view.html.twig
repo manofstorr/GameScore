@@ -23,7 +23,9 @@
             <button class="btn btn-default" type="button">
                 Jeux en base : <span class="badge">{{ nbGames }}</span>
             </button>
-            <br />
+        </li>
+
+        <li class="list-group-item">
             {% for game in games %}
                 {% include 'GameScoreBundle:Game:gameIncluded.html.twig' with {'game' : game } %}
             {% endfor %}

@@ -19,13 +19,17 @@
     {% endblock %}
 
     {% block blockcontent %}
-        <a href="#" class="list-group-item">
-            <h4 class="list-group-item-heading">Jeux de cet auteur :</h4>
-            <p class="list-group-item-text">
-                ...
-            </p>
-        </a>
+        <li class="list-group-item">
+            <button class="btn btn-default" type="button">
+                Jeux en base : <span class="badge">{{ nbGames }}</span>
+            </button>
+        </li>
 
+        <li class="list-group-item">
+            {% for game in games %}
+                {% include 'GameScoreBundle:Game:gameIncluded.html.twig' with {'game' : game } %}
+            {% endfor %}
+        </li>
         {% if is_granted('ROLE_ADMIN') %}
             <a href="{{ path('game_score_author_update', {'id':author.id}) }}" class="list-group-item">
                 <h4 class="list-group-item-heading">Modifier la fiche</h4>

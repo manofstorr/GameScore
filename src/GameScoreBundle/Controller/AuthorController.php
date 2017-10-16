@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use GameScoreBundle\Repository\GameRepository;
 
 class AuthorController extends Controller
 {
@@ -62,10 +63,24 @@ class AuthorController extends Controller
             throw new NotFoundHttpException('Aucun auteur trouvé avec cet id : ' . $id);
         }
 
+        // Author's games
+        $games = [];
+        $gamesRepository = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('GameScoreBundle:Game');
+        $gamesIds = $gamesRepository->findByAuthor($id);
+        foreach ($gamesIds as $gameId) {
+            $games[] = $gamesRepository->find($gameId);
+        }
+        $nbGames = count($games);
+
         return $this->render(
             'GameScoreBundle:Author:view.html.twig',
             array(
-                'author' => $author
+                'author' => $author,
+                'nbGames'   => $nbGames,
+                'games'     => $games
             )
         );
     }

@@ -32,4 +32,21 @@ class GameRepository extends EntityRepository
         return $query->getResult();
     }
 
+    public function findByAuthor($author_id)
+    {
+        $em = $this->getEntityManager();
+        $connection = $em->getConnection();
+        $statement = $connection->prepare("
+            SELECT `id`
+            FROM `game`
+            INNER JOIN `game_author` ON (`game_author`.`game_id` = `game`.`id`) 
+            WHERE `game_author`.`author_id` = :author_id"
+        );
+        $statement->bindValue('author_id', $author_id);
+        $statement->execute();
+        $results = $statement->fetchAll();
+
+        return $results;
+    }
+
 }
