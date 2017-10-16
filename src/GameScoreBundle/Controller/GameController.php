@@ -52,7 +52,7 @@ class GameController extends Controller
 
     public function viewAction(Game $game)
     {
-        // find last plays
+        // find last plays with limit
         $limitOfPlayedGamesShown = $this->getParameter('limit_of_played_games_shown');
 
         // use services for extra data
