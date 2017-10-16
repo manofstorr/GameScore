@@ -158,6 +158,7 @@ class GameController extends Controller
      */
     public function deleteGameAction()
     {
+        // Write code to delete a game
     }
 
 }
