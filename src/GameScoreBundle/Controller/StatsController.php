@@ -18,7 +18,10 @@ class StatsController extends Controller
     {
         // get playing trend per month
         $dateFrom   = '2016-01-01 00:00:00';
-        $dateTo     = '2017-01-01 00:00:00';
+        //$dateTo     = '2018-01-01 00:00:00';
+        $dateNow     = new \DateTime();
+        $dateTo     = $dateNow->format('Y-m-d H:i:s');
+
         $playService = $this->container->get('play_service');
         $trend = $playService->getPlayingTrend($dateFrom, $dateTo);
 
