@@ -54,13 +54,13 @@ class AuthorController extends Controller
     }
 
 
-    public function viewAction($id)
+    public function viewAction(Author $author)
     {
         $this->setAuthorRepository();
-        $author = $this->authorRepository->find($id);
+        //$author = $this->authorRepository->find($id);
 
         if ($author === null) {
-            throw new NotFoundHttpException('Aucun auteur trouvé avec cet id : ' . $id);
+            throw new NotFoundHttpException('Aucun auteur trouvé');
         }
 
         // Author's games
@@ -69,7 +69,7 @@ class AuthorController extends Controller
             ->getDoctrine()
             ->getManager()
             ->getRepository('GameScoreBundle:Game');
-        $gamesIds = $gamesRepository->findByAuthor($id);
+        $gamesIds = $gamesRepository->findByAuthor($author->getId());
         foreach ($gamesIds as $gameId) {
             $games[] = $gamesRepository->find($gameId);
         }
