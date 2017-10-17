@@ -20,7 +20,7 @@ class PlayService
     private $playsIds;
 
     // We need to inject this variables later.
-    public function __construct(EntityManager $entityManager, Container $container)
+    public function __construct(EntityManager $entityManager, $container)
     {
         $this->em = $entityManager;
         $this->container = $container;
@@ -30,7 +30,6 @@ class PlayService
     /*
      * Get Played game methods
      */
-
     public function getPlayedGames($ByWhat, $ByValue, $limit, $offset)
     {
         // 1. determine how to retrieve play ids
@@ -180,7 +179,6 @@ class PlayService
             ->getRepository('GameScoreBundle:Score')
             ->getTopScoresByGame($game, $limit, $invertedScore);
     }
-
 
     /**
      * @param string $dateFrom
