@@ -35,3 +35,4 @@ parameters:
     document_casual_name: common
     number_of_item_to_show_for_most_played_games_player_view: 5
     number_of_item_to_show_for_most_played_games_dedicated_view: 50
+    sessionname: PHPSESSIDCUSTOMGS
