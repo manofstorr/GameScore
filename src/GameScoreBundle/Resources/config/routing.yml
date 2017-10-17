@@ -29,13 +29,13 @@ game_score_game_collection:
 
 game_score_game_create:
     path:     /game/create/
-    methods: POST
+    methods: [GET, POST, PUT]
     defaults:
         _controller: GameScoreBundle:Game:create
 
 game_score_game_update:
     path:     /game/update/{id}
-    methods: PUT
+    methods: [GET, POST, PUT]
     defaults:
         _controller: GameScoreBundle:Game:update
     requirements:
@@ -60,13 +60,13 @@ game_score_editor_collection:
 
 game_score_editor_create:
     path:     /editor/create/
-    methods: POST
+    methods: [GET, POST, PUT]
     defaults:
         _controller: GameScoreBundle:Editor:create
 
 game_score_editor_update:
     path:     /editor/update/{id}
-    methods: PUT
+    methods: [GET, POST, PUT]
     defaults:
         _controller: GameScoreBundle:Editor:update
     requirements:
@@ -89,13 +89,13 @@ game_score_author_collection:
 
 game_score_author_create:
     path:     /author/create/
-    methods: POST
+    methods: [GET, POST, PUT]
     defaults:
         _controller: GameScoreBundle:Author:create
 
 game_score_author_update:
     path:     /author/update/{id}
-    methods: PUT
+    methods: [GET, POST, PUT]
     defaults:
         _controller: GameScoreBundle:Author:update
         requirements:
@@ -126,13 +126,13 @@ game_score_player_collection:
 
 game_score_player_create:
     path:     /player/create/
-    methods: POST
+    methods: [GET, POST, PUT]
     defaults:
         _controller: GameScoreBundle:Player:create
 
 game_score_player_update:
     path:     /player/update/{id}
-    methods: PUT
+    methods: [GET, POST, PUT]
     defaults:
         _controller: GameScoreBundle:Player:update
     requirements:
@@ -149,13 +149,13 @@ game_score_play_view:
 
 game_score_play_create:
     path:     /play/create/
-    methods: POST
+    methods: [GET, POST, PUT]
     defaults:
         _controller: GameScoreBundle:Play:create
 
 game_score_play_update:
     path: /play/update/{id}
-    methods: PUT
+    methods: [GET, POST, PUT]
     defaults:
         _controller: GameScoreBundle:Play:update
     requirements:
@@ -164,7 +164,7 @@ game_score_play_update:
 # Routes for scores
 game_score_score_create:
     path: /play/{id}/score/create/
-    methods: POST
+    methods: [GET, POST, PUT]
     defaults:
         _controller: GameScoreBundle:Score:create
     requirements:
@@ -172,7 +172,7 @@ game_score_score_create:
 
 game_score_score_update:
     path: /score/update/{id}
-    methods: PUT
+    methods: [GET, POST, PUT]
     defaults:
         _controller: GameScoreBundle:Score:update
     requirements:
@@ -189,5 +189,5 @@ game_score_score_delete:
 # Routes for documents
 game_score_document_upload:
     path: /document/upload/{entitytype}/{entityid}
-    methods: POST
+    methods: [GET, POST, PUT]
     defaults: {_controller: GameScoreBundle:Document:upload, entitytype: 'common', entityid: 1}
