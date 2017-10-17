@@ -66,8 +66,6 @@ class PlayerController extends Controller
         $mostPlayedGames = $playService
             ->getMostPlayedGamesByPlayer($player->getId(), $numberOfItemsMostPlayedGames);
 
-        $totalPlayedGames = $this->getTotalOfPlayedGamesByPlayer($player);
-
         return $this->render(
             'GameScoreBundle:Player:mostplayedgames.view.html.twig',
             [

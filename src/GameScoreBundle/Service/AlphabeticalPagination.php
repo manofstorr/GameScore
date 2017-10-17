@@ -14,7 +14,6 @@ use Symfony\Component\DependencyInjection\Container;
 class AlphabeticalPagination
 {
     protected $em;
-    private $container;
 
     // We need to inject this variables later.
     public function __construct(EntityManager $entityManager)
