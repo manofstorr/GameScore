@@ -19,13 +19,6 @@ use GameScoreBundle\Repository\GameRepository;
 
 class AuthorController extends Controller
 {
-    private $authorRepository;
-
-    private function setAuthorRepository()
-    {
-        $em = $this->getDoctrine()->getManager();
-        $this->authorRepository = $em->getRepository('GameScoreBundle:Author');
-    }
 
     public function collectionAction($page)
     {
@@ -56,8 +49,6 @@ class AuthorController extends Controller
 
     public function viewAction(Author $author)
     {
-        $this->setAuthorRepository();
-        //$author = $this->authorRepository->find($id);
 
         if ($author === null) {
             throw new NotFoundHttpException('Aucun auteur trouvé');
