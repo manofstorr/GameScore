@@ -172,7 +172,6 @@ game_score_score_create:
 
 game_score_score_update:
     path: /score/update/{id}
-    methods: [GET, POST, PUT]
     defaults:
         _controller: GameScoreBundle:Score:update
     requirements:
