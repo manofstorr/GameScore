@@ -19,6 +19,7 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         # this firewall only to give access to everyone to the login form
+
         main_login:
             pattern: ^/login$
             anonymous: true
@@ -29,12 +30,12 @@ security:
             pattern: ^/resetting/request$
             anonymous: true
         # this firewall only to give access to everyone to the home page
-        # main_home:
-        #   pattern: ^/$
-        #  anonymous: true
+        main_home:
+          pattern: ^/$
+          anonymous: true
         main:
             pattern: ^/
-            anonymous: false
+            anonymous: true
             provider: main
             form_login:
                 login_path: fos_user_security_login
