@@ -12,14 +12,21 @@ use UserBundle\Entity\User;
 
 class LoadPageLogWriter
 {
-    public function test(\DateTime $date, User $user)
+    public function test(\DateTime $date, $user)
     {
+        if ($user) {
+            $userId = $user->getId();
+            $userName = $user->getUsername();
+        } else {
+            $userId = 0;
+            $userName = 'Anonymous';
+        }
         $logFilePath = '..\web\files\homepage_loads.txt';
         $logData = $date->format('Y-m-d H:i:s')
             . ' : '
             .'Home visited'
             . ' : '
-            . $user->getUsername() . ' (id:' . $user->getId() .')'
+            . $userName . ' (id:' . $userId .')'
             . PHP_EOL;
         file_put_contents($logFilePath, $logData, FILE_APPEND | LOCK_EX);
     }
