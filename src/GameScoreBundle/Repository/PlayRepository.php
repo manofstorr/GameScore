@@ -102,4 +102,24 @@ class PlayRepository extends EntityRepository
 
     }
 
+    public function getMostPlayedGames($limit = 0, $nbPerPage = 25)
+    {
+        $em = $this->getEntityManager();
+        $connection = $em->getConnection();
+        $statement = $connection->prepare("
+            SELECT COUNT(play.id) AS C, game.id, game.name
+            FROM play
+            INNER JOIN game ON (game.id = play.game_id) 
+            GROUP BY play.game_id
+            ORDER BY C DESC 
+            LIMIT :limit, :offset"
+        );
+        $statement->bindValue('limit', (int)trim($limit), PDO::PARAM_INT);
+        $statement->bindValue('offset', (int)trim($nbPerPage), PDO::PARAM_INT);
+        $statement->execute();
+        $results = $statement->fetchAll();
+
+        return $results;
+    }
+
 }

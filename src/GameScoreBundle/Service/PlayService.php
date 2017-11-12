@@ -186,7 +186,7 @@ class PlayService
      * @return array
      * @throws \Exception
      */
-    public function getPlayingTrend(string $dateFrom, string $dateTo) :array
+    public function getPlayingTrend(string $dateFrom, string $dateTo): array
     {
         $helperService = $this->container->get('helper_service');
         $validDate = ($helperService->datetimeStringValidator($dateFrom) && $helperService->datetimeStringValidator($dateFrom));
@@ -198,6 +198,14 @@ class PlayService
             ->em
             ->getRepository('GameScoreBundle:Play')
             ->getTrend($dateFrom, $dateTo);
+    }
+
+    public function getMostPlayedGames(): array
+    {
+        return $this
+            ->em
+            ->getRepository('GameScoreBundle:Play')
+            ->getMostPlayedGames();
     }
 }
 

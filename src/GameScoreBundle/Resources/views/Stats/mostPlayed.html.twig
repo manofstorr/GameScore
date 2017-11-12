@@ -7,16 +7,15 @@
 {% block mainsection %}
     <div class="row">
         <div class="col-md-12">
-            <h1>Stats : Trend > Tendance mensuelle des parties disputées</h1>
+            <h1>Stats : MostPlayed >Jeux les plus joués</h1>
             <ul>
-                {% for period in trend %}
+                {% for game in games %}
                     <li class="list-group-item">
-                        {{ period.periodname }} : {{ period.periodcount }}
-                        <div id="square" style="height: 10px; width: {{ period.periodcount * 5 }}px; background: cornflowerblue; "></div>
+                        {{ game.name }} : {{ game.C }}
+                        <div id="square" style="height: 10px; width: {{ game.C * 5 }}px; background: cornflowerblue; "></div>
                     </li>
                 {% endfor %}
             </ul>
-
         </div>
     </div>
 {% endblock %}

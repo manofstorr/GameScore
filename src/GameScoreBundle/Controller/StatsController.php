@@ -8,13 +8,19 @@
 
 namespace GameScoreBundle\Controller;
 
-
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class StatsController extends Controller
 {
 
     public function indexAction()
+    {
+        return $this->render(
+            'GameScoreBundle:Stats:index.html.twig'
+        );
+    }
+
+    public function trendAction()
     {
         // get playing trend per month
         $dateFrom   = '2016-01-01 00:00:00';
@@ -25,8 +31,19 @@ class StatsController extends Controller
         $trend = $playService->getPlayingTrend($dateFrom, $dateTo);
 
         return $this->render(
-            'GameScoreBundle:Stats:index.html.twig',
+            'GameScoreBundle:Stats:trend.html.twig',
             ['trend' => $trend]
+        );
+    }
+
+    public function mostPlayedAction()
+    {
+        $playService = $this->container->get('play_service');
+        $mostPlayedGamesArray = $playService->getMostPlayedGames();
+
+        return $this->render(
+            'GameScoreBundle:Stats:mostPlayed.html.twig',
+            ['games' => $mostPlayedGamesArray]
         );
     }
 

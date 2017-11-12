@@ -12,6 +12,19 @@ game_score_stats_homepage:
     defaults:
         _controller: GameScoreBundle:Stats:index
 
+game_score_stats_trend:
+    path:     /stats/play/trend
+    methods: GET
+    defaults:
+        _controller: GameScoreBundle:Stats:trend
+
+game_score_stats_mostplayed:
+    path:     /stats/games/mostPlayed
+    methods: GET
+    defaults:
+        _controller: GameScoreBundle:Stats:mostPlayed
+
+
 # Routes for Games
 game_score_game_view:
     path:     /game/{id}
