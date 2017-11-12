@@ -11,7 +11,7 @@
             <ul>
                 {% for game in games %}
                     <li class="list-group-item">
-                        {{ game.name }} : {{ game.C }}
+                        <a href="{{ path('game_score_game_view', { 'id':game.id }) }}">{{ game.name }}</a> : {{ game.C }}
                         <div id="square" style="height: 10px; width: {{ game.C * 5 }}px; background: cornflowerblue; "></div>
                     </li>
                 {% endfor %}
