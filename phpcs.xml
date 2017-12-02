@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<ruleset name="GameScore">
+    <description>
+        Règles CS liées au projet GameScore
+    </description>
+    <arg name="colors" />
+    <arg value="p" />
+    <file>src</file>
+    <rule ref="PSR2"></rule>
+</ruleset>

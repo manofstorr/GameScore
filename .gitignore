@@ -7,3 +7,8 @@
 /vendor
 /web/bundles/
 /web/files/
+composer.lock
+/bin/symfony_requirements
+/web/files/homepage_loads.txt
+.idea
+
