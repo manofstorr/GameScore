@@ -165,6 +165,16 @@ game_score_play_create:
     methods: [GET, POST, PUT]
     defaults:
         _controller: GameScoreBundle:Play:create
+    requirements:
+        id: \d+
+
+game_score_play_create_from_game:
+    path:     /play/create/game/{game_id}
+    methods: [GET, POST, PUT]
+    defaults:
+        _controller: GameScoreBundle:Play:create
+    requirements:
+        game_id: \d+
 
 game_score_play_update:
     path: /play/update/{id}

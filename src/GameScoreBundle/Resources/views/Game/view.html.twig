@@ -19,86 +19,92 @@
     {% endblock %}
 
     {% block blockcontent %}
-        <a href="#" class="list-group-item">
-            <h4 class="list-group-item-heading">Description :</h4>
-            <p class="list-group-item-text">
-                {{ game.description }}
-            </p>
-        </a>
+    <a href="#" class="list-group-item">
+        <h4 class="list-group-item-heading">Description :</h4>
+        <p class="list-group-item-text">
+            {{ game.description }}
+        </p>
+    </a>
 
-        <a href="#" class="list-group-item">
-            <h4 class="list-group-item-heading">Nombre de parties jouées :</h4>
-            <p class="list-group-item-text">
-                {% include 'GameScoreBundle:Play:totalPlayedGamesIncluded.html.twig' with {'totalPlayedGames' : totalPlayedGames } %}
-            </p>
-        </a>
+    <a href="#" class="list-group-item">
+        <h4 class="list-group-item-heading">Nombre de parties jouées :</h4>
+        <p class="list-group-item-text">
+            {% include 'GameScoreBundle:Play:totalPlayedGamesIncluded.html.twig' with {'totalPlayedGames' : totalPlayedGames } %}
+        </p>
+    </a>
 
-        <a href="{{ path('game_score_editor_view', { 'id':game.editor.id }) }}" class="list-group-item">
-            <h4 class="list-group-item-heading">{{ 'editor'|trans|capitalize }} :</h4>
-            <p class="list-group-item-text">
-                {{ game.editor.name }}
+    <a href="{{ path('game_score_editor_view', { 'id':game.editor.id }) }}" class="list-group-item">
+        <h4 class="list-group-item-heading">{{ 'editor'|trans|capitalize }} :</h4>
+        <p class="list-group-item-text">
+            {{ game.editor.name }}
+            <span class="glyphicon glyphicon-chevron-right pull-right" aria-hidden="true"></span>
+        </p>
+    </a>
+
+    <div class="list-group-item">
+        <h4 class="list-group-item-heading">{{ 'author'|trans|capitalize }}(s) :</h4>
+        {% for author in game.author %}
+            <p>
+                <a href="{{ path('game_score_author_update', { 'id':author.id }) }}">{{ author.firstname ~ ' ' ~ author.lastname }}</a>
                 <span class="glyphicon glyphicon-chevron-right pull-right" aria-hidden="true"></span>
             </p>
-        </a>
+        {% endfor %}
+    </div>
 
-        <div class="list-group-item">
-            <h4 class="list-group-item-heading">{{ 'author'|trans|capitalize }}(s) :</h4>
-            {% for author in game.author %}
-                <p>
-                    <a href="{{ path('game_score_author_update', { 'id':author.id }) }}">{{ author.firstname ~ ' ' ~ author.lastname }}</a>
-                    <span class="glyphicon glyphicon-chevron-right pull-right" aria-hidden="true"></span>
-                </p>
+    <div class="list-group-item">
+        <h4 class="list-group-item-heading">Caractéristiques :</h4>
+        <p class="list-group-item-text">
+            Jeu collaboratif : {{ game.getCollaborative }}
+            <br/>
+            Extension : {{ game.getExtension }}
+            <br/>
+            Le plus petit score gagne : {{ game.getHasInvertedScore }}
+        </p>
+    </div>
+
+    <a href="{{ game.mainCardUrl }}" class="list-group-item">
+        <h4 class="list-group-item-heading">Lien vers ressource externe :</h4>
+        <p class="list-group-item-text">
+            {{ 'see card'|trans|capitalize }}
+        </p>
+    </a>
+
+    <div class="list-group-item">
+        <h4 class="list-group-item-heading">Visuels :</h4>
+        <p class="list-group-item-text">
+            {% for document in documents %}
+                <img src="{{ backroottoweb }}{{ document.filepath }}/{{ document.filename }}"
+                     alt="{{ document.name }}" height="150"/>
             {% endfor %}
-        </div>
+        </p>
+    </div>
 
+    <div class="list-group-item">
+        <h4 class="list-group-item-heading">Top scores :</h4>
+        <p class="list-group-item-text">
+            {% include 'GameScoreBundle:Play:topScores.html.twig' with {'topScores' : topScores } %}
+        </p>
+    </div>
+
+    {% if is_granted('ROLE_ADMIN') %}
         <div class="list-group-item">
-            <h4 class="list-group-item-heading">Caractéristiques :</h4>
+            <h4 class="list-group-item-heading">Admin :</h4>
             <p class="list-group-item-text">
-                Jeu collaboratif : {{ game.getCollaborative }}
-                <br/>
-                Extension : {{ game.getExtension }}
-                <br/>
-                Le plus petit score gagne : {{ game.getHasInvertedScore }}
-            </p>
-        </div>
-
-        <a href="{{ game.mainCardUrl }}" class="list-group-item">
-            <h4 class="list-group-item-heading">Lien vers ressource externe :</h4>
-            <p class="list-group-item-text">
-                {{ 'see card'|trans|capitalize }}
-            </p>
-        </a>
-
-        <div class="list-group-item">
-            <h4 class="list-group-item-heading">Visuels :</h4>
-            <p class="list-group-item-text">
-                {% for document in documents %}
-                    <img src="{{ backroottoweb }}{{ document.filepath }}/{{ document.filename }}"
-                         alt="{{ document.name }}" height="150"/>
-                {% endfor %}
-            </p>
-        </div>
-
-        <div class="list-group-item">
-            <h4 class="list-group-item-heading">Top scores :</h4>
-            <p class="list-group-item-text">
-                {% include 'GameScoreBundle:Play:topScores.html.twig' with {'topScores' : topScores } %}
-            </p>
-        </div>
-
-        {% if is_granted('ROLE_ADMIN') %}
-            <div class="list-group-item">
-                <h4 class="list-group-item-heading">Admin :</h4>
-                <p class="list-group-item-text">
-                <div class="btn-group" role="group" aria-label="...">
-                    <a href="{{ path('game_score_document_upload', {'entitytype':'game', 'entityid':game.id}) }}"
-                       class="btn btn-default">Gérer les images</a>
-                    <a href="{{ path('game_score_game_update', {'id':game.id}) }}"
-                       class="btn btn-warning">{{ 'update'|trans|capitalize }}</a>
-                </div>
-                </p>
+            <div class="btn-group" role="group" aria-label="...">
+                <a href="{{ path('game_score_document_upload', {'entitytype':'game', 'entityid':game.id}) }}"
+                   class="btn btn-default">Gérer les images</a>
+                <a href="{{ path('game_score_game_update', {'id':game.id}) }}"
+                   class="btn btn-warning">{{ 'update'|trans|capitalize }}</a>
             </div>
-        {% endif %}
+            </p>
+        </div>
+    {% endif %}
+
+    <div class="list-group-item">
+        <a href="{{ path('game_score_play_create_from_game', {'game_id':game.id}) }}" class="btn btn-primary">
+            {{ 'new play'|trans|capitalize }}
+        </a>
+    </div>
 
     {% endblock %}
 

@@ -8,6 +8,7 @@
 
 namespace GameScoreBundle\Controller;
 
+use GameScoreBundle\Entity\Game;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use GameScoreBundle\Entity\Play;
@@ -41,12 +42,29 @@ class PlayController extends Controller
     }
 
     /**
+     * This controller can be called by a default route with no game selected, or via the
+     * game view, passing the game id as a parameter
+     *
      * @Security("has_role('ROLE_USER')")
      */
-    public function createAction(Request $request)
+    public function createAction(Request $request, $game_id = null)
     {
         $play = new Play();
         $play->setDate(new \DateTime('now'));
+
+
+        if ($game_id) {
+            // retrieve game
+            $game = $this
+                    ->getDoctrine()
+                    ->getManager()
+                    ->getRepository('GameScoreBundle:Game')
+                    ->find($game_id);
+            // set play game
+            $play->setGame($game);
+
+            var_dump($game_id);
+        }
 
         $form = $this->createForm(PlayType::class, $play);
 
