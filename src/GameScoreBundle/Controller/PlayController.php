@@ -52,7 +52,6 @@ class PlayController extends Controller
         $play = new Play();
         $play->setDate(new \DateTime('now'));
 
-
         if ($game_id) {
             // retrieve game
             $game = $this
@@ -62,8 +61,6 @@ class PlayController extends Controller
                     ->find($game_id);
             // set play game
             $play->setGame($game);
-
-            var_dump($game_id);
         }
 
         $form = $this->createForm(PlayType::class, $play);
